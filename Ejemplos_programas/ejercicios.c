@@ -57,7 +57,7 @@ void idle()
 int main( int argc, char *argv[] )
 {
   glutInit( &argc, argv );
-  glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
+  glutInitDisplayMode( GLUT_RGBA); // Ejercicio 1 // Ejercicio 2
   glutCreateWindow("IG: cubo");
   glutDisplayFunc( Dibuja );
   glutReshapeFunc( Ventana );
