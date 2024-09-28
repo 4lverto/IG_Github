@@ -18,7 +18,8 @@ void plano( float t )
   
   /*En este bloque se especifica la normal (vector  perpendicular de módulo). En este caso, como el plano
     es horizontal, la normal es el vector (0,1,0). Finalmente, se indican los vértices del cuadrilátero, que
-    deberán estar en sentido antihorario cuando se ve el cuadrilátero por la cara delantera */
+    deberán estar en sentido antihorario cuando se ve el cuadrilátero por la cara delantera 
+  */
   glBegin( GL_QUADS ); 
     glNormal3f( 0.0, 1.0, 0.0 );     
     glVertex3f(  t, 0,  t );
@@ -40,7 +41,9 @@ void Dibuja( )
   glLightfv( GL_LIGHT0, GL_POSITION, pos );
   glRotatef( 20, 1.0, 0.0, 0.0 );
   glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, verde );
+  
   plano(30);
+  
   glRotatef( roty, 0.0, 1.0, 0.0 );
   glTranslatef(0,5,0);
   glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, morado );
