@@ -27,7 +27,6 @@
 	entradaTeclado.h
 */
 
-
 /**	
 	Funcion de captura de eventos pulsacion de tecla correspondiente a caracter alfanumerico
 	K: codigo ascii del caracter

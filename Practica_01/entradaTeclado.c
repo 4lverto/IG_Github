@@ -33,7 +33,6 @@ modulo entradaTeclado.c
 #include <GL/glut.h>		// Libreria de utilidades de OpenGL
 #include "practicasIG.h"
 
-
 /** 
 
 Imprime en la consola las instrucciones del programa
@@ -56,8 +55,6 @@ void printHelp ()
   printf ("\n Escape: Salir");
   printf ("\n\n\n");
 }
-
-
 
 
 /* @teclado ---------------------------------------------------------------- */
@@ -113,7 +110,7 @@ void letra (unsigned char k, int x, int y)
       break;
     case 'i':
     case 'I':
-
+      setIluminacion();
       break;
     default:
       return;

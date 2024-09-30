@@ -13,8 +13,7 @@ Inicializa el modelo y de las variables globales
 
 **/
 void
-initModel ()
-{
+initModel (){
 
 }
 
@@ -27,7 +26,6 @@ class Ejes:Objeto3D {
       float longitud = 30;
   // Dibuja el objeto
   void draw( ){
-    glDisable (GL_LIGHTING);
     glBegin (GL_LINES);
     {
       glColor3f (0, 1, 0);
@@ -43,8 +41,6 @@ class Ejes:Objeto3D {
       glVertex3f (0, 0, longitud);
     }
     glEnd ();
-    glEnable (GL_LIGHTING);
-
   }
 } ; 
 
@@ -59,21 +55,75 @@ class Cubo:Objeto3D {
       this->lado=l;
     }
 
-  // Dibuja el Cubo
+  // Dibuja el Cubo usando primitivas
+
+  /*
   void draw(){
     glBegin(GL_QUADS);
     {
       glutSolidCube(this->lado);
     }
-
     glEnd();
-    glEnable (GL_LIGHTING);
-  }
-} ;
+    
+  }*/
 
-// /////////////// //
-// "SUBCLASE" CUBO //
-// /////////////// //
+  // Dibuja el cubo manualmente
+
+  void draw(){
+    
+    float mitad = this->lado / 2;
+    glBegin( GL_QUADS ); // Comienza la definición de un cuadrado
+    {
+      // Cara superior
+      glNormal3f( 0.0, 1.0, 0.0 );
+      glVertex3f( -mitad, mitad, mitad ); 
+      glVertex3f( mitad, mitad, mitad );
+      glVertex3f( mitad, mitad, -mitad );
+      glVertex3f( -mitad, mitad, -mitad );
+      
+      // Cara inferior
+      glNormal3f( 0.0, -1.0, 0.0 ); 
+      glVertex3f( -mitad, -mitad, -mitad );
+      glVertex3f( mitad, -mitad, -mitad );
+      glVertex3f( mitad, -mitad, mitad );
+      glVertex3f( -mitad, -mitad, mitad );
+
+      // Cara derecha
+      glNormal3f( 1.0, 0.0, 0.0 ); 
+      glVertex3f( mitad, mitad, mitad );
+      glVertex3f( mitad, mitad, -mitad );
+      glVertex3f( mitad, -mitad, -mitad );
+      glVertex3f( mitad, -mitad, mitad );
+
+      // Cara izquierda
+      glNormal3f( -1.0, 0.0, 0.0 ); 
+      glVertex3f( -mitad, mitad, mitad );
+      glVertex3f( -mitad, mitad, -mitad );
+      glVertex3f( -mitad, -mitad, -mitad );
+      glVertex3f( -mitad, -mitad, mitad );
+
+      // Cara frontal
+      glNormal3f( 0.0, 0.0, 1.0 ); 
+      glVertex3f( -mitad, mitad, mitad );
+      glVertex3f( -mitad, -mitad, mitad );
+      glVertex3f( mitad, -mitad, mitad );
+      glVertex3f( mitad, mitad, mitad );
+      
+      // Cara trasera
+      glNormal3f( 0.0, 0.0, -1.0 ); 
+      glVertex3f( -mitad, -mitad, -mitad );
+      glVertex3f( mitad, -mitad, -mitad );
+      glVertex3f( mitad, mitad, -mitad );
+      glVertex3f( -mitad, mitad, -mitad );
+    }
+    glEnd();
+  }
+
+};
+
+// /////////////////// //
+// "SUBCLASE" PIRÁMIDE //
+// /////////////////// //
 class Piramide:Objeto3D { 
   public: 
     float lado = 2;
@@ -84,10 +134,63 @@ class Piramide:Objeto3D {
       this->alto=a;
     }
 
-  // Dibuja la Pirámide
+  // Dibuja la Pirámide (Primitiva GLUT)
+  /*
   void draw() {
       glutSolidCone(lado,alto,4,1);
+  }*/
+
+  // Dibuja la Pirámide (manualmente)
+  void draw(){
+
+    float mitad=lado/2;
+
+    // Coordenadas del vértice superior de la pirámide
+    float vx = 0;
+    float vy = alto;
+    float vz = 0;
+
+    // Dibujamos la base de la pirámide
+    glBegin(GL_QUADS);{
+      glNormal3f(0,-1,0);
+      glVertex3f(-mitad,0,-mitad);
+      glVertex3f(mitad,0,-mitad);
+      glVertex3f(mitad,0,mitad);
+      glVertex3f(-mitad,0,mitad);
     }
+    glEnd();
+
+    glBegin(GL_TRIANGLES);{
+
+      // Cara frontal
+      glNormal3f(0,0.5,0.5);
+      glVertex3f(-mitad,0,mitad);
+      glVertex3f(mitad,0,mitad);
+      glVertex3f(vx,vy,vz); // "Punta" 
+    
+      // Cara derecha
+      glNormal3f(0.5,0.5,0);
+      glVertex3f(mitad,0,mitad);
+      glVertex3f(-mitad,0,-mitad);
+      glVertex3f(vx,vy,vz); // "Punta"
+
+      // Cara trasera
+      glNormal3f(0,0.5,-0.5);
+      glVertex3f(mitad,0,-mitad);
+      glVertex3f(-mitad,0,-mitad);
+      glVertex3f(vx,vy,vz); // "Punta"
+
+      // Cara izquierda
+      glNormal3f(-0.5,0.5,0);
+      glVertex3f(-mitad,0,-mitad);
+      glVertex3f(-mitad,0,mitad);
+      glVertex3f(vx,vy,vz); // "Punta"
+    }
+    glEnd();
+
+
+  }
+
 } ;
 
 Ejes ejesCoordenadas;
@@ -95,6 +198,7 @@ Cubo miCubo(3);
 Piramide miPiramide(2,4);
 
 int modo=GL_FILL;
+bool iluminacionActivada=true;
 
 // Implementación de la función setModo(int M);
 void setModo(int M){
@@ -107,11 +211,11 @@ void setModo(int M){
   }
 }
 
-int iluminacion;
-int encendido;
 
-void setIluminacion(int I){
-  if(I%2==0){
+void setIluminacion(){
+  iluminacionActivada = !iluminacionActivada;
+  
+  if(iluminacionActivada){
     glEnable(GL_LIGHTING);
   }else{
     glDisable(GL_LIGHTING);
@@ -127,6 +231,13 @@ Procedimiento de dibujo del modelo. Es llamado por glut cada vez que se debe red
 void Dibuja (void)
 {
   static GLfloat  pos[4] = { 5.0, 5.0, 10.0, 0.0 };	// Posicion de la fuente de luz
+
+  float morado[4]={0.8,0,1,1};
+  float verde[4]={0,1,0,1};
+  float rojo[4]={1,0,0,1};
+  float azul[4]={0,0,1,1};
+  float negro[4]={0,0,0,1};
+  float blanco[4]={1,1,1,1};
 
   float  color[4] = { 0.8, 0.0, 1, 1 };
 
@@ -147,17 +258,17 @@ void Dibuja (void)
   // Dibuja el modelo (A rellenar en prácticas 1,2 y 3)    
 
   // DIBUJO EL CUBO
-  float  color2[4] = { 1.0, 1.0, 0.0};
+  float  color2[4] = { 1.0, 1.0, 0.0}; // amarillo
   glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,color2);
   glTranslatef(5,1,2);
 
   miCubo.draw();
 
-// DIBUJO LA PIRÁMIDE
-  float  color3[4] = { 0.0, 4.0, 0.0};
+  // DIBUJO LA PIRÁMIDE
+  float  color3[4] = { 0.0, 4.0, 0.0}; // verde
   glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,color3);
-  glTranslatef(10,0,1);
-  glRotatef(-90,1,0,0);
+  glTranslatef(5,-1,1);
+  //glRotatef(-90,1,0,0);
   miPiramide.draw();
   
   

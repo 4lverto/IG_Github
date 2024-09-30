@@ -19,9 +19,9 @@ void initModel ();
 void setModo(int M);
 
 /**
- * Función que controla la Iluminación
+ * Función que controla la iluminación
 */
-void setIluminacion(int M);
+void setIluminacion();
 
 class Objeto3D { 
 public: 
