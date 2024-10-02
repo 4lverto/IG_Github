@@ -24,7 +24,7 @@ void setModo(int M);
 void setIluminacion();
 
 class Objeto3D { 
-public: 
+	public: 
 
-virtual void draw( ) = 0; // Dibuja el objeto
-} ; 
+	virtual void draw( ) = 0; // Dibuja el objeto
+};

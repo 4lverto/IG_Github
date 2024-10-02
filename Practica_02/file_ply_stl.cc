@@ -1,28 +1,3 @@
-// *********************************************************************
-// **
-// ** Función ply::read (declaraciones)
-// ** 
-// ** Carlos Ureña - 2012- 2013
-// ** 
-// ** Más información y versión actualizada en: 
-// ** http://lsi.ugr.es/curena/varios/plys
-// **
-// ** This program is free software: you can redistribute it and/or modify
-// ** it under the terms of the GNU General Public License as published by
-// ** the Free Software Foundation, either version 3 of the License, or
-// ** (at your option) any later version.
-// **
-// ** This program is distributed in the hope that it will be useful,
-// ** but WITHOUT ANY WARRANTY; without even the implied warranty of
-// ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// ** GNU General Public License for more details.
-// **
-// ** You should have received a copy of the GNU General Public License
-// ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
-// **
-// *********************************************************************
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,10 +11,9 @@
 #include "file_ply_stl.h"
 
 
-namespace ply
-{
+namespace ply{
 
-  using namespace std;
+using namespace std;
 
 //**********************************************************************
 // constantes y funciones auxiliares:
@@ -47,21 +21,15 @@ namespace ply
   const streamsize tam_buffer = streamsize (10L) * streamsize (1024L);
 
   void abrir_archivo (string & nombre_archivo, ifstream & src);
-  void leer_cabecera (ifstream & src, unsigned &num_vertices,
-		      unsigned &num_caras, const bool lee_num_caras);
+  void leer_cabecera (ifstream & src, unsigned &num_vertices, unsigned &num_caras, const bool lee_num_caras);
   void error (const char *msg_error);
-  void leer_vertices (unsigned num_vertices, vector < float >&vertices,
-		      ifstream & src);
-  void leer_caras (unsigned num_vertices, unsigned num_caras,
-		   vector < int >&caras, ifstream & src);
+  void leer_vertices (unsigned num_vertices, vector < float >&vertices, ifstream & src);
+  void leer_caras (unsigned num_vertices, unsigned num_caras, vector < int >&caras, ifstream & src);
 
 //**********************************************************************
 // funcion principal de lectura
 
-  void read
-    (const char *nombre_archivo_pse,
-     vector < float >&vertices, vector < int >&caras)
-  {
+  void read(const char *nombre_archivo_pse, vector < float >&vertices, vector < int >&caras){
     // modelos ply en:
     // http://graphics.im.ntu.edu.tw/~robin/courses/cg03/model/
     // http://people.sc.fsu.edu/~jburkardt/data/ply/ply.html
@@ -72,8 +40,8 @@ namespace ply
       string na = nombre_archivo_pse;
 
 
-    if (na.substr (na.find_last_of (".") + 1) != "ply")
-        na += ".ply";
+      if (na.substr (na.find_last_of (".") + 1) != "ply")
+          na += ".ply";
 
       abrir_archivo (na, src);
       leer_cabecera (src, num_vertices, num_caras, true);
@@ -85,16 +53,15 @@ namespace ply
 
 //**********************************************************************
 
-  void read_vertices
-    (const char *nombre_archivo_pse, vector < float >&vertices)
-  {
+  void read_vertices(const char *nombre_archivo_pse, vector < float >&vertices){
 
     unsigned num_vertices = 0, num_caras = 0;
     ifstream src;
     string na = nombre_archivo_pse;
 
-    if (na.substr (na.find_last_of (".") + 1) != "ply")
+    if (na.substr (na.find_last_of (".") + 1) != "ply"){
       na += ".ply";
+    }
 
     abrir_archivo (na, src);
     leer_cabecera (src, num_vertices, num_caras, false);
@@ -106,9 +73,7 @@ namespace ply
 
 //**********************************************************************
 
-  void leer_vertices (unsigned num_vertices, vector < float >&vertices,
-		      ifstream & src)
-  {
+  void leer_vertices (unsigned num_vertices, vector < float >&vertices, ifstream & src){
     char buffer[unsigned (tam_buffer)];
     string token;
 
@@ -119,32 +84,32 @@ namespace ply
     cout << "  leyendo " << num_vertices << " vértices ...." << endl <<
       flush;
 
-    for (long long iv = 0; iv < num_vertices; iv++)
-      {
-	if (src.eof ())
-	  error ("fin de archivo prematuro en la lista de vértices");
-
-	double x, y, z;
-
-	src >> x >> y >> z;
-	//cout << "vertex #" << iv << " readed: (" << x << "," << y << "," << z << ")" << endl ;
-
-	src.getline (buffer, tam_buffer);	// ignore more properties, so far ...
-
-	// add new vertex
-	long long base = iv * 3;
-	vertices[base + 0] = x;
-	vertices[base + 1] = y;
-	vertices[base + 2] = z;
+    for (long long iv = 0; iv < num_vertices; iv++){
+      if (src.eof ()){
+        error ("fin de archivo prematuro en la lista de vértices");
       }
+
+      double x, y, z;
+
+      src >> x >> y >> z;
+      //cout << "vertex #" << iv << " readed: (" << x << "," << y << "," << z << ")" << endl ;
+
+      src.getline (buffer, tam_buffer);	// ignore more properties, so far ...
+
+      // add new vertex
+      long long base = iv * 3;
+
+      vertices[base + 0] = x;
+      vertices[base + 1] = y;
+      vertices[base + 2] = z;
+    }
+
     cout << "  fin de la lista de vértices" << endl << flush;
   }
 
 //**********************************************************************
 
-  void leer_caras (unsigned num_vertices, unsigned num_caras,
-		   vector < int >&caras, ifstream & src)
-  {
+  void leer_caras (unsigned num_vertices, unsigned num_caras, vector < int >&caras, ifstream & src){
     char buffer[unsigned (tam_buffer)];
     string token;
 
@@ -152,8 +117,7 @@ namespace ply
 
     caras.resize (num_caras * 3);
 
-    for (long long ifa = 0; ifa < num_caras; ifa++)
-      {
+    for (long long ifa = 0; ifa < num_caras; ifa++){
 	if (src.eof ())
 	  error ("fin de archivo prematuro en la lista de caras");
 
