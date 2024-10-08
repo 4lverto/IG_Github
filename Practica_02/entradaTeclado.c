@@ -110,7 +110,7 @@ void letra (unsigned char k, int x, int y)
       break;
     case 'i':
     case 'I':
-      setIluminacion();
+      setIluminacion(); // Práctica 1
       break;
     default:
       return;
