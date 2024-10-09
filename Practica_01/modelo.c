@@ -251,7 +251,11 @@ void Dibuja (void)
 
   glLightfv (GL_LIGHT0, GL_POSITION, pos);	// Declaracion de luz. Colocada aqui esta fija en la escena
 
+  glDisable(GL_LIGHTING);
   ejesCoordenadas.draw();			// Dibuja los ejes
+  if(iluminacionActivada){    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea afectado al alterar la iluminación
+    glEnable(GL_LIGHTING);
+  }
 
   glMaterialfv (GL_FRONT, GL_AMBIENT_AND_DIFFUSE, color);
 
@@ -264,6 +268,7 @@ void Dibuja (void)
 
   miCubo.draw();
 
+
   // DIBUJO LA PIRÁMIDE
   float  color3[4] = { 0.0, 4.0, 0.0}; // verde
   glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,color3);
@@ -271,8 +276,6 @@ void Dibuja (void)
   //glRotatef(-90,1,0,0);
   miPiramide.draw();
   
-  
-
   glPopMatrix ();		// Desapila la transformacion geometrica
 
 

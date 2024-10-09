@@ -3,7 +3,7 @@
 #include <math.h>
 #include <GL/glut.h> 
 
-float roty=30.0; 
+float roty=30.0;
 
 // ///// //
 // PLANO //
@@ -43,6 +43,7 @@ void Dibuja( ){
   float azul[4]={0,0,1,1};
   float negro[4]={0,0,0,1};
   float blanco[4]={1,1,1,1};
+  float marron[4]={0.6,0.3,0.1,1.0};
 
   glClearColor(1,1,1,1); // Color de fondo (blanco)
 
@@ -50,15 +51,28 @@ void Dibuja( ){
   glLoadIdentity();
   glTranslatef(-0.5,-0.5,-150);
   glLightfv( GL_LIGHT0, GL_POSITION, luz );
-  glRotatef( 20, 1.0, 0.0, 0.0 );
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, rojo );
+  glRotatef( 20, 1.0, 0.0, 0.0 ); // Rotación de la cámara
+  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, marron );
   
   plano(30); // EL suelo rojo
   
-  glRotatef( roty, 0.0, 1.0, 0.0 );
+  // Dibujo el cubo verde
+  glPushMatrix();
   glTranslatef(0,5,0);
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, azul );
+  glRotatef( roty, 0.0, 1.0, 0.0 );
+  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, verde);
   glutSolidCube(10);
+  glPopMatrix();
+
+  // Dibujo la esfera azul
+
+  glPushMatrix();
+  glTranslatef(15,5,0);
+  glRotatef(roty,0.0,1.0,0.0);
+  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, azul);
+  glutSolidSphere(5,50,50);
+  glPopMatrix();
+
   glutSwapBuffers();
 }
 
@@ -77,7 +91,7 @@ void Ventana(GLsizei ancho,GLsizei alto){
     glViewport(0,0,ancho,alto);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glFrustum(-ancho/D,ancho/D,-alto/D,alto/D,5,250);
+    glFrustum(-ancho/D,ancho/D,-alto/D,alto/D,5,250); // 5 y 250 son las distancias a los planos de recortado trasero y delantero
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -86,8 +100,7 @@ void Ventana(GLsizei ancho,GLsizei alto){
 // //////////// //
 
 void idle(){
-
-  roty +=0.15; 
+  roty+=0.15;
   glutPostRedisplay(); 
 }
 
@@ -99,7 +112,7 @@ int main( int argc, char *argv[] ){
 
   glutInit( &argc, argv );
 
-  glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH );
+  glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
   glutCreateWindow("IG: cubo rotando");
 
   glutDisplayFunc( Dibuja );
@@ -115,4 +128,4 @@ int main( int argc, char *argv[] ){
   return 0;
 }
 
-// COMPILAR --> gcc cubo.c -lglut -lGLU -lGL -o cubo
+// COMPILAR --> gcc prueba.c -lglut -lGLU -lGL -o prueba

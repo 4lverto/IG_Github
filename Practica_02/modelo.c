@@ -162,7 +162,7 @@ struct Punto3D{
     // ///////// //
     // TRIÁNGULO //
     // ///////// //
-    
+
 struct Triangulo{
   int v0,v1,v2;
   /**
@@ -191,7 +191,7 @@ struct Triangulo{
    * @brief Obtiene el índice del primer vértice
    * @return Índice del primer vértice
   */
-  int getV0(){
+  int getI0(){
     return this->v0;
   }
 
@@ -199,7 +199,7 @@ struct Triangulo{
    * @brief Obtiene el índice del segundo vértice
    * @return Índice del segundo vértice
   */
-  int getV1(){
+  int getI1(){
     return this->v1;
   }
 
@@ -207,7 +207,7 @@ struct Triangulo{
    * @brief Obtiene el índice del tercer vértice
    * @return Índice del tercer vértice
   */
-  int getV2(){
+  int getI2(){
     return this->v2;
   }
 };
@@ -219,6 +219,7 @@ struct Triangulo{
 class Malla:Objeto3D{
   public:
     // ATRIBUTOS
+
     vector<float> vertices_ply; // Coordenadas de los vértices --> {0,1,3 , 5,-2,6, , 4,1,2 , ...} --> Cada "trío" de números representan las coordenadas de un vértice
     vector<int> caras_ply;  // Índices de los vértices --> caras_ply[0],caras_ply[1],caras_ply[2] representa el primer triángulo
     
@@ -226,12 +227,41 @@ class Malla:Objeto3D{
     vector<Punto3D> normales_vertices;// Normales de los vértices
 
     vector<Punto3D> vertices; // Contenedor de Punto3D. Contendrá todos los vértices
-    vector<Triangulo> caras; // Contenedor de Triangulos. Contendrá todos los índices de los triángulos
+    vector<Triangulo> caras; // Contenedor de Triangulos. Cada Triángulo contendrá los 3 indices (posición en el vector vertices) correspondientes a sus 3 vértices
 
+    // OPCIONAL - Eliminar este atributo y simplemente llamar a glShadeModel("tipo") en la función Dibuja
     bool suave; // Será TRUE cuando la Malla se tenga que dibujar con sombreado SMOOTH y FALSE cuando la malla tenga un sombreado FLAT
 
+    // MÉTODOS
+
     /**
-     * @brief Constructor con parámetros. Construye un
+     * @brief Constructor sin parámetros. Por defecto se construye una malla que forma un cubo dibuja con sombreado plano.
+     * @return Malla de un cubo que se dibuja con sombreado plano.
+    */
+    Malla(){
+      this->suave=false;
+      ply::read("plys/cubo.ply",vertices_ply,caras_ply);
+
+      // Convierto el vector de vértices_ply en otro vector en el que cada componente representa un Punto3D
+      for(size_t i=0;i<vertices_ply.size();i+=3){
+        Punto3D v(vertices_ply[i],vertices_ply[i+1],vertices_ply[i+2]);
+        vertices.push_back(v);
+      }
+
+      // Convierto el vector de caras_ply en otro vector en el que cada componente representa un trío de índices (cada índice representará un Punto3D)
+      for(size_t i=0;i<caras_ply.size();i+=3){
+        Triangulo t(caras_ply[i],caras_ply[i+1],caras_ply[i+2]);
+        caras.push_back(t);
+      }
+
+      // Calculamos las normales directamente para tenerlas disponibles nada más construir el objeto
+      calcular_normales_caras();
+      calcular_normales_vertices();
+
+    }
+
+    /**
+     * @brief Constructor con parámetros. Construye una malla a partir de un archivo y establece su tipo de sombreado
      * @param nombre_archivo Nombre del archivo que va a representar la malla
      * @param sombreadoSuave TRUE si queremos usar sombreado SMOOTH. FALSE si queremos usar sombreado FLAT
     */
@@ -251,7 +281,7 @@ class Malla:Objeto3D{
         caras.push_back(t);
       }
 
-
+      // Calculamos las normales directamente para tenerlas disponibles nada más construir el objeto
       calcular_normales_caras();
       calcular_normales_vertices();
     }
@@ -268,26 +298,36 @@ class Malla:Objeto3D{
      * @brief Función para calcular las normales de las caras.
     */
     void calcular_normales_caras(){
-      this->normales_caras.resize(this->caras.size());
-/*
+      
+      // Limpio el vector<Triangulo> normales_caras
       this->normales_caras.clear();
 
+      // Almaceno tantos puntos "vacíos" (0,0,0) como caras jhaya (cada punto representará la normal de esa cara)
       for(size_t i = 0;i<caras.size();i++){
         this->normales_caras.push_back(Punto3D());
-      }*/
+      }
 
+      // Calculo la normal de cada cara y la almaceno en vector<Punto3D> normales_caras
       for(size_t i = 0; i<caras.size(); i++){
+        // Obtengo cada triángulo (cara)
         Triangulo t=caras[i];
-        Punto3D P0=this->vertices[t.getV0()];
-        Punto3D P1=this->vertices[t.getV1()];
-        Punto3D P2=this->vertices[t.getV2()];
+
+        // Obtengo los vértices del triángulo
+        Punto3D P0=this->vertices[t.getI0()];
+        Punto3D P1=this->vertices[t.getI1()];
+        Punto3D P2=this->vertices[t.getI2()];
         
+        // Calculo los vectores de los lados del triángulo
         Punto3D V1=(P1-P0);
         Punto3D V2=(P2-P0);
 
+        // Calculo el producto vectorial (V1 x V2) para obtener la normal
         Punto3D normal = V1.productoVectorial(V2);
+
+        // Normalizo la normal para que tenga longitud 1
         normal.normaliza();
 
+        // Almacenamos la normal
         this->normales_caras[i]=normal;
       }
     }
@@ -305,15 +345,24 @@ class Malla:Objeto3D{
         this->normales_vertices.push_back(Punto3D());
       }
 
+      // Calculamos cada normal de cada vértice iterando sobre las caras, por lo que por cada iteración
+      // actualizamos la normal de 3 vértices. Cuando el bucle finalice, significará que todos los componentes
+      // de vector<Punto3D> normales_vertices tiene sumadas todas las normales de las caras que compone
       for(size_t i=0;i<this->caras.size();++i){
-        Triangulo t = this->caras[i];
-        Punto3D normal= this->normales_caras[i];
 
-        this->normales_vertices[t.getV0()] = this->normales_vertices[t.getV0()] + normal;
-        this->normales_vertices[t.getV1()] = this->normales_vertices[t.getV1()] + normal;
-        this->normales_vertices[t.getV2()] = this->normales_vertices[t.getV2()] + normal;
+        // Para cada triángulo, obtengo su normal (la normal de la cara)
+        Triangulo t = this->caras[i]; // Ejemplo: t(0,1,2) significará que t.v0=0, t.v1=1, t.v2=2
+        
+        // Obtengo la normal de la cara actual que estamos procesando (ya se calcularon anteriormente)
+        Punto3D normal_triangulo= this->normales_caras[i];
+
+        // La normal de esa cara se sumará a las normales de los 3 vértices que componen el triángulo que estamos procesando
+        this->normales_vertices[t.getI0()] = this->normales_vertices[t.getI0()] + normal_triangulo;
+        this->normales_vertices[t.getI1()] = this->normales_vertices[t.getI1()] + normal_triangulo;
+        this->normales_vertices[t.getI2()] = this->normales_vertices[t.getI2()] + normal_triangulo;
       }
 
+      // Normaliza todas las normales de los vértices para que tengan longitud 1
       for(size_t i=0; i<this->normales_vertices.size(); i++){
         this->normales_vertices[i].normaliza();
       }
@@ -321,35 +370,48 @@ class Malla:Objeto3D{
 
     /**
      * @brief Función para dibujar en función del sombreado
+     * (Podríamos tener las 3 funciones integradas en este método, pero así aumentamos el encapsulamiento)
     */
     void draw(){
-      if(this->suave){
+      if(this->suave){ // Si el atributo suave==TRUE, se dibujará con sombreado suave
+        glShadeModel(GL_SMOOTH);
         this->drawSmooth();
-      }else{
+      }else{ // Si el atributo suave==FALSE, se dibujará con sombreado plano
+        glShadeModel(GL_FLAT);
         this->drawFlat();
       }
     }
-    /**
-     * @brief Función para dibujar la malla en modo SMOOTH
-    */
-    void drawSmooth(){
 
+    /**
+     * @brief Función para dibujar la malla en modo FLAT.
+     * 
+     * La iluminación de la cara se calcula con la normal que se le pasa a OpenGL antes del último vértice
+     * de la cara. 
+     * Por tanto, tenemos que dar la normal de cada cara con glNormal3f(...) antes de que se envíe el último
+     * vértice de la cara
+    */
+    void drawFlat(){
       glBegin(GL_TRIANGLES);
-      for(size_t i=0; i<this->caras.size();++i){
+      for(size_t i=0; i<this->caras.size();++i){ // Recorro todas las caras
+        // Selecciono cada una de las caras
         Triangulo t = this->caras[i];
 
+        // Doy la normal de la cara actual antes de enviar los vértices
+        glNormal3f(this->normales_caras[i].x , this->normales_caras[i].y , this->normales_caras[i].z);
+        
+        // Envío los 3 vértices (podría hacerlo usando glVertex3f(...) 3 veces)
         for(int j=0;j<3;++j){
           int indice;
 
           if(j==0){
-            indice=t.getV0();
+            indice=t.getI0();
           }else if(j==1){
-            indice=t.getV1();
+            indice=t.getI1();
           }else{
-            indice=t.getV2();
+            indice=t.getI2();
           }
 
-          glNormal3f(this->normales_vertices[indice].x , this->normales_vertices[indice].y , this->normales_vertices[indice].z);
+          // Doy un vértice en cada iteración hasta pasar los 3 Punto3D(x,y,z)
           glVertex3f(this->vertices[indice].x , this->vertices[indice].y , this->vertices[indice].z);
         }
       }
@@ -358,24 +420,28 @@ class Malla:Objeto3D{
 
     /**
      * @brief Función para dibujar la malla en modo SMOOTH
+     * Deberemos dar la normal de cada vértice justo antes de enviar el vértice
     */
-    void drawFlat(){
-      glBegin(GL_TRIANGLES);
-      for(size_t i=0; i<this->caras.size();++i){
-        Triangulo t = this->caras[i];
+    void drawSmooth(){
 
-        glNormal3f(this->normales_vertices[i].x , this->normales_vertices[i].y , this->normales_vertices[i].z);
+      glBegin(GL_TRIANGLES);
+      for(size_t i=0; i<this->caras.size();++i){ // Recorro todas las caras
+        Triangulo t = this->caras[i]; // Selecciono cada una de las caras.
+
+        // Mando a dibujar los 3 vértices de cada triángulo a partir de los 3 índices del triángulo actual
         for(int j=0;j<3;++j){
           int indice;
 
           if(j==0){
-            indice=t.getV0();
+            indice=t.getI0();
           }else if(j==1){
-            indice=t.getV1();
+            indice=t.getI1();
           }else{
-            indice=t.getV2();
+            indice=t.getI2();
           }
-
+          
+          // Antes de enviar cada vértice a dibujar, deberemos dar su normal (la del vértice)
+          glNormal3f(this->normales_vertices[indice].x , this->normales_vertices[indice].y , this->normales_vertices[indice].z);
           glVertex3f(this->vertices[indice].x , this->vertices[indice].y , this->vertices[indice].z);
         }
       }
@@ -389,7 +455,6 @@ class Malla:Objeto3D{
                     // ////////////////// //
 
 Ejes ejesCoordenadas;
-
 int modo=GL_FILL;
 bool iluminacionActivada=true;
 
@@ -419,10 +484,11 @@ void setIluminacion(){
   }
 }
 
-// PRÁCTICA 2
+// PRÁCTICA 2 - Mallas a dibujar
 
-Malla beethoven("plys/beethoven.ply",false);
-Malla big_dodge("plys/big_dodge.ply",true);
+Malla beethoven("plys/beethoven.ply",true);
+Malla big_dodge("plys/big_dodge.ply",false);
+Malla cubo; // Malla por defecto
 
 // ///////////////////////////////////////////////
 
@@ -443,39 +509,47 @@ void Dibuja (void){
   float  color[4] = { 0.8, 0.0, 1, 1 };
 
   glPushMatrix ();		// Apila la transformacion geometrica actual
-
+  
   glClearColor (0.0, 0.0, 0.0, 1.0);	// Fija el color de fondo a negro
-
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Inicializa el buffer de color y el Z-Buffer
-
   transformacionVisualizacion ();	// Carga transformacion de visualizacion
-
   glLightfv (GL_LIGHT0, GL_POSITION, pos);	// Declaracion de luz. Colocada aqui esta fija en la escena
-
+  glDisable(GL_LIGHTING);
   ejesCoordenadas.draw();			// Dibuja los ejes
-
-  glMaterialfv (GL_FRONT, GL_AMBIENT_AND_DIFFUSE, color);
+  if(iluminacionActivada){    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea afectado al alterar la iluminación
+    glEnable(GL_LIGHTING);
+  }
+  
+  // glMaterialfv (GL_FRONT, GL_AMBIENT_AND_DIFFUSE, color); // ¿?¿?¿?¿?¿?¿?
 
                               // ////////// //
                               // PRACTICA 2 //
                               // ////////// //
 
   // Dibujo la estatua de Beethoven
+
   glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
   glTranslatef(-10,0,4);
-  glShadeModel(GL_SMOOTH);
+  // beethoven.setSombreadoSuave(false); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
   beethoven.draw();
 
+  // Dibujo un cubo morado
+
+  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,morado);
+  glTranslatef(10,0,0);
+  // cubo.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
+  cubo.draw();
+
   // Dibujo el coche
+  
   glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
-  glTranslatef(20,0,4);
-  glShadeModel(GL_FLAT);
+  glTranslatef(10,0,0);
+  // big_dodge.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
   big_dodge.draw();
   
                               // FIN PRÁCTICA 2 
 
   glPopMatrix ();		// Desapila la transformacion geometrica
-
 
   glutSwapBuffers ();		// Intercambia el buffer de dibujo y visualizacion
 }
