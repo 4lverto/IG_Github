@@ -43,158 +43,6 @@ class Ejes:Objeto3D {
 }; 
 
                 // ////////// //
-                // PRACTICA 1 //
-                // ////////// //
-/*
-                    // /////////////// //
-                    // "SUBCLASE" CUBO //
-                    // /////////////// //
-class Cubo:Objeto3D { 
-  public: 
-    float lado = 30;
-
-    Cubo(float l){
-      this->lado=l;
-    }
-
-  // Dibuja el Cubo usando primitivas
-
-  // void draw(){
-  //   glBegin(GL_QUADS);{
-  //    glutSolidCube(this->lado);
-  //   }
-  //   glEnd();    
-  // }
-
-  // Dibuja el cubo manualmente
-
-  void draw(){
-    
-    float mitad = this->lado / 2;
-    glBegin( GL_QUADS ); // Comienza la definición de un cuadrado
-    {
-      // Cara superior
-      glNormal3f( 0.0, 1.0, 0.0 );
-      glVertex3f( -mitad, mitad, mitad ); 
-      glVertex3f( mitad, mitad, mitad );
-      glVertex3f( mitad, mitad, -mitad );
-      glVertex3f( -mitad, mitad, -mitad );
-      
-      // Cara inferior
-      glNormal3f( 0.0, -1.0, 0.0 ); 
-      glVertex3f( -mitad, -mitad, -mitad );
-      glVertex3f( mitad, -mitad, -mitad );
-      glVertex3f( mitad, -mitad, mitad );
-      glVertex3f( -mitad, -mitad, mitad );
-
-      // Cara derecha
-      glNormal3f( 1.0, 0.0, 0.0 ); 
-      glVertex3f( mitad, mitad, mitad );
-      glVertex3f( mitad, mitad, -mitad );
-      glVertex3f( mitad, -mitad, -mitad );
-      glVertex3f( mitad, -mitad, mitad );
-
-      // Cara izquierda
-      glNormal3f( -1.0, 0.0, 0.0 ); 
-      glVertex3f( -mitad, mitad, mitad );
-      glVertex3f( -mitad, mitad, -mitad );
-      glVertex3f( -mitad, -mitad, -mitad );
-      glVertex3f( -mitad, -mitad, mitad );
-
-      // Cara frontal
-      glNormal3f( 0.0, 0.0, 1.0 ); 
-      glVertex3f( -mitad, mitad, mitad );
-      glVertex3f( -mitad, -mitad, mitad );
-      glVertex3f( mitad, -mitad, mitad );
-      glVertex3f( mitad, mitad, mitad );
-      
-      // Cara trasera
-      glNormal3f( 0.0, 0.0, -1.0 ); 
-      glVertex3f( -mitad, -mitad, -mitad );
-      glVertex3f( mitad, -mitad, -mitad );
-      glVertex3f( mitad, mitad, -mitad );
-      glVertex3f( -mitad, mitad, -mitad );
-    }
-    glEnd();
-  }
-
-};
-
-                      // /////////////////// //
-                      // "SUBCLASE" PIRÁMIDE //
-                      // /////////////////// //
-class Piramide:Objeto3D { 
-  public: 
-    float lado = 2;
-    float alto = 4;
-
-    Piramide(float l,float a){
-      this->lado=l;
-      this->alto=a;
-    }
-
-  // Dibuja la Pirámide (Primitiva GLUT)
-  
-  // void draw() {
-  //     glutSolidCone(lado,alto,4,1);
-  // }
-
-  // Dibuja la Pirámide (manualmente)
-  void draw(){
-
-    float mitad=lado/2;
-
-    // Coordenadas del vértice superior de la pirámide
-    float vx = 0;
-    float vy = alto;
-    float vz = 0;
-
-    // Dibujamos la base de la pirámide
-    glBegin(GL_QUADS);{
-      glNormal3f(0,-1,0);
-      glVertex3f(-mitad,0,-mitad);
-      glVertex3f(mitad,0,-mitad);
-      glVertex3f(mitad,0,mitad);
-      glVertex3f(-mitad,0,mitad);
-    }
-    glEnd();
-
-    glBegin(GL_TRIANGLES);{
-
-      // Cara frontal
-      glNormal3f(0,0.5,0.5);
-      glVertex3f(-mitad,0,mitad);
-      glVertex3f(mitad,0,mitad);
-      glVertex3f(vx,vy,vz); // "Punta" 
-    
-      // Cara derecha
-      glNormal3f(0.5,0.5,0);
-      glVertex3f(mitad,0,mitad);
-      glVertex3f(-mitad,0,-mitad);
-      glVertex3f(vx,vy,vz); // "Punta"
-
-      // Cara trasera
-      glNormal3f(0,0.5,-0.5);
-      glVertex3f(mitad,0,-mitad);
-      glVertex3f(-mitad,0,-mitad);
-      glVertex3f(vx,vy,vz); // "Punta"
-
-      // Cara izquierda
-      glNormal3f(-0.5,0.5,0);
-      glVertex3f(-mitad,0,-mitad);
-      glVertex3f(-mitad,0,mitad);
-      glVertex3f(vx,vy,vz); // "Punta"
-    }
-    glEnd();
-
-
-  }
-
-} ;
-*/
-
-
-                // ////////// //
                 // PRACTICA 2 //
                 // ////////// //
 
@@ -314,6 +162,7 @@ struct Punto3D{
     // ///////// //
     // TRIÁNGULO //
     // ///////// //
+    
 struct Triangulo{
   int v0,v1,v2;
   /**
@@ -570,18 +419,10 @@ void setIluminacion(){
   }
 }
 
-// PRÁCTICA 1
-
-/*
-Cubo miCubo(3);
-Piramide miPiramide(2,4);
-*/
-
 // PRÁCTICA 2
 
 Malla beethoven("plys/beethoven.ply",false);
 Malla big_dodge("plys/big_dodge.ply",true);
-
 
 // ///////////////////////////////////////////////
 
@@ -616,31 +457,6 @@ void Dibuja (void){
   glMaterialfv (GL_FRONT, GL_AMBIENT_AND_DIFFUSE, color);
 
                               // ////////// //
-                              // PRACTICA 1 //
-                              // ////////// //
-  
-  /*
-  // DIBUJO EL CUBO
-
-  float  color2[4] = { 1.0, 1.0, 0.0}; // amarillo
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,color2);
-  glTranslatef(5,1,2);
-
-  miCubo.draw();
-
-  // DIBUJO LA PIRÁMIDE
-
-  float  color3[4] = { 0.0, 4.0, 0.0}; // verde
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,color3);
-  glTranslatef(5,-1,1);
-  //glRotatef(-90,1,0,0);
-
-  miPiramide.draw();
-
-                              // FIN PRÁCTICA 1
-  */
-
-                              // ////////// //
                               // PRACTICA 2 //
                               // ////////// //
 
@@ -656,7 +472,6 @@ void Dibuja (void){
   glShadeModel(GL_FLAT);
   big_dodge.draw();
   
-
                               // FIN PRÁCTICA 2 
 
   glPopMatrix ();		// Desapila la transformacion geometrica
