@@ -47,7 +47,7 @@ class Ejes:Objeto3D {
                 // ////////// //
 
 // //////////////////////////////// //
-// ESTRUCTURAS AUXILIARES DEFINIDAS //
+// ESTRUCTURAS AUXILIARES DEFINIDAS // (PUNTO3D y TRIANGULO)
 // //////////////////////////////// //
 
     // /////// //
@@ -147,7 +147,9 @@ struct Punto3D{
     return modulo;
   }
 
-  // Función que finalmente normaliza el Punto3D dividiendo cada coordenada entre el módulo
+  /**
+   * @brief Función que finalmente normaliza el Punto3D dividiendo cada coordenada entre el módulo
+  */
   void normaliza(){
     float modulo=this->modulo();
 
@@ -235,20 +237,20 @@ class Malla:Objeto3D{
     // MÉTODOS
 
     /**
-     * @brief Constructor sin parámetros. Por defecto se construye una malla que forma un cubo dibuja con sombreado plano.
+     * @brief Constructor sin parámetros. Por defecto se construye una malla que forma un cubo dibujado con sombreado plano.
      * @return Malla de un cubo que se dibuja con sombreado plano.
     */
     Malla(){
       this->suave=false;
       ply::read("plys/cubo.ply",vertices_ply,caras_ply);
 
-      // Convierto el vector de vértices_ply en otro vector en el que cada componente representa un Punto3D
+      // Vuelco el vector de vértices_ply en otro vector en el que cada componente representa un Punto3D
       for(size_t i=0;i<vertices_ply.size();i+=3){
         Punto3D v(vertices_ply[i],vertices_ply[i+1],vertices_ply[i+2]);
         vertices.push_back(v);
       }
 
-      // Convierto el vector de caras_ply en otro vector en el que cada componente representa un trío de índices (cada índice representará un Punto3D)
+      // Vuelco el vector de caras_ply en otro vector en el que cada componente representa un trío de índices (cada índice representará un Punto3D)
       for(size_t i=0;i<caras_ply.size();i+=3){
         Triangulo t(caras_ply[i],caras_ply[i+1],caras_ply[i+2]);
         caras.push_back(t);
@@ -257,7 +259,6 @@ class Malla:Objeto3D{
       // Calculamos las normales directamente para tenerlas disponibles nada más construir el objeto
       calcular_normales_caras();
       calcular_normales_vertices();
-
     }
 
     /**
@@ -269,13 +270,13 @@ class Malla:Objeto3D{
       this->suave=sombreadoSuave;
       ply::read(nombre_archivo,vertices_ply,caras_ply);
       
-      // Convierto el vector de vértices_ply en otro vector en el que cada componente representa un Punto3D
+      // Vuelco el vector de vértices_ply en otro vector en el que cada componente representa un Punto3D
       for(size_t i=0;i<vertices_ply.size();i+=3){
         Punto3D v(vertices_ply[i],vertices_ply[i+1],vertices_ply[i+2]);
         vertices.push_back(v);
       }
 
-      // Convierto el vector de caras_ply en otro vector en el que cada componente representa un trío de índices (cada índice representará un Punto3D)
+      // Vuelco el vector de caras_ply en otro vector en el que cada componente representa un trío de índices (cada índice representará un Punto3D)
       for(size_t i=0;i<caras_ply.size();i+=3){
         Triangulo t(caras_ply[i],caras_ply[i+1],caras_ply[i+2]);
         caras.push_back(t);
@@ -296,13 +297,14 @@ class Malla:Objeto3D{
 
     /**
      * @brief Función para calcular las normales de las caras.
+     * @post El vector normales_caras contendrá todas las normales de las caras almacenadas en el vector caras
     */
     void calcular_normales_caras(){
       
       // Limpio el vector<Triangulo> normales_caras
       this->normales_caras.clear();
 
-      // Almaceno tantos puntos "vacíos" (0,0,0) como caras jhaya (cada punto representará la normal de esa cara)
+      // Almaceno tantos puntos "vacíos" (0,0,0) como caras haya (cada punto representará la normal de esa cara)
       for(size_t i = 0;i<caras.size();i++){
         this->normales_caras.push_back(Punto3D());
       }
@@ -312,7 +314,7 @@ class Malla:Objeto3D{
         // Obtengo cada triángulo (cara)
         Triangulo t=caras[i];
 
-        // Obtengo los vértices del triángulo
+        // Obtengo los 3 vértices del triángulo a partir de sus índices
         Punto3D P0=this->vertices[t.getI0()];
         Punto3D P1=this->vertices[t.getI1()];
         Punto3D P2=this->vertices[t.getI2()];
@@ -334,6 +336,7 @@ class Malla:Objeto3D{
 
     /**
      * @brief Función para calcular las normales de los vértices.
+     * @post El vector normales_vertices contendrá las normales de todos los vértices almacenados en vertices
     */
     void calcular_normales_vertices(){
 
@@ -351,7 +354,7 @@ class Malla:Objeto3D{
       for(size_t i=0;i<this->caras.size();++i){
 
         // Para cada triángulo, obtengo su normal (la normal de la cara)
-        Triangulo t = this->caras[i]; // Ejemplo: t(0,1,2) significará que t.v0=0, t.v1=1, t.v2=2
+        Triangulo t = this->caras[i]; // Ejemplo: t(0,1,2) significará que t.i0=0, t.i1=1, t.i2=2
         
         // Obtengo la normal de la cara actual que estamos procesando (ya se calcularon anteriormente)
         Punto3D normal_triangulo= this->normales_caras[i];
@@ -384,11 +387,15 @@ class Malla:Objeto3D{
 
     /**
      * @brief Función para dibujar la malla en modo FLAT.
-     * 
      * La iluminación de la cara se calcula con la normal que se le pasa a OpenGL antes del último vértice
      * de la cara. 
      * Por tanto, tenemos que dar la normal de cada cara con glNormal3f(...) antes de que se envíe el último
-     * vértice de la cara
+     * vértice de la cara. Es decir, el orden sería:
+     * 
+     * normalcara
+     * vertice1
+     * vertice2
+     * vertice3
     */
     void drawFlat(){
       glBegin(GL_TRIANGLES);
@@ -420,7 +427,14 @@ class Malla:Objeto3D{
 
     /**
      * @brief Función para dibujar la malla en modo SMOOTH
-     * Deberemos dar la normal de cada vértice justo antes de enviar el vértice
+     * Deberemos dar la normal de cada vértice justo antes de enviar el vértice. Es decir, el orden seŕia:
+     * 
+     * normalVertice1
+     * vertice1
+     * normalVertice2
+     * vertice2
+     * normalVertice3
+     * vertice3
     */
     void drawSmooth(){
 
