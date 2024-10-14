@@ -45,6 +45,9 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "punto3d.h": "c",
+        "practicasig.h": "c",
+        "triangulo.h": "c"
     }
 }
