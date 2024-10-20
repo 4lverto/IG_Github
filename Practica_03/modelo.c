@@ -15,6 +15,8 @@ void
 initModel (){
 }
 
+
+
                   // /////////////// //
                   // "SUBCLASE" EJES //
                   // /////////////// //
@@ -42,12 +44,12 @@ class Ejes:Objeto3D {
   }
 }; 
 
-
-                    // ////////////////// //
-                    // PROGRAMA PRINCIPAL //
-                    // ////////////////// //
+                    // ////////////////////////////////////////// //
+                    // FUNCIONES DE GESTIÓN DE ILUMINACIÓN Y MODO //
+                    // ////////////////////////////////////////// // 
 
 Ejes ejesCoordenadas;
+
 int modo=GL_FILL;
 bool iluminacionActivada=true;
 
@@ -77,11 +79,21 @@ void setIluminacion(){
   }
 }
 
-// PRÁCTICA 2 - Mallas a dibujar
+                    // ////////////////// //
+                    // PROGRAMA PRINCIPAL //
+                    // ////////////////// //
+
+
+/*// PRÁCTICA 2 - Mallas a dibujar
 
 Malla beethoven("plys/beethoven.ply",true);
 Malla big_dodge("plys/big_dodge.ply",false);
 Malla cubo; // Malla por defecto
+
+*/
+
+// PRÁCTICA 3 - Componentes de mi silla
+
 
 // ///////////////////////////////////////////////
 
@@ -108,6 +120,7 @@ void Dibuja (void){
   transformacionVisualizacion ();	// Carga transformacion de visualizacion
   glLightfv (GL_LIGHT0, GL_POSITION, pos);	// Declaracion de luz. Colocada aqui esta fija en la escena
   glDisable(GL_LIGHTING);
+  
   ejesCoordenadas.draw();			// Dibuja los ejes
   if(iluminacionActivada){    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea afectado al alterar la iluminación
     glEnable(GL_LIGHTING);
@@ -115,6 +128,7 @@ void Dibuja (void){
   
   // glMaterialfv (GL_FRONT, GL_AMBIENT_AND_DIFFUSE, color); // ¿?¿?¿?¿?¿?¿?
 
+/*
                               // ////////// //
                               // PRACTICA 2 //
                               // ////////// //
@@ -141,6 +155,7 @@ void Dibuja (void){
   big_dodge.draw();
   
                               // FIN PRÁCTICA 2 
+*/
 
   glPopMatrix ();		// Desapila la transformacion geometrica
 
