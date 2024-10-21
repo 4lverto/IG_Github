@@ -48,6 +48,4 @@ void dibujaTaburete(){
         glTranslatef(0.0f,alturaCilindro,0.0f);
         dibujaRespaldo();
     glPopMatrix();
-  
-
 }
