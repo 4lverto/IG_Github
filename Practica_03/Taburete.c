@@ -22,30 +22,26 @@ void dibujaTaburete(){
     // Dibujo el cilindro
     
     glPushMatrix();
-        glRotatef(-90.0f,1.0f,0.0f,0.0f);
         glTranslatef(0.0f,alturaCilindro,0.0f);
         glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,verde);
         dibujaCilindro();
-    glPopMatrix();
 
-    // Dibujo el asiento
+        // Dibujo el asiento
     
-    glPushMatrix();
-        glTranslatef(0.0f,2.75f,0.0f);
-        glRotatef(90.0f,0.0f,0.0f,1.0f);
-        glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,azul);
-        glRotatef(rotacionAsiento,1.0f,0.0f,0.0f);
-        glTranslatef(alturaCilindro,0.0f,0.0f);
-        dibujaAsiento();
-    glPopMatrix();
+        glPushMatrix();
+            glTranslatef(0.0f,0.5f,0.0f);
+            glRotatef(rotacionAsiento,0.0f,1.0f,0.0f);
+            glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,azul);
+            dibujaAsiento();
 
-    // Dibujo el respaldo
-    glPushMatrix();
-        glTranslatef(0.0f,4.5f,-1.75f);  
-        glRotatef(90.0f,0.0f,1.0f,0.0f);
-        glRotatef(rotacionAsiento,0.0,1.0f,0.0f);
-        glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,rojo);
-        glTranslatef(0.0f,alturaCilindro,0.0f);
-        dibujaRespaldo();
-    glPopMatrix();
+        // Dibujo el respaldo
+            glPushMatrix();
+                glTranslatef(0.0f,0.5f,-1.5f);  
+                glRotatef(inclinacionRespaldo,1.0f,0.0f,0.0f);
+                glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,rojo);
+                dibujaRespaldo();
+
+             glPopMatrix(); // Fin del nodo repaldo
+        glPopMatrix(); // Fin del nodo asiento
+    glPopMatrix(); // Fin del nodo base cilíndrica
 }
