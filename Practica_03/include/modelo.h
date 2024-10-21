@@ -1,3 +1,5 @@
+#ifndef MODELO_H
+#define MODELO_H
 /**
 	Funcion de redibujado. Se ejecuta con los eventos postRedisplay
 **/
@@ -28,3 +30,5 @@ class Objeto3D {
 
 	virtual void draw( ) = 0; // Dibuja el objeto
 };
+
+#endif // MODELO_H

@@ -13,3 +13,5 @@
 #include  "Respaldo.h"
 #include  "Asiento.h"
 #include  "Cilindro.h"
+#include  "Taburete.h"
+

@@ -7,9 +7,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <GL/glut.h>		// Libreria de utilidades de OpenGL
+#include "practicasIG.h"
 
-class Respaldo{
-    
-};
+void dibujaRespaldo();
 
 #endif // RESPALDO_H

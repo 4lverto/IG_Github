@@ -7,8 +7,6 @@
 #include <math.h>
 #include <GL/glut.h>		// Libreria de utilidades de OpenGL
 
-class Asiento{
-    
-};
+void dibujaAsiento();
 
 #endif // ASIENTO_H

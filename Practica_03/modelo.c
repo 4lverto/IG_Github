@@ -83,17 +83,7 @@ void setIluminacion(){
                     // PROGRAMA PRINCIPAL //
                     // ////////////////// //
 
-
-/*// PRÁCTICA 2 - Mallas a dibujar
-
-Malla beethoven("plys/beethoven.ply",true);
-Malla big_dodge("plys/big_dodge.ply",false);
-Malla cubo; // Malla por defecto
-
-*/
-
 // PRÁCTICA 3 - Componentes de mi silla
-
 
 // ///////////////////////////////////////////////
 
@@ -101,7 +91,6 @@ Malla cubo; // Malla por defecto
  * @brief Procedimiento de dibujo del modelo. Es llamado por glut cada vez que se debe redibujar.
 */
 void Dibuja (void){
-
   static GLfloat  pos[4] = { 5.0, 5.0, 10.0, 0.0 };	// Posicion de la fuente de luz
 
   float morado[4]={0.8,0,1,1};
@@ -110,54 +99,30 @@ void Dibuja (void){
   float azul[4]={0,0,1,1};
   float negro[4]={0,0,0,1};
   float blanco[4]={1,1,1,1};
+  float naranja[4]={1.0f,0.5f,0.0f,1.0f};
+  float amarillo[4]={1.0f,1.0f,0.0f,1.0f};
 
   float  color[4] = { 0.8, 0.0, 1, 1 };
 
-  glPushMatrix ();		// Apila la transformacion geometrica actual
-  
   glClearColor (0.0, 0.0, 0.0, 1.0);	// Fija el color de fondo a negro
+
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Inicializa el buffer de color y el Z-Buffer
+
+  glLoadIdentity();
   transformacionVisualizacion ();	// Carga transformacion de visualizacion
+
   glLightfv (GL_LIGHT0, GL_POSITION, pos);	// Declaracion de luz. Colocada aqui esta fija en la escena
+
+  // Gestión de ejes
   glDisable(GL_LIGHTING);
-  
+
   ejesCoordenadas.draw();			// Dibuja los ejes
+  
   if(iluminacionActivada){    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea afectado al alterar la iluminación
     glEnable(GL_LIGHTING);
   }
-  
-  // glMaterialfv (GL_FRONT, GL_AMBIENT_AND_DIFFUSE, color); // ¿?¿?¿?¿?¿?¿?
 
-/*
-                              // ////////// //
-                              // PRACTICA 2 //
-                              // ////////// //
-
-  // Dibujo la estatua de Beethoven
-
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
-  glTranslatef(-10,0,4);
-  // beethoven.setSombreadoSuave(false); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
-  beethoven.draw();
-
-  // Dibujo un cubo morado
-
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,morado);
-  glTranslatef(10,0,0);
-  // cubo.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
-  cubo.draw();
-
-  // Dibujo el coche
-  
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
-  glTranslatef(10,0,0);
-  // big_dodge.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
-  big_dodge.draw();
-  
-                              // FIN PRÁCTICA 2 
-*/
-
-  glPopMatrix ();		// Desapila la transformacion geometrica
+  dibujaTaburete();
 
   glutSwapBuffers ();		// Intercambia el buffer de dibujo y visualizacion
 }
