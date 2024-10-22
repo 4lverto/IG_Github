@@ -6,8 +6,7 @@ using namespace std;
 
 void dibujaAsiento(){
     glPushMatrix();
-        glScalef(0.5f,3.0f,3.0f);
-        glRotatef(90,1.0f,0.0f,0.0f);
+        glScalef(3.0f,0.5f,3.0f);
         glutSolidCube(1.0f);
     glPopMatrix();
 }

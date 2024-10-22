@@ -6,7 +6,7 @@ using namespace std;
 
 void dibujaRespaldo(){
     glPushMatrix();
-        glScalef(3.0f,5.0f,0.5f);
+        glScalef(0.5f,3.0f,3.0f);
         glutSolidCube(1.0f);
     glPopMatrix();
 }
