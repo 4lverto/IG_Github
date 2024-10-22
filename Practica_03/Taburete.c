@@ -32,7 +32,6 @@ void dibujaTaburete(){
     
         glPushMatrix();
             glTranslatef(0.0f,4.0f*alturaCilindro,0.0f);
-            //glRotatef(90,1.0f,0.0f,0.0f);
             glRotatef(rotacionAsiento,0.0f,1.0f,0.0f); // Rotación del asiento sobre su propio eje Y
             glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,azul);
             dibujaAsiento();
@@ -41,7 +40,7 @@ void dibujaTaburete(){
             glPushMatrix();
                 glRotatef(90.0f,0.0f,1.0f,0.0f);
                 glTranslatef(1.75f,1.25f*alturaCilindro,0.0f);
-                //glRotatef(inclinacionRespaldo,1.0f,0.0f,0.0f);
+                glRotatef(inclinacionRespaldo,0.0f,0.0f,1.0f);
                 glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,rojo);
                 dibujaRespaldo();
 
