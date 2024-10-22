@@ -23,21 +23,23 @@ void dibujaTaburete(){
     
     glPushMatrix();
         glTranslatef(0.0f,alturaCilindro,0.0f);
+        glRotatef(-90,1.0f,0.0f,0.0f);
         glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,verde);
         dibujaCilindro();
 
         // Dibujo el asiento
     
         glPushMatrix();
-            glTranslatef(0.0f,0.5f,0.0f);
+            glTranslatef(0.0f,2.5f,0.0f);
+            glRotatef(90,1.0f,0.0f,0.0f);
             glRotatef(rotacionAsiento,0.0f,1.0f,0.0f);
             glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,azul);
             dibujaAsiento();
 
         // Dibujo el respaldo
             glPushMatrix();
-                glTranslatef(0.0f,0.5f,-1.5f);  
-                glRotatef(inclinacionRespaldo,1.0f,0.0f,0.0f);
+                glTranslatef(0.0f,0.5f,-2.5f);  
+                glRotatef(-inclinacionRespaldo,1.0f,0.0f,0.0f);
                 glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,rojo);
                 dibujaRespaldo();
 
