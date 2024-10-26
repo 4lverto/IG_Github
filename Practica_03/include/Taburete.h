@@ -14,6 +14,8 @@ extern float alturaCilindro;
 extern float rotacionAsiento;
 extern float inclinacionRespaldo;
 
+extern bool animacionActiva;
+
 void dibujaTaburete();
 
 

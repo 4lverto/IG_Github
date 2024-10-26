@@ -5,8 +5,13 @@
 #include <GL/glut.h>		// Libreria de utilidades de OpenGL
 #include "include/practicasIG.h"
 #include <vector>
+#include <stdbool.h>
 
 using namespace std;
+
+float VEL_Cilindro=0.01f;
+float VEL_Asiento=0.5f;
+float VEL_Respaldo=0.1f;
 
 /**
  * @brief Inicializa el modelo y de las variables globales
@@ -84,7 +89,7 @@ void setIluminacion(){
                     // ////////////////// //
 
 // PRÁCTICA 3 - Componentes de mi silla
-
+bool animacionActiva=false;
 // ///////////////////////////////////////////////
 
 /**
@@ -132,6 +137,32 @@ void Dibuja (void){
  * @brief Procedimiento de fondo. Es llamado por glut cuando no hay eventos pendientes.
 */
 void idle (int v){
-  glutPostRedisplay ();		// Redibuja
-  glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms
+
+  // Actualización de la velocidad de escalado de altura del cilindro
+  if(animacionActiva){
+    if(alturaCilindro>=2.0f || alturaCilindro<=0.5f){
+      VEL_Cilindro = -VEL_Cilindro;
+    }
+
+    alturaCilindro += VEL_Cilindro;
+
+    // Actualización de la velocidad de rotación del asiento
+
+    rotacionAsiento += VEL_Asiento;
+
+    if(rotacionAsiento >= 360.0f || rotacionAsiento <= -360.0f){
+      rotacionAsiento=0.0f;  
+    }
+
+    // Actualización de la velocidad de rotación (inclinación) del respaldo
+    
+    if(inclinacionRespaldo >= 0.0f || inclinacionRespaldo <= -25.0f){
+      VEL_Respaldo = -VEL_Respaldo;
+    }
+
+    inclinacionRespaldo += VEL_Respaldo; 
+  }
+
+    glutPostRedisplay ();		// Redibuja
+    glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms
 }

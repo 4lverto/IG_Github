@@ -1,27 +1,4 @@
-/*	Prácticas de Informática Gráfica
-
-	Grupos C y D				Curso 2023-24
-
-	Codigo base para la realización de las practicas de IG
-	
-	Estudiante: 
-
-=======================================================
-	G. Arroyo, J.C. Torres 
-	Dpto. Lenguajes y Sistemas Informticos
-	(Univ. de Granada)
-
- This program is free software; you can redistribute it and/or
- modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 2
- of the License, or (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details 
- http://www.gnu.org/copyleft/gpl.html
-
+/*
 =======================================================/
 modulo entradaTeclado.c
 	Gestion de eventos de teclado
@@ -32,6 +9,7 @@ modulo entradaTeclado.c
 #include <math.h>
 #include <GL/glut.h>		// Libreria de utilidades de OpenGL
 #include "include/practicasIG.h"
+#include <stdbool.h>
 
 /** 
 
@@ -112,31 +90,35 @@ void letra (unsigned char k, int x, int y)
     case 'I':
       setIluminacion();
       break;
-    case 'w':
+    case 'C':
       if(alturaCilindro<2.0f){
         alturaCilindro+=0.1f; // Subir el cilindro 
       }
       break;
-    case 's':
+    case 'c':
       if(alturaCilindro>0.5f){
         alturaCilindro-=0.1f; // Bajar el cilindro 
       }
       break;
-    case 'a':
+    case 'V':
       rotacionAsiento-=1.0f; // Rotar asiento a la izquierda
       break;
-    case 'd':
+    case 'v':
       rotacionAsiento+=2.0f; // Rotar asiento a la derecha
       break;
-    case 'q':
+    case 'B':
       if(inclinacionRespaldo>-25.0f){
         inclinacionRespaldo-=0.5f; // Inclinar respaldo hacia la izquierda
       }
       break;
-    case 'e':
+    case 'b':
       if(inclinacionRespaldo<0.0f){
         inclinacionRespaldo+=0.5f; // Inclinar respaldo hacia delante
       }
+      break;
+    case 'A':
+    case 'a':
+      animacionActiva = !animacionActiva;    
       break;
     default:
       return;
