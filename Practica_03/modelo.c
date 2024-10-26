@@ -127,6 +127,7 @@ void Dibuja (void){
     glEnable(GL_LIGHTING);
   }
 
+  // Dibujo mi modelo --> TABURETE
   dibujaTaburete();
 
   glutSwapBuffers ();		// Intercambia el buffer de dibujo y visualizacion
