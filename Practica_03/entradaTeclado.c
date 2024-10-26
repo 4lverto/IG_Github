@@ -113,23 +113,23 @@ void letra (unsigned char k, int x, int y)
       setIluminacion();
       break;
     case 'w':
-      if(alturaCilindro<3.0f){
+      if(alturaCilindro<2.0f){
         alturaCilindro+=0.1f; // Subir el cilindro 
       }
       break;
     case 's':
-      if(alturaCilindro>-1.0f){
+      if(alturaCilindro>0.5f){
         alturaCilindro-=0.1f; // Bajar el cilindro 
       }
       break;
     case 'a':
-      rotacionAsiento-=0.5f; // Rotar asiento a la izquierda
+      rotacionAsiento-=1.0f; // Rotar asiento a la izquierda
       break;
     case 'd':
-      rotacionAsiento+=0.5f; // Rotar asiento a la derecha
+      rotacionAsiento+=2.0f; // Rotar asiento a la derecha
       break;
     case 'q':
-      if(inclinacionRespaldo>-30.0f){
+      if(inclinacionRespaldo>-25.0f){
         inclinacionRespaldo-=0.5f; // Inclinar respaldo hacia la izquierda
       }
       break;
