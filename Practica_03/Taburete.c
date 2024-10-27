@@ -29,7 +29,7 @@ void dibujaTaburete(){
 
     glPushMatrix();
         glTranslatef(0.0f,4.0f*alturaCilindro,0.0f);
-        glRotatef(rotacionAsiento,0.0f,1.0f,0.0f); // Rotación del asiento sobre su propio eje Y
+        glRotatef(rotacionAsiento,0.0f,1.0f,0.0f); // Rotación del asiento y respaldo sobre su propio eje Y
         glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,marron);
         dibujaAsiento();
 

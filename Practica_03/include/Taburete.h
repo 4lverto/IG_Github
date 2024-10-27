@@ -15,6 +15,9 @@ extern float rotacionAsiento;
 extern float inclinacionRespaldo;
 
 extern bool animacionActiva;
+extern float VEL_Cilindro;
+extern float VEL_Asiento;
+extern float VEL_Respaldo;
 
 void dibujaTaburete();
 

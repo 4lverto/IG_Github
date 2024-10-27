@@ -62,8 +62,8 @@ void letra (unsigned char k, int x, int y)
 {
   switch (k)
     {
-    case 'h':
-    case 'H':
+    case 'x':
+    case 'X':
       printHelp ();		// H y h imprimen ayuda
       break;
     case '+':			// acerca la cámara
@@ -119,6 +119,36 @@ void letra (unsigned char k, int x, int y)
     case 'A':
     case 'a':
       animacionActiva = !animacionActiva;    
+      break;
+    case 'T':
+    case 't':
+      VEL_Cilindro+=0.01f;
+      break;
+    case 'G':
+    case 'g':
+      if(VEL_Cilindro > 0.01f){
+        VEL_Cilindro-=0.01f;
+      }
+      break;
+    case 'Y':
+    case 'y':
+      VEL_Asiento+=0.1f;
+      break;
+    case 'H':
+    case 'h':
+      if(VEL_Asiento > 0.1f){
+        VEL_Asiento-=0.1f;
+      }
+      break;
+    case 'U':
+    case 'u':
+      VEL_Respaldo+=0.1f;
+      break;
+    case 'J':
+    case 'j':
+      if(VEL_Respaldo > 0.1f){
+        VEL_Respaldo-=0.1f;
+      }
       break;
     default:
       return;

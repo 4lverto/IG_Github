@@ -9,9 +9,6 @@
 
 using namespace std;
 
-float VEL_Cilindro=0.01f;
-float VEL_Asiento=0.5f;
-float VEL_Respaldo=0.1f;
 
 /**
  * @brief Inicializa el modelo y de las variables globales
@@ -89,7 +86,10 @@ void setIluminacion(){
                     // ////////////////// //
 
 // PRÁCTICA 3 - Componentes de mi silla
-bool animacionActiva=false;
+bool animacionActiva=false; // Se gestiona con A y a
+float VEL_Cilindro=0.01f;   // Se gestiona con T y G
+float VEL_Asiento=0.5f;     // Se gestiona con Y y H
+float VEL_Respaldo=0.1f;    // Se gestiona con U y J
 // ///////////////////////////////////////////////
 
 /**
