@@ -118,35 +118,35 @@ void letra (unsigned char k, int x, int y)
       break;
     case 'A':
     case 'a':
-      animacionActiva = !animacionActiva;    
+      animacionActiva = !animacionActiva; // Activar / desactivar la animación automática  
       break;
     case 'T':
     case 't':
-      VEL_Cilindro+=0.01f;
+      VEL_Cilindro+=0.01f; // Aumentar la velocidad de giro del cilindro
       break;
     case 'G':
     case 'g':
-      if(VEL_Cilindro > 0.01f){
+      if(VEL_Cilindro > 0.01f){ // Reducir la velocidad de giro del cilindro
         VEL_Cilindro-=0.01f;
       }
       break;
     case 'Y':
     case 'y':
-      VEL_Asiento+=0.1f;
+      VEL_Asiento+=0.1f; // Aumentar la velocidad de giro del asiento
       break;
     case 'H':
     case 'h':
-      if(VEL_Asiento > 0.1f){
+      if(VEL_Asiento > 0.1f){ // Reducir la velocidad de giro del asiento
         VEL_Asiento-=0.1f;
       }
       break;
     case 'U':
     case 'u':
-      VEL_Respaldo+=0.1f;
+      VEL_Respaldo+=0.1f; // Aumentar la velocidad de inclinación del respaldo
       break;
     case 'J':
     case 'j':
-      if(VEL_Respaldo > 0.1f){
+      if(VEL_Respaldo > 0.1f){ // Reducir la velocidad de inclinación del respaldo
         VEL_Respaldo-=0.1f;
       }
       break;
