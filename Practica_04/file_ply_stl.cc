@@ -8,7 +8,7 @@
 #include <limits>
 #include <assert.h>
 
-#include "include/file_ply_stl.h"
+#include "file_ply_stl.h"
 
 
 namespace ply{

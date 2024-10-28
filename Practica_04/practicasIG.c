@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <GL/glut.h>		// Libreria de utilidades de OpenGL
-#include "include/practicasIG.h"
+#include "practicasIG.h"
 //#include "hiply.h"
 
 
