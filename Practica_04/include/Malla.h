@@ -22,6 +22,18 @@ class Malla {
 
     bool suave;  // True: sombreado suave, False: sombreado plano
 
+    // PRÁCTICA 4
+    // Variables para almacenar las coordenadas de la luz
+
+    // Variables para los materiales
+    GLfloat reflectividad_difusa[4] = { 0.8f, 0.8f, 0.8f, 1.0f };
+    GLfloat reflectividad_especular[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+    GLfloat reflectividad_ambiente[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+
+    void asignarReflectividadDifusa(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa=1.0f);
+    void asignarReflectividadEspecular(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa=1.0f);
+    void asignarReflectividadAmbiente(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa=1.0f);
+    
     // Constructores
     Malla();  // Constructor sin parámetros (cubo por defecto)
     Malla(const char* nombre_archivo, bool sombreadoSuave); // Constructor con archivo

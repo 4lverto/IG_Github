@@ -80,7 +80,7 @@ void setIluminacion(){
   }
 }
 
-// PRÁCTICA 2 - Mallas a dibujar
+// PRÁCTICA 4 - Mallas a dibujar
 
 Malla beethoven("plys/beethoven.ply",true);
 Malla big_dodge("plys/big_dodge.ply",false);
@@ -116,29 +116,27 @@ void Dibuja (void){
     glEnable(GL_LIGHTING);
   }
   
-  // glMaterialfv (GL_FRONT, GL_AMBIENT_AND_DIFFUSE, color); // ¿?¿?¿?¿?¿?¿?
 
                               // ////////// //
-                              // PRACTICA 2 //
+                              // PRACTICA 4 //
                               // ////////// //
 
   // Dibujo la estatua de Beethoven
 
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
+
   glTranslatef(-10,0,4);
   // beethoven.setSombreadoSuave(false); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
+  beethoven.asignarReflectividadDifusa(0.0f,0.0f,0.0f,0.0f);  
   beethoven.draw();
 
   // Dibujo un cubo morado
-
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,morado);
+  cubo.asignarReflectividadDifusa(0.0f,0.0f,0.0f,0.0f);  
   glTranslatef(10,0,0);
   // cubo.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
   cubo.draw();
 
   // Dibujo el coche
-  
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
+  big_dodge.asignarReflectividadDifusa(0.0f,0.0f,0.0f,0.0f);  
   glTranslatef(10,0,0);
   // big_dodge.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
   big_dodge.draw();
