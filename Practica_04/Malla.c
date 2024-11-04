@@ -69,10 +69,17 @@ void Malla::asignarExponenteEspecular(float exp){
  * @brief
  * @param
 */
-void Malla::cargarTextura(const char *archivo){
+/*void Malla::cargarTextura(const char *archivo){
     // Serán unsigned porque son los tipos de datos usados en lector-jpg.cpp
     unsigned width,height;
     unsigned char *imagen = LeerArchivoJPEG(archivo,width,height);
+
+    if(!imagen){
+        cerr << "\nError: No se ha cargado la imagen de textura \n";
+        return;
+    }//else{
+        //cout << "\nImagen para textura leida con éxito \n";
+    //}
 
     glGenTextures(1,&texId);
     glBindTexture(GL_TEXTURE_2D, texId);
@@ -83,7 +90,7 @@ void Malla::cargarTextura(const char *archivo){
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imagen);
 
     delete[] imagen; // Liberamos la memoria RAM usada
-}
+}*/
 
 // //////////////// //
 // RESTO DE MÉTODOS //
@@ -99,14 +106,14 @@ Malla::Malla(){
 
     // Vuelco el vector de vértices_ply en otro vector en el que cada componente representa un Punto3D
     for(size_t i=0;i<vertices_ply.size();i+=3){
-    Punto3D v(vertices_ply[i],vertices_ply[i+1],vertices_ply[i+2]);
-    vertices.push_back(v);
+        Punto3D v(vertices_ply[i],vertices_ply[i+1],vertices_ply[i+2]);
+        vertices.push_back(v);
     }
 
     // Vuelco el vector de caras_ply en otro vector en el que cada componente representa un trío de índices (cada índice representará un Punto3D)
     for(size_t i=0;i<caras_ply.size();i+=3){
-    Triangulo t(caras_ply[i],caras_ply[i+1],caras_ply[i+2]);
-    caras.push_back(t);
+        Triangulo t(caras_ply[i],caras_ply[i+1],caras_ply[i+2]);
+        caras.push_back(t);
     }
 
     // Calculamos las normales directamente para tenerlas disponibles nada más construir el objeto
@@ -249,7 +256,8 @@ void Malla::draw(){
         glShadeModel(GL_FLAT);
         this->drawFlat();
     }
-
+    
+    glDisable(GL_TEXTURE_2D);
     glDisable(GL_LIGHTING);
 }
 
@@ -268,27 +276,39 @@ void Malla::draw(){
 void Malla::drawFlat(){
     glBegin(GL_TRIANGLES);
     for(size_t i=0; i<this->caras.size();++i){ // Recorro todas las caras
-    // Selecciono cada una de las caras
-    Triangulo t = this->caras[i];
+        // Selecciono cada una de las caras
+        Triangulo t = this->caras[i];
 
-    // Doy la normal de la cara actual antes de enviar los vértices
-    glNormal3f(this->normales_caras[i].x , this->normales_caras[i].y , this->normales_caras[i].z);
-    
-    // Envío los 3 vértices (podría hacerlo usando glVertex3f(...) 3 veces)
-    for(int j=0;j<3;++j){
-        int indice;
+        // Doy la normal de la cara actual antes de enviar los vértices
+        glNormal3f(this->normales_caras[i].x , this->normales_caras[i].y , this->normales_caras[i].z);
+        
+        // Práctica 4 - Asigno las coordenadas de textura
+        glTexCoord2f(0.0f,0.0f);
+        glVertex3f(this->vertices[t.getI0()].x , this->vertices[t.getI0()].y , this->vertices[t.getI0()].z);
+        
+        glTexCoord2f(1.0f,0.0f);
+        glVertex3f(this->vertices[t.getI1()].x , this->vertices[t.getI1()].y , this->vertices[t.getI1()].z);
+        
+        glTexCoord2f(0.5f,1.0f);
+        glVertex3f(this->vertices[t.getI2()].x , this->vertices[t.getI2()].y , this->vertices[t.getI2()].z);
+        
+        // Práctica 2 
+        /*
+        // Envío los 3 vértices (podría hacerlo usando glVertex3f(...) 3 veces)
+        for(int j=0;j<3;++j){
+            int indice;
 
-        if(j==0){
-            indice=t.getI0();
-        }else if(j==1){
-            indice=t.getI1();
-        }else{
-            indice=t.getI2();
-        }
+            if(j==0){
+                indice=t.getI0();
+            }else if(j==1){
+                indice=t.getI1();
+            }else{
+                indice=t.getI2();
+            }
 
-        // Doy un vértice en cada iteración hasta pasar los 3 Punto3D(x,y,z)
-        glVertex3f(this->vertices[indice].x , this->vertices[indice].y , this->vertices[indice].z);
-    }
+            // Doy un vértice en cada iteración hasta pasar los 3 Punto3D(x,y,z)
+            glVertex3f(this->vertices[indice].x , this->vertices[indice].y , this->vertices[indice].z);
+        }*/
     }
     glEnd();
 }
@@ -308,24 +328,40 @@ void Malla::drawSmooth(){
 
     glBegin(GL_TRIANGLES);
     for(size_t i=0; i<this->caras.size();++i){ // Recorro todas las caras
-    Triangulo t = this->caras[i]; // Selecciono cada una de las caras.
-
-    // Mando a dibujar los 3 vértices de cada triángulo a partir de los 3 índices del triángulo actual
-    for(int j=0;j<3;++j){
-        int indice;
-
-        if(j==0){
-        indice=t.getI0();
-        }else if(j==1){
-        indice=t.getI1();
-        }else{
-        indice=t.getI2();
-        }
+        Triangulo t = this->caras[i]; // Selecciono cada una de las caras.
         
-        // Antes de enviar cada vértice a dibujar, deberemos dar su normal (la del vértice)
-        glNormal3f(this->normales_vertices[indice].x , this->normales_vertices[indice].y , this->normales_vertices[indice].z);
-        glVertex3f(this->vertices[indice].x , this->vertices[indice].y , this->vertices[indice].z);
-    }
+        // Práctica 4 - Asigno las coordenadas de textura
+        glTexCoord2f(0.0f,0.0f);
+        glNormal3f(this->normales_vertices[t.getI0()].x , this->normales_vertices[t.getI0()].y , this->normales_vertices[t.getI0()].z);
+        glVertex3f(this->vertices[t.getI0()].x , this->vertices[t.getI0()].y , this->vertices[t.getI0()].z);
+        
+        glTexCoord2f(1.0f,0.0f);
+        glNormal3f(this->normales_vertices[t.getI1()].x , this->normales_vertices[t.getI1()].y , this->normales_vertices[t.getI1()].z);
+        glVertex3f(this->vertices[t.getI1()].x , this->vertices[t.getI1()].y , this->vertices[t.getI1()].z);
+        
+        glTexCoord2f(0.5f,1.0f);
+        glNormal3f(this->normales_vertices[t.getI2()].x , this->normales_vertices[t.getI2()].y , this->normales_vertices[t.getI2()].z);
+        glVertex3f(this->vertices[t.getI2()].x , this->vertices[t.getI2()].y , this->vertices[t.getI2()].z);
+
+
+        // Práctica 2
+        /*
+        // Mando a dibujar los 3 vértices de cada triángulo a partir de los 3 índices del triángulo actual
+        for(int j=0;j<3;++j){
+            int indice;
+
+            if(j==0){
+            indice=t.getI0();
+            }else if(j==1){
+            indice=t.getI1();
+            }else{
+            indice=t.getI2();
+            }
+            
+            // Antes de enviar cada vértice a dibujar, deberemos dar su normal (la del vértice)
+            glNormal3f(this->normales_vertices[indice].x , this->normales_vertices[indice].y , this->normales_vertices[indice].z);
+            glVertex3f(this->vertices[indice].x , this->vertices[indice].y , this->vertices[indice].z);
+        }*/
     }
     glEnd();
 }

@@ -50,7 +50,7 @@ class Malla {
 
     // 2) Asignar una textura leída de un archivo a un objeto.
 
-    void cargarTextura(const char *archivo);
+    // void cargarTextura(const char *archivo);
 
 
     // //////////////// //
@@ -68,6 +68,7 @@ class Malla {
     void draw();
     void drawFlat();
     void drawSmooth();
+
 };
 
 #endif // MALLA_H

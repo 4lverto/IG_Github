@@ -23,7 +23,7 @@ void setModo(int M);
 */
 void setIluminacion();
 
-class Objeto3D { 
+class Objeto3D{ 
 	public: 
 
 	virtual void draw( ) = 0; // Dibuja el objeto
