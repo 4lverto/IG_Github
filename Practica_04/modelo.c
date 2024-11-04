@@ -82,9 +82,7 @@ void setIluminacion(){
 
 // PRÁCTICA 4 - Mallas a dibujar
 
-Malla beethoven("plys/beethoven.ply",true);
-Malla big_dodge("plys/big_dodge.ply",false);
-Malla cubo; // Malla por defecto
+Malla dado; // Malla por defecto
 
 // ///////////////////////////////////////////////
 
@@ -116,6 +114,7 @@ void Dibuja (void){
   
   glDisable(GL_LIGHTING);
   ejesCoordenadas.draw();			// Dibuja los ejes
+  
   if(iluminacionActivada){    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea afectado al alterar la iluminación
     glEnable(GL_LIGHTING);
   }
@@ -124,29 +123,13 @@ void Dibuja (void){
                               // PRACTICA 4 //
                               // ////////// //
 
-
-
-  // Dibujo la estatua de Beethoven
-  glTranslatef(-10,0,4);
-  // beethoven.setSombreadoSuave(false); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
-  // asignarExponenteEspecular(50.0);
-  beethoven.asignarReflectividadDifusa(0.76f,0.8f,0.65f,1.0f);  
-  beethoven.draw();
-
   // Dibujo un cubo morado
-  cubo.asignarReflectividadDifusa(0.5f,0.0f,0.5f,1.0f);  
-  glTranslatef(10,0,0);
-  // asignarExponenteEspecular(50.0);
-  // cubo.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
-  cubo.draw();
+  dado.asignarReflectividadDifusa(0.5f,0.0f,0.5f,1.0f);  
+  dado.asignarExponenteEspecular(50.0);
+  dado.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
+  dado.cargarTextura("JPEG/dado.jpg");
+  dado.draw();
 
-  // Dibujo el coche
-  big_dodge.asignarReflectividadDifusa(0.0f,0.5f,0.0f,1.0f);  
-  glTranslatef(10,0,0);
-  // big_dodge.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
-  // asignarExponenteEspecular(50.0);
-  big_dodge.draw();
-  
                               // FIN PRÁCTICA 2 
 
   glPopMatrix ();		// Desapila la transformacion geometrica

@@ -12,6 +12,8 @@ using namespace std;
 // PRÁCTICA 4 //
 // ////////// //
 
+// 1)
+
 /**
  * @brief
  * @param 
@@ -59,6 +61,28 @@ void Malla::asignarReflectividadAmbiente(GLfloat r, GLfloat g, GLfloat b, GLfloa
 */
 void Malla::asignarExponenteEspecular(float exp){
     e=exp;
+}
+
+// 2) 
+
+/**
+ * @brief
+ * @param
+*/
+void Malla::cargarTextura(const char *archivo){
+    // Serán unsigned porque son los tipos de datos usados en lector-jpg.cpp
+    unsigned width,height;
+    unsigned char *imagen = LeerArchivoJPEG(archivo,width,height);
+
+    glGenTextures(1,&texId);
+    glBindTexture(GL_TEXTURE_2D, texId);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imagen);
+
+    delete[] imagen; // Liberamos la memoria RAM usada
 }
 
 // //////////////// //
@@ -207,7 +231,12 @@ void Malla::calcular_normales_vertices(){
 void Malla::draw(){
     
     glEnable(GL_LIGHTING);
+    
+    // 3)
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texId);
 
+    // 1) 
     glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
     glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);

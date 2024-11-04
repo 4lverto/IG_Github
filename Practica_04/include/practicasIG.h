@@ -11,3 +11,6 @@
 #include "Punto3D.h"
 #include "Triangulo.h"
 #include "Malla.h"
+
+// PRÁCTICA 4
+#include "lector-jpg.h"

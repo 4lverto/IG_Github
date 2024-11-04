@@ -17,7 +17,7 @@ EJECUTABLE=  practicasIG
 #
 #
 
-MODULOS=  $(EJECUTABLE).o entradaTeclado.o visual.o mouse.o modelo.o file_ply_stl.o Malla.o Punto3D.o Triangulo.o
+MODULOS=  $(EJECUTABLE).o entradaTeclado.o visual.o mouse.o modelo.o file_ply_stl.o Malla.o Punto3D.o Triangulo.o lector-jpg.o 
 
 
 #  INCLUDEDIRS= Lista de caminos a los directorios donde se encuentran
@@ -61,8 +61,8 @@ LDFLAGS=   -L$(LIBSDIR)
 #              malloc   para usar la funcion malloc
 #              m        funciones matematicas (sin y cos, p.ej.)
 
-#LIBS=    -lglut -lGLU -lGL -lX11 -lXext -lXmu -lXi -lc -lm
-LIBS=    -lglut -lGLU -lGL -lX11 -lXext  -lc -lm
+#LIBS=    -lglut -lGLU -lGL -lX11 -lXext -lXmu -lXi -lc -lm -ljpeg (para la práctica 4)
+LIBS=    -lglut -lGLU -lGL -lX11 -lXext  -lc -lm -ljpeg
 
 #  CC= orden de UNIX que invoca al compilador de C
 #      (en este caso "gcc" llama al compilador de C/C++ de GNU) 

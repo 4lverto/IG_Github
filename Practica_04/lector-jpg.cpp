@@ -28,7 +28,7 @@
 #include <iostream>
 #include <cassert>
 
-#include "lector-jpg.h"
+#include "include/lector-jpg.h"
 
 //----------------------------------------------------------------------
 // Función de lectura de una imagen

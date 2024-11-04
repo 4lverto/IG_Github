@@ -2,6 +2,10 @@
 #include <GL/glut.h>
 #include <math.h>
 
+// LAs variables definidas a continuación configuran el efecto visual de la luz sobre los objetos,
+// por loq ue podemos ajustar estos valores para observar cómo cambia la interacción de la luz 
+// en la escena
+
 // Variables para almacenar las coordenadas de la luz
 GLfloat light_pos[] = { 0.0f, 0.0f, 2.0f, 1.0f };
 
@@ -11,9 +15,12 @@ GLfloat mat_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 GLfloat mat_shininess[] = { 50.0f };
 
 // Shader program para Phong (con GLSL)
-GLuint phongShaderProgram;
+// GLuint phongShaderProgram;
 
-// Carga los shaders Phong
+// 3 El programa carga shaders GLSL para implementar el sobreado Phong.
+// Esta función define el Vertex Shader y el FRagment Shader para implementar
+// el sombreado Phong, que realiza la iluminación en el nivel de píxel
+/*
 void loadShaders() {
     const char* vertexShaderSource = "#version 120\n"
         "varying vec3 normal, lightDir, viewDir;"
@@ -43,7 +50,10 @@ void loadShaders() {
         "   gl_FragColor = ambient + diffuse + specular;"
         "}";
 
+    // Se calculan las direcciones de la luz y de la vista para cada vértice
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+
+    // Se calcula el color de cada píxel usando el modelo de iluminación Phong
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
@@ -57,7 +67,7 @@ void loadShaders() {
     glAttachShader(phongShaderProgram, fragmentShader);
 
     glLinkProgram(phongShaderProgram);
-}
+}*/
 
 // Dibuja una esfera con sombreado plano
 void drawFlatShadedSphere() {
@@ -73,7 +83,7 @@ void drawGouraudShadedSphere() {
 
 // Dibuja una esfera con sombreado Phong usando shaders GLSL
 void drawPhongShadedSphere() {
-    glUseProgram(phongShaderProgram);
+    // glUseProgram(phongShaderProgram);
     glutSolidSphere(1.0, 20, 20);
     glUseProgram(0);  // Desactiva los shaders
 }
@@ -82,10 +92,13 @@ void drawPhongShadedSphere() {
 void dibuja(void) {
     float posicion[4]={10,10,2,0};
     float verde[4]={0.1,1,0.1,1};
+    
     glClearColor(1,1,1,1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
     glLightfv(GL_LIGHT0,GL_POSITION,posicion);
     glMaterialfv( GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
+    
     glPushMatrix();
     // Esfera con sombreado plano (Flat)
     glTranslatef(0.0f, 2.5f, 0.0f);
@@ -104,12 +117,15 @@ void dibuja(void) {
 }
 
 // Configuración inicial de OpenGL
+// Realiza la configuración de OpenGL para la iluminación, el color de fondo,
+// y carga los shaders para el modelo de sombreado Phong.
 void init(void) {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
 
-    // Configuración de la luz
+    // Configuración de la luz -> Activa la iluminación y la profundidad
+    // para el renderizado 3D y configura la luz principal
     glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
 
     // Configuración del material
@@ -118,7 +134,7 @@ void init(void) {
     glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
     // Cargar shaders Phong
-    loadShaders();
+    //loadShaders();
 }
 
 // Función para manejar el redimensionamiento de la ventana
@@ -132,6 +148,9 @@ void reshape(int w, int h) {
     gluLookAt(0.0, 0.0, 8.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 }
 
+// 1 Configuración inicial de OpenGL
+// Se inicializa el contexto de OpenGL y se configuran las fuciones
+// de renderizado, el tamaño de la ventana y los parámetros iniciales.
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
@@ -143,5 +162,6 @@ int main(int argc, char** argv) {
     glutDisplayFunc(dibuja);
     glutReshapeFunc(reshape);
     glutMainLoop();
+
     return 0;
 }

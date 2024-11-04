@@ -50,6 +50,7 @@
         "practicasig.h": "c",
         "triangulo.h": "c",
         "respaldo.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "file_ply_stl.h": "c"
     }
 }
