@@ -19,6 +19,12 @@ void
 initModel (){
   // Práctica 4
   dado.cargarTextura("JPEG/dado.jpg");
+
+  dado.asignarReflectividadDifusa(1.0f,1.0f,1.0f,1.0f);  
+  dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  dado.asignarReflectividadAmbiente(0.3f,0.3f,0.3f,1.0f);
+  dado.asignarExponenteEspecular(0.0f);
+  dado.setSombreadoSuave(false);
 }
 
                   // /////////////// //
@@ -47,10 +53,6 @@ class Ejes:Objeto3D {
     glEnd ();
   }
 }; 
-
-                // ////////// //
-                // PRACTICA 2 //
-                // ////////// //
 
                     // ////////////////// //
                     // PROGRAMA PRINCIPAL //
@@ -95,15 +97,6 @@ void Dibuja (void){
 
   static GLfloat  pos[4] = { 5.0, 5.0, 10.0, 0.0 };	// Posicion de la fuente de luz
 
-  float morado[4]={0.8,0,1,1};
-  float verde[4]={0,1,0,1};
-  float rojo[4]={1,0,0,1};
-  float azul[4]={0,0,1,1};
-  float negro[4]={0,0,0,1};
-  float blanco[4]={1,1,1,1};
-
-  float  color[4] = { 0.8, 0.0, 1, 1 };
-
   glPushMatrix ();		// Apila la transformacion geometrica actual
   
   glClearColor (0.0, 0.0, 0.0, 1.0);	// Fija el color de fondo a negro
@@ -114,10 +107,11 @@ void Dibuja (void){
   
   glLightfv (GL_LIGHT0, GL_POSITION, pos);	// Declaracion de luz. Colocada aqui esta fija en la escena
   
+  // glDisable(GL_CULL_FACE);
+
+  // Dibujamos los ejes de coordenadas de forma que no se vean afectados por la iluminación
   glDisable(GL_LIGHTING);
-  
   ejesCoordenadas.draw();			// Dibuja los ejes
-  
   if(iluminacionActivada){    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea afectado al alterar la iluminación
     glEnable(GL_LIGHTING);
   }
@@ -126,11 +120,6 @@ void Dibuja (void){
                               // PRACTICA 4 //
                               // ////////// //
 
-    //dado1.draw();
-
-    dado.asignarReflectividadDifusa(0.5f,0.0f,0.5f,1.0f);  
-    dado.asignarExponenteEspecular(50.0);
-    dado.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
     dado.draw();
 
                               // FIN PRÁCTICA 2 
