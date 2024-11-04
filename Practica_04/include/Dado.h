@@ -8,17 +8,13 @@
 #include <math.h>
 #include <GL/glut.h>		// Libreria de utilidades de OpenGL
 #include <vector>
-#include "practicasIG.h"
+#include "Malla.h"
 
-class Dado:Objeto3D{
-    private:
-        GLuint texId;
+class Dado : public Malla{
 
     public:
         
         Dado();
-        Dado(GLuint texId);
-        void cargarTextura(const char *archivo);
         void draw();
 };
 

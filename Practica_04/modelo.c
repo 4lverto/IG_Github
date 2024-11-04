@@ -10,7 +10,7 @@ using namespace std;
 
 // PRÁCTICA 4 - Mallas a dibujar
 
-Malla dado; // Malla por defecto
+Dado dado; // Malla por defecto
 //Dado dado1;
 
 /**
@@ -128,9 +128,9 @@ void Dibuja (void){
 
     //dado1.draw();
 
-    dado.asignarReflectividadDifusa(0.5f,0.0f,0.5f,1.0f);  
-    dado.asignarExponenteEspecular(50.0);
-    dado.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
+    //dado.asignarReflectividadDifusa(0.5f,0.0f,0.5f,1.0f);  
+    //dado.asignarExponenteEspecular(50.0);
+    //dado.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
     dado.draw();
 
                               // FIN PRÁCTICA 2 
