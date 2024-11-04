@@ -1,6 +1,6 @@
-    // /////// //
-    // PUNTO3D //
-    // /////// //
+    // //// //
+    // DADO //
+    // //// //
 
 #include <iostream>
 #include<cmath>
@@ -42,47 +42,47 @@ using namespace std;
 
 
     void Dado::draw() {
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, texId);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texId);
 
-        glBegin(GL_QUADS);
+    glBegin(GL_QUADS);
 
-        // Cara frontal
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
+    // Cara frontal (1 punto)
+    glTexCoord2f(0.0f, 0.5f); glVertex3f(-1.0f, -1.0f,  1.0f);
+    glTexCoord2f(0.33f, 0.5f); glVertex3f( 1.0f, -1.0f,  1.0f);
+    glTexCoord2f(0.33f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
 
-        // Cara trasera
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
+    // Cara trasera (2 puntos)
+    glTexCoord2f(0.33f, 0.5f); glVertex3f(-1.0f, -1.0f, -1.0f);
+    glTexCoord2f(0.66f, 0.5f); glVertex3f( 1.0f, -1.0f, -1.0f);
+    glTexCoord2f(0.66f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
+    glTexCoord2f(0.33f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
 
-        // Cara izquierda
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
+    // Cara izquierda (3 puntos)
+    glTexCoord2f(0.66f, 0.5f); glVertex3f(-1.0f, -1.0f, -1.0f);
+    glTexCoord2f(1.0f, 0.5f); glVertex3f(-1.0f, -1.0f,  1.0f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
+    glTexCoord2f(0.66f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
 
-        // Cara derecha
-        glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
+    // Cara derecha (4 puntos)
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
+    glTexCoord2f(0.33f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
+    glTexCoord2f(0.33f, 0.5f); glVertex3f( 1.0f,  1.0f,  1.0f);
+    glTexCoord2f(0.0f, 0.5f); glVertex3f( 1.0f,  1.0f, -1.0f);
 
-        // Cara superior
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
+    // Cara superior (5 puntos)
+    glTexCoord2f(0.33f, 0.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
+    glTexCoord2f(0.66f, 0.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
+    glTexCoord2f(0.66f, 0.5f); glVertex3f( 1.0f,  1.0f,  1.0f);
+    glTexCoord2f(0.33f, 0.5f); glVertex3f(-1.0f,  1.0f,  1.0f);
 
-        // Cara inferior
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
+    // Cara inferior (6 puntos)
+    glTexCoord2f(0.66f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
+    glTexCoord2f(1.0f, 0.5f); glVertex3f( 1.0f, -1.0f,  1.0f);
+    glTexCoord2f(0.66f, 0.5f); glVertex3f(-1.0f, -1.0f,  1.0f);
 
-        glEnd();
-        glDisable(GL_TEXTURE_2D);
-    }
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+}

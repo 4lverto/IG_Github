@@ -10,8 +10,8 @@ using namespace std;
 
 // PRÁCTICA 4 - Mallas a dibujar
 
-//Malla dado; // Malla por defecto
-Dado dado1;
+Malla dado; // Malla por defecto
+//Dado dado1;
 
 /**
  * @brief Inicializa el modelo y de las variables globales
@@ -19,7 +19,7 @@ Dado dado1;
 void
 initModel (){
   // Práctica 4
-  dado1.cargarTextura("JPEG/dado.jpg");
+  dado.cargarTextura("JPEG/dado.jpg");
 }
 
                   // /////////////// //
@@ -126,12 +126,12 @@ void Dibuja (void){
                               // PRACTICA 4 //
                               // ////////// //
 
-  dado1.draw();
-  
-  //m.asignarReflectividadDifusa(0.5f,0.0f,0.5f,1.0f);  
-  //m.asignarExponenteEspecular(50.0);
-  //m.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
-  //m.draw();
+    //dado1.draw();
+
+    dado.asignarReflectividadDifusa(0.5f,0.0f,0.5f,1.0f);  
+    dado.asignarExponenteEspecular(50.0);
+    dado.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
+    dado.draw();
 
                               // FIN PRÁCTICA 2 
 

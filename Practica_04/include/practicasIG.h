@@ -14,4 +14,3 @@
 
 // PRÁCTICA 4
 #include "lector-jpg.h"
-#include "Dado.h"

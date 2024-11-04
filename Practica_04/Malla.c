@@ -69,7 +69,7 @@ void Malla::asignarExponenteEspecular(float exp){
  * @brief
  * @param
 */
-/*void Malla::cargarTextura(const char *archivo){
+void Malla::cargarTextura(const char *archivo){
     // Serán unsigned porque son los tipos de datos usados en lector-jpg.cpp
     unsigned width,height;
     unsigned char *imagen = LeerArchivoJPEG(archivo,width,height);
@@ -90,7 +90,7 @@ void Malla::asignarExponenteEspecular(float exp){
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imagen);
 
     delete[] imagen; // Liberamos la memoria RAM usada
-}*/
+}
 
 // //////////////// //
 // RESTO DE MÉTODOS //

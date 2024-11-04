@@ -10,7 +10,6 @@
 #include <vector>
 #include "practicasIG.h"
 
-
 class Dado:Objeto3D{
     private:
         GLuint texId;
