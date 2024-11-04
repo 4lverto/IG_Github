@@ -8,19 +8,33 @@
 using namespace std;
 // MÉTODOS
 
-// PRÁCTICA 4
+// ////////// //
+// PRÁCTICA 4 //
+// ////////// //
+
+/**
+ * @brief
+ * @param 
+*/
 void Malla::asignarReflectividadDifusa(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa){
     reflectividad_difusa[0]=r;
     reflectividad_difusa[1]=g;
     reflectividad_difusa[2]=b;
     reflectividad_difusa[3]=alfa;
 
-    for(int i=0; i < 4; ++i){
-        reflectividad_ambiente[i]=reflectividad_difusa[i];
-    }
+    // Hacemos que la reflectividad ambiente sea igual que la difusa
+    // a menos de que la reflectividad_ambiente sea establecida, en 
+    // cuyo caso se sobreescribirán estos valores.
+    reflectividad_ambiente[0]=reflectividad_difusa[0];
+    reflectividad_ambiente[1]=reflectividad_difusa[1];
+    reflectividad_ambiente[2]=reflectividad_difusa[2];
+    reflectividad_ambiente[3]=reflectividad_difusa[3];
 }
 
-
+/**
+ * @brief
+ * @param 
+*/
 void Malla::asignarReflectividadEspecular(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa){
     reflectividad_especular[0]=r;
     reflectividad_especular[1]=g;
@@ -28,16 +42,28 @@ void Malla::asignarReflectividadEspecular(GLfloat r, GLfloat g, GLfloat b, GLflo
     reflectividad_especular[3]=alfa;
 }
 
-
+/**
+ * @brief
+ * @param 
+*/
 void Malla::asignarReflectividadAmbiente(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa){
     reflectividad_ambiente[0]=r;
     reflectividad_ambiente[1]=g;
     reflectividad_ambiente[2]=b;
     reflectividad_ambiente[3]=alfa;
 }
-    
 
-// 
+/**
+ * @brief
+ * @param 
+*/
+void Malla::asignarExponenteEspecular(float exp){
+    e=exp;
+}
+
+// //////////////// //
+// RESTO DE MÉTODOS //
+// //////////////// //
 
 /**
  * @brief Constructor sin parámetros. Por defecto se construye una malla que forma un cubo dibujado con sombreado plano.
@@ -185,7 +211,7 @@ void Malla::draw(){
     glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
     glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
-    glMaterialf(GL_FRONT, GL_SHININESS,50.0f);
+    glMaterialf(GL_FRONT, GL_SHININESS,e);
 
     if(this->suave){ // Si el atributo suave==TRUE, se dibujará con sombreado suave
         glShadeModel(GL_SMOOTH);
@@ -224,11 +250,11 @@ void Malla::drawFlat(){
         int indice;
 
         if(j==0){
-        indice=t.getI0();
+            indice=t.getI0();
         }else if(j==1){
-        indice=t.getI1();
+            indice=t.getI1();
         }else{
-        indice=t.getI2();
+            indice=t.getI2();
         }
 
         // Doy un vértice en cada iteración hasta pasar los 3 Punto3D(x,y,z)

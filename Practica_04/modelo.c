@@ -107,38 +107,44 @@ void Dibuja (void){
   glPushMatrix ();		// Apila la transformacion geometrica actual
   
   glClearColor (0.0, 0.0, 0.0, 1.0);	// Fija el color de fondo a negro
+  
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Inicializa el buffer de color y el Z-Buffer
+  
   transformacionVisualizacion ();	// Carga transformacion de visualizacion
+  
   glLightfv (GL_LIGHT0, GL_POSITION, pos);	// Declaracion de luz. Colocada aqui esta fija en la escena
+  
   glDisable(GL_LIGHTING);
   ejesCoordenadas.draw();			// Dibuja los ejes
   if(iluminacionActivada){    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea afectado al alterar la iluminación
     glEnable(GL_LIGHTING);
   }
-  
 
                               // ////////// //
                               // PRACTICA 4 //
                               // ////////// //
 
+
+
   // Dibujo la estatua de Beethoven
-
-
   glTranslatef(-10,0,4);
   // beethoven.setSombreadoSuave(false); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
-  beethoven.asignarReflectividadDifusa(0.0f,0.0f,0.0f,0.0f);  
+  // asignarExponenteEspecular(50.0);
+  beethoven.asignarReflectividadDifusa(0.76f,0.8f,0.65f,1.0f);  
   beethoven.draw();
 
   // Dibujo un cubo morado
-  cubo.asignarReflectividadDifusa(0.0f,0.0f,0.0f,0.0f);  
+  cubo.asignarReflectividadDifusa(0.5f,0.0f,0.5f,1.0f);  
   glTranslatef(10,0,0);
+  // asignarExponenteEspecular(50.0);
   // cubo.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
   cubo.draw();
 
   // Dibujo el coche
-  big_dodge.asignarReflectividadDifusa(0.0f,0.0f,0.0f,0.0f);  
+  big_dodge.asignarReflectividadDifusa(0.0f,0.5f,0.0f,1.0f);  
   glTranslatef(10,0,0);
   // big_dodge.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
+  // asignarExponenteEspecular(50.0);
   big_dodge.draw();
   
                               // FIN PRÁCTICA 2 
