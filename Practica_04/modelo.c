@@ -10,8 +10,7 @@ using namespace std;
 
 // PRÁCTICA 4 - Mallas a dibujar
 
-Dado dado; // Malla por defecto
-//Dado dado1;
+Dado dado; // Dado "hereda" de Malla
 
 /**
  * @brief Inicializa el modelo y de las variables globales
@@ -116,6 +115,7 @@ void Dibuja (void){
   glLightfv (GL_LIGHT0, GL_POSITION, pos);	// Declaracion de luz. Colocada aqui esta fija en la escena
   
   glDisable(GL_LIGHTING);
+  
   ejesCoordenadas.draw();			// Dibuja los ejes
   
   if(iluminacionActivada){    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea afectado al alterar la iluminación
@@ -128,9 +128,9 @@ void Dibuja (void){
 
     //dado1.draw();
 
-    //dado.asignarReflectividadDifusa(0.5f,0.0f,0.5f,1.0f);  
-    //dado.asignarExponenteEspecular(50.0);
-    //dado.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
+    dado.asignarReflectividadDifusa(0.5f,0.0f,0.5f,1.0f);  
+    dado.asignarExponenteEspecular(50.0);
+    dado.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
     dado.draw();
 
                               // FIN PRÁCTICA 2 
