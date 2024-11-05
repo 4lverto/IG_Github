@@ -10,7 +10,7 @@ using namespace std;
 
 // PRÁCTICA 4 - Mallas a dibujar
 
-Dado dado; // Dado "hereda" de Malla
+Dado dado(2.0f); // Dado "hereda" de Malla
 
 /**
  * @brief Inicializa el modelo y de las variables globales
@@ -23,8 +23,8 @@ initModel (){
   dado.asignarReflectividadDifusa(1.0f,1.0f,1.0f,1.0f);  
   dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
   dado.asignarReflectividadAmbiente(0.3f,0.3f,0.3f,1.0f);
-  dado.asignarExponenteEspecular(0.0f);
-  dado.setSombreadoSuave(false);
+  dado.asignarExponenteEspecular(50.0f);
+  dado.setSombreadoSuave(true);
 }
 
                   // /////////////// //

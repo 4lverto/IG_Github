@@ -12,9 +12,13 @@
 
 class Dado : public Malla{
 
+    private:
+        float lado;
+        float halflado;
+
     public:
         
-        Dado();
+        Dado(float f);
         void draw();
 };
 
