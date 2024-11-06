@@ -26,42 +26,42 @@ void Dado::draw() {
     glBindTexture(GL_TEXTURE_2D, texId);
     glBegin(GL_QUADS);
 
-    // Cara frontal (1 punto)
+    // Cara frontal (Número 1)
     glNormal3f(0.0f, 0.0f, 1.0f);
-    glTexCoord2f(1/2.0f, 1/1.0f); glVertex3f(-halflado, 0.0f, halflado);  // Vértice inferior izquierdo
-    glTexCoord2f(3/4.0f, 1/1.0f); glVertex3f(halflado, 0.0f, halflado);  // Vértice inferior derecho
-    glTexCoord2f(3/4.0f, 3/4.0f); glVertex3f(halflado, lado, halflado);  // Vértice superior derecho
-    glTexCoord2f(1/2.0f, 3/4.0f); glVertex3f(-halflado,  lado, halflado);  // Vértice superior izquierdo
+    glTexCoord2f(0.25f, 0.75f); glVertex3f(-halflado, 0.0f, halflado);  // Vértice inferior izquierdo
+    glTexCoord2f(0.5f, 0.75f); glVertex3f(halflado, 0.0f, halflado);  // Vértice inferior derecho
+    glTexCoord2f(0.5f, 0.5f); glVertex3f(halflado, lado, halflado);  // Vértice superior derecho
+    glTexCoord2f(0.25f, 0.5f); glVertex3f(-halflado,  lado, halflado);  // Vértice superior izquierdo
 
-    // Cara trasera (2 puntos)
+    // Cara trasera (Número 6)
     glNormal3f(0.0f,0.0f,-1.0f);
-    glTexCoord2f(0.75f, 0.5f); glVertex3f(halflado, lado, -halflado);
-    glTexCoord2f(0.5f, 0.5f); glVertex3f( halflado, 0.0f, -halflado);
-    glTexCoord2f(0.5f, 0.25f); glVertex3f( -halflado,  0.0f, -halflado);
-    glTexCoord2f(0.75f, 0.25f); glVertex3f(-halflado, lado, -halflado);
+    glTexCoord2f(0.75f, 0.75f); glVertex3f(halflado, lado, -halflado);
+    glTexCoord2f(1.0f, 0.75f); glVertex3f( halflado, 0.0f, -halflado);
+    glTexCoord2f(1.0f, 0.5f); glVertex3f( -halflado,  0.0f, -halflado);
+    glTexCoord2f(0.75f, 0.5f); glVertex3f(-halflado, lado, -halflado);
 
-    // Cara izquierda (3 puntos)
+    // Cara izquierda (Número 3)
     glNormal3f(-1.0f, 0.0f, 0.0f);
-    glTexCoord2f(0.25f, 0.5f); glVertex3f(-halflado, 0.0f, -halflado);
-    glTexCoord2f(0.25f, 0.75f); glVertex3f(-halflado, 0.0f,  halflado);
-    glTexCoord2f(0.5f, 0.75f); glVertex3f(-halflado,  lado,  halflado);
-    glTexCoord2f(0.5f, 0.5f); glVertex3f(-halflado, lado, -halflado);
+    glTexCoord2f(0.5f, 0.5f); glVertex3f(-halflado, 0.0f, -halflado);
+    glTexCoord2f(0.75f, 0.5f); glVertex3f(-halflado, 0.0f,  halflado);
+    glTexCoord2f(0.75f, 0.25f); glVertex3f(-halflado,  lado,  halflado);
+    glTexCoord2f(0.5f, 0.25f); glVertex3f(-halflado, lado, -halflado);
 
-    // Cara derecha (4 puntos)
+    // Cara derecha (Número 4)
     glNormal3f(1.0f, 0.0f, 0.0f);
-    glTexCoord2f(1.0f, 0.5f); glVertex3f( halflado, 0.0f, -halflado);
-    glTexCoord2f(0.75, 0.5f); glVertex3f( halflado, lado, -halflado);
+    glTexCoord2f(0.5f, 1.0f); glVertex3f( halflado, 0.0f, -halflado);
+    glTexCoord2f(0.75, 1.0f); glVertex3f( halflado, lado, -halflado);
     glTexCoord2f(0.75f, 0.75f); glVertex3f( halflado, lado, halflado);
-    glTexCoord2f(1.0f, 0.75f); glVertex3f( halflado,  0.0f, halflado);
+    glTexCoord2f(0.5f, 0.75f); glVertex3f( halflado,  0.0f, halflado);
 
-    // Cara superior (5 puntos)
+    // Cara superior (Número 2)
     glNormal3f(0.0f, 1.0f, 0.0f);
     glTexCoord2f(0.75f, 0.5f); glVertex3f(halflado,  lado, -halflado);
     glTexCoord2f(0.5f, 0.5f); glVertex3f( -halflado, lado, -halflado);
     glTexCoord2f(0.5f, 0.75f); glVertex3f( -halflado, lado, halflado);
     glTexCoord2f(0.75f, 0.75f); glVertex3f(halflado, lado, halflado);
 
-    // Cara inferior (6 puntos)
+    // Cara inferior (Número 5)
     glNormal3f(0.0f, -1.0f, 0.0f);
     glTexCoord2f(0.25f, 0.5f); glVertex3f(-halflado, 0.0f, -halflado);
     glTexCoord2f(0.0f, 0.5f); glVertex3f( halflado, 0.0f, -halflado);
@@ -71,3 +71,40 @@ void Dado::draw() {
     glEnd();
     glDisable(GL_TEXTURE_2D);
 }
+
+/*
+    // Cara trasera
+    glNormal3f(0.0f,0.0f,0.0f);
+    glTexCoord2f() ; glVertex3f(); // Inferior izquierda
+    glTexCoord2f() ; glVertex3f(); // Inferior derecha
+    glTexCoord2f() ; glVertex3f(); // Superior derecha
+    glTexCoord2f() ; glVertex3f(); // Superior izquierda
+
+    // Cara superior
+    glNormal3f(0.0f,0.0f,0.0f);
+    glTexCoord2f() ; glVertex3f(); // Inferior izquierda
+    glTexCoord2f() ; glVertex3f(); // Inferior derecha
+    glTexCoord2f() ; glVertex3f(); // Superior derecha
+    glTexCoord2f() ; glVertex3f(); // Superior izquierda
+
+    // Cara inferior
+    glNormal3f(0.0f,0.0f,0.0f);
+    glTexCoord2f() ; glVertex3f(); // Inferior izquierda
+    glTexCoord2f() ; glVertex3f(); // Inferior derecha
+    glTexCoord2f() ; glVertex3f(); // Superior derecha
+    glTexCoord2f() ; glVertex3f(); // Superior izquierda
+
+    // Cara derecha
+    glNormal3f(0.0f,0.0f,0.0f);
+    glTexCoord2f() ; glVertex3f(); // Inferior izquierda
+    glTexCoord2f() ; glVertex3f(); // Inferior derecha
+    glTexCoord2f() ; glVertex3f(); // Superior derecha
+    glTexCoord2f() ; glVertex3f(); // Superior izquierda
+
+    // Cara izquierda
+    glNormal3f(0.0f,0.0f,0.0f);
+    glTexCoord2f() ; glVertex3f(); // Inferior izquierda
+    glTexCoord2f() ; glVertex3f(); // Inferior derecha
+    glTexCoord2f() ; glVertex3f(); // Superior derecha
+    glTexCoord2f() ; glVertex3f(); // Superior izquierda
+*/
