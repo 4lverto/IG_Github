@@ -11,6 +11,9 @@ using namespace std;
 // PRÁCTICA 4 - Mallas a dibujar
 
 Dado dado(4.0f); // Dado "hereda" de Malla
+Malla beeth1("plys/beethoven.ply",true);
+Malla beeth2("plys/beethoven.ply",true);
+Malla beeth3("plys/beethoven.ply",true);
 
 /**
  * @brief Inicializa el modelo y de las variables globales
@@ -23,6 +26,24 @@ initModel (){
   dado.asignarReflectividadDifusa(1.0f,1.0f,1.0f,1.0f);  
   dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
   dado.asignarReflectividadAmbiente(0.8f,0.8f,0.8f,1.0f);
+  dado.asignarExponenteEspecular(100.0f);
+  dado.setSombreadoSuave(true);
+
+  beeth1.cargarTextura("JPEG/texturaMarmol.jpg");
+  beeth1.calculoCoordenadasTexturaCilindrica();
+  beeth1.asignarReflectividadDifusa(1.0f,1.0f,1.0f,1.0f);
+  dado.asignarExponenteEspecular(100.0f);
+  dado.setSombreadoSuave(true);
+
+  beeth2.cargarTextura("JPEG/texturaMarmol.jpg");
+  beeth2.calculoCoordenadasTexturaCilindrica();
+  beeth2.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  dado.asignarExponenteEspecular(100.0f);
+  dado.setSombreadoSuave(true);
+
+  beeth3.cargarTextura("JPEG/texturaMarmol.jpg");
+  beeth3.calculoCoordenadasTexturaCilindrica();
+  beeth3.asignarReflectividadAmbiente(0.8f,0.8f,0.8f,1.0f);
   dado.asignarExponenteEspecular(100.0f);
   dado.setSombreadoSuave(true);
 }
@@ -121,6 +142,15 @@ void Dibuja (void){
                               // ////////// //
 
   dado.draw();
+
+  glTranslatef(10.0,0.0,0.0);
+  beeth1.draw();
+  
+  glTranslatef(0.0,0.0,10.0);
+  beeth2.draw();
+
+  glTranslatef(0.0,0.0,10.0);
+  beeth3.draw();
 
                               // FIN PRÁCTICA 2 
 

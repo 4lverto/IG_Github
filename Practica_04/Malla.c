@@ -92,6 +92,25 @@ void Malla::cargarTextura(const char *archivo){
     delete[] imagen; // Liberamos la memoria RAM usada
 }
 
+// 4) 
+
+void Malla::calculoCoordenadasTexturaCilindrica(){
+    coordenadasTextura.clear();
+
+    for(size_t i=0; i<vertices.size(); ++i){
+        Punto3D vertice = vertices[i];
+    
+
+        float u=atan2(vertice.z,vertice.x)/(2.0f*M_PI)+0.5f;
+
+        float v=(vertice.y + 1.0f) / 2.0f;
+
+        pair<float,float> ct(u,v);
+        coordenadasTextura.push_back(ct);
+    }
+}
+
+
 // //////////////// //
 // RESTO DE MÉTODOS //
 // //////////////// //
@@ -283,13 +302,13 @@ void Malla::drawFlat(){
         glNormal3f(this->normales_caras[i].x , this->normales_caras[i].y , this->normales_caras[i].z);
         
         // Práctica 4 - Asigno las coordenadas de textura
-        glTexCoord2f(0.0f,0.0f);
+        glTexCoord2f(coordenadasTextura[t.getI0()].first, coordenadasTextura[t.getI0()].second);
         glVertex3f(this->vertices[t.getI0()].x , this->vertices[t.getI0()].y , this->vertices[t.getI0()].z);
         
-        glTexCoord2f(1.0f,0.0f);
+        glTexCoord2f(coordenadasTextura[t.getI1()].first, coordenadasTextura[t.getI1()].second);
         glVertex3f(this->vertices[t.getI1()].x , this->vertices[t.getI1()].y , this->vertices[t.getI1()].z);
         
-        glTexCoord2f(0.5f,1.0f);
+        glTexCoord2f(coordenadasTextura[t.getI2()].first, coordenadasTextura[t.getI2()].second);
         glVertex3f(this->vertices[t.getI2()].x , this->vertices[t.getI2()].y , this->vertices[t.getI2()].z);
         
         // Práctica 2 
@@ -331,15 +350,15 @@ void Malla::drawSmooth(){
         Triangulo t = this->caras[i]; // Selecciono cada una de las caras.
         
         // Práctica 4 - Asigno las coordenadas de textura
-        glTexCoord2f(0.0f,0.0f);
+        glTexCoord2f(coordenadasTextura[t.getI0()].first, coordenadasTextura[t.getI0()].second);
         glNormal3f(this->normales_vertices[t.getI0()].x , this->normales_vertices[t.getI0()].y , this->normales_vertices[t.getI0()].z);
         glVertex3f(this->vertices[t.getI0()].x , this->vertices[t.getI0()].y , this->vertices[t.getI0()].z);
         
-        glTexCoord2f(1.0f,0.0f);
+        glTexCoord2f(coordenadasTextura[t.getI1()].first, coordenadasTextura[t.getI1()].second);
         glNormal3f(this->normales_vertices[t.getI1()].x , this->normales_vertices[t.getI1()].y , this->normales_vertices[t.getI1()].z);
         glVertex3f(this->vertices[t.getI1()].x , this->vertices[t.getI1()].y , this->vertices[t.getI1()].z);
         
-        glTexCoord2f(0.5f,1.0f);
+        glTexCoord2f(coordenadasTextura[t.getI2()].first, coordenadasTextura[t.getI2()].second);
         glNormal3f(this->normales_vertices[t.getI2()].x , this->normales_vertices[t.getI2()].y , this->normales_vertices[t.getI2()].z);
         glVertex3f(this->vertices[t.getI2()].x , this->vertices[t.getI2()].y , this->vertices[t.getI2()].z);
 

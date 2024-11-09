@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class Malla {
+class Malla{
   public:
     // Atributos
     vector<float> vertices_ply;  // Coordenadas de los vértices
@@ -42,7 +42,7 @@ class Malla {
     GLuint texId;
 
     // 4) Añadir coordenadas de textura a las mallas
-    float coordenadasTextura;
+    vector<pair<float,float>> coordenadasTextura;
 
     // 1) Añadir Materiales y textura a las mallas
 
@@ -55,6 +55,8 @@ class Malla {
 
     void cargarTextura(const char *archivo);
 
+    // 4) Añadir coordenadas de textura a las mallas mediante cálculo procedural
+    void calculoCoordenadasTexturaCilindrica();
 
     // //////////////// //
     // RESTO DE MÉTODOS //
