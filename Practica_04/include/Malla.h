@@ -41,6 +41,9 @@ class Malla {
     // Identificador de la textura
     GLuint texId;
 
+    // 4) Añadir coordenadas de textura a las mallas
+    float coordenadasTextura;
+
     // 1) Añadir Materiales y textura a las mallas
 
     void asignarReflectividadDifusa(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa=1.0f);

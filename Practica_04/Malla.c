@@ -78,7 +78,7 @@ void Malla::cargarTextura(const char *archivo){
         cerr << "\nError: No se ha cargado la imagen de textura \n";
         return;
     }else{
-        cout << "\nImagen para textura leida con éxito \n Altura: " << height << "Anchura: " << width << "\n";
+        cout << "\nImagen para textura leida con éxito \n-Altura: " << height << "\n-Anchura: " << width << "\n\n";
     }
 
     glGenTextures(1,&texId);

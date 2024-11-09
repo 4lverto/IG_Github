@@ -14,7 +14,7 @@ class Dado : public Malla{
 
     private:
         float lado;
-        float halflado;
+        float mitad;
 
     public:
         
