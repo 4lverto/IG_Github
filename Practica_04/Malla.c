@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <utility>
 #include <GL/glut.h>		// Libreria de utilidades de OpenGL
 #include "include/practicasIG.h"
 
@@ -13,11 +14,6 @@ using namespace std;
 // ////////// //
 
 // 1)
-
-/**
- * @brief
- * @param 
-*/
 void Malla::asignarReflectividadDifusa(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa){
     reflectividad_difusa[0]=r;
     reflectividad_difusa[1]=g;
@@ -33,10 +29,6 @@ void Malla::asignarReflectividadDifusa(GLfloat r, GLfloat g, GLfloat b, GLfloat 
     reflectividad_ambiente[3]=reflectividad_difusa[3];
 }
 
-/**
- * @brief
- * @param 
-*/
 void Malla::asignarReflectividadEspecular(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa){
     reflectividad_especular[0]=r;
     reflectividad_especular[1]=g;
@@ -44,10 +36,6 @@ void Malla::asignarReflectividadEspecular(GLfloat r, GLfloat g, GLfloat b, GLflo
     reflectividad_especular[3]=alfa;
 }
 
-/**
- * @brief
- * @param 
-*/
 void Malla::asignarReflectividadAmbiente(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa){
     reflectividad_ambiente[0]=r;
     reflectividad_ambiente[1]=g;
@@ -55,20 +43,13 @@ void Malla::asignarReflectividadAmbiente(GLfloat r, GLfloat g, GLfloat b, GLfloa
     reflectividad_ambiente[3]=alfa;
 }
 
-/**
- * @brief
- * @param 
-*/
+
 void Malla::asignarExponenteEspecular(float exp){
     e=exp;
 }
 
 // 2) 
 
-/**
- * @brief
- * @param
-*/
 void Malla::cargarTextura(const char *archivo){
     // Serán unsigned porque son los tipos de datos usados en lector-jpg.cpp
     unsigned width,height;
@@ -94,22 +75,88 @@ void Malla::cargarTextura(const char *archivo){
 
 // 4) 
 
+Punto3D Malla::calcularCentro(){
+    Punto3D centro;
+    
+    for(int i=0;i<vertices.size();i++){
+        Punto3D v=vertices[i];
+
+        centro.x += v.x;
+        centro.y += v.y;
+        centro.z += v.z;
+    }
+
+    centro.x = centro.x/vertices.size();
+    centro.y = centro.y/vertices.size();
+    centro.z = centro.z/vertices.size();
+
+    return centro;
+}
+
+
+void Malla::calcularCajaEnvolvente(Punto3D& min, Punto3D& max){
+
+    if(vertices.empty()){
+        cout << "\nERROR CCE -> No hay vertices\n";
+        return;
+    }
+
+    min=vertices[0];
+    max=vertices[0];
+
+    for(int i=1;i<vertices.size();i++){
+        if(vertices[i].x < min.x){
+            min.x=vertices[i].x;
+        }
+
+        if(vertices[i].x > max.x){
+            max.x=vertices[i].x;
+        }
+
+        if(vertices[i].y < min.y){
+            min.y=vertices[i].y;
+        }
+
+        if(vertices[i].y > max.y){
+            max.y=vertices[i].y;
+        }
+
+        if(vertices[i].z < min.z){
+            min.z=vertices[i].z;
+        }
+
+        if(vertices[i].z > max.z){
+            max.z=vertices[i].z;
+        }
+    }
+}
+
+// Con los siguientes métodos calcularemos las coordenadas de textura usando diferentes proyecciones
+
+
+
 void Malla::calculoCoordenadasTexturaCilindrica(){
     coordenadasTextura.clear();
+    
+    Punto3D centro=calcularCentro();
+    Punto3D min,max;
+    calcularCajaEnvolvente(min,max);
+    
+    float altura=max.y - min.y;
 
     for(size_t i=0; i<vertices.size(); ++i){
-        Punto3D vertice = vertices[i];
-    
+        float dx = vertices[i].x - centro.x;
+        float dz = vertices[i].z - centro.z;
 
-        float u=atan2(vertice.z,vertice.x)/(2.0f*M_PI)+0.5f;
+        float distanciaXZ = sqrt(dx*dx + dz*dz);
 
-        float v=(vertice.y + 1.0f) / 2.0f;
+        float u = 0.5f + (dx/distanciaXZ) * 0.5f;
+        float v = (vertices[i].y - min.y)/altura;
 
         pair<float,float> ct(u,v);
         coordenadasTextura.push_back(ct);
     }
 }
-
 
 // //////////////// //
 // RESTO DE MÉTODOS //
