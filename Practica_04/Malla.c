@@ -158,6 +158,46 @@ void Malla::calculoCoordenadasTexturaCilindrica(){
     }
 }
 
+void Malla::calculoCoordenadasTexturaPlano(){
+    Punto3D min,max;
+    calcularCajaEnvolvente(min,max);
+
+    float ancho = max.x - min.x;
+    float profundidad = max.z - min.z;
+
+    for(int i=0;i<vertices.size();i++){
+        float u=(vertices[i].x - min.x)/ancho;
+        float v=(vertices[i].z - min.z)/profundidad;
+    
+        pair<float,float> ct(u,v);
+        coordenadasTextura.push_back(ct);
+    }   
+}
+
+void Malla::calculoCoordenadasTexturaEsfera(){
+    Punto3D centro=calcularCentro();
+
+    Punto3D min,max;
+
+    calcularCajaEnvolvente(min,max);
+
+    float altura=max.y - min.y;
+    float radioMax = sqrt((max.x-centro.x) * (max.x-centro.x)) + ((max.y-centro.y)*(max.y-centro.y)) + ((max.z-centro.z)*(max.z-centro.z));
+
+    for(int i=0;i<vertices.size();i++){
+        float dx = vertices[i].x - centro.x;
+        float dz = vertices[i].z - centro.z;
+        float u = 0.5f + (dx/radioMax);
+
+        float dy = vertices[i].y - centro.y;
+        float distanciaV = sqrt(dx*dx + dy*dy + dz*dz);
+        float v = 0.5f - (dy/distanciaV) * 0.5f;
+
+        pair<float,float> ct(u,v);
+
+        coordenadasTextura.push_back(ct);
+    }
+}
 // //////////////// //
 // RESTO DE MÉTODOS //
 // //////////////// //

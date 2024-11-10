@@ -58,6 +58,11 @@ class Malla{
     // 4) Añadir coordenadas de textura a las mallas mediante cálculo procedural
     Punto3D calcularCentro();
     void calcularCajaEnvolvente(Punto3D &min, Punto3D &max);
+
+      // Implementaré los 3 métodos de cálculo de coordenadas de textura según las proyecciones:
+    
+    void calculoCoordenadasTexturaPlano();
+    void calculoCoordenadasTexturaEsfera(); 
     void calculoCoordenadasTexturaCilindrica();
 
     // //////////////// //

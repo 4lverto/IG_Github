@@ -11,9 +11,9 @@ using namespace std;
 // PRÁCTICA 4 - Mallas a dibujar
 
 Dado dado(4.0f); // Dado "hereda" de Malla
-Malla beeth1("plys/beethoven.ply",false); // Reflectividad difusa
-Malla beeth2("plys/beethoven.ply",false); // Reflectividad ambiente
-Malla beeth3("plys/beethoven.ply",false); // Reflectividad especular
+Malla beeth1("plys/big_dodge.ply",false); // Reflectividad difusa
+Malla beeth2("plys/big_dodge.ply",false); // Reflectividad ambiente
+Malla beeth3("plys/big_dodge.ply",false); // Reflectividad especular
 
 /**
  * @brief Inicializa el modelo y de las variables globales
@@ -29,19 +29,19 @@ initModel (){
   dado.asignarExponenteEspecular(100.0f);
   dado.setSombreadoSuave(true);
 
-  beeth1.cargarTextura("JPEG/texturaMarmol.jpg");
+  beeth1.cargarTextura("JPEG/texturaMetalica2.jpg");
   beeth1.calculoCoordenadasTexturaCilindrica();
   beeth1.asignarReflectividadDifusa(1.0f,1.0f,1.0f,1.0f);
   beeth1.asignarExponenteEspecular(100.0f);
   beeth1.setSombreadoSuave(true);
 
-  beeth2.cargarTextura("JPEG/texturaMarmol.jpg");
+  beeth2.cargarTextura("JPEG/texturaMetalica2.jpg");
   beeth2.calculoCoordenadasTexturaCilindrica();
   beeth2.asignarReflectividadAmbiente(0.8f,0.8f,0.8f,1.0f);
   beeth2.asignarExponenteEspecular(100.0f);
   beeth2.setSombreadoSuave(true);
 
-  beeth3.cargarTextura("JPEG/texturaMarmol.jpg");
+  beeth3.cargarTextura("JPEG/texturaMetalica2.jpg");
   beeth3.calculoCoordenadasTexturaCilindrica();
   beeth3.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
   beeth3.asignarExponenteEspecular(100.0f);
