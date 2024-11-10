@@ -20,8 +20,6 @@ Dado::Dado(float l){
 
 
 void Dado::draw() {
-    glEnable(GL_LIGHTING);
-
     glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
     glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
@@ -77,40 +75,3 @@ void Dado::draw() {
     glEnd();
     glDisable(GL_TEXTURE_2D);
 }
-
-/*
-    // Cara trasera
-    glNormal3f(0.0f,0.0f,0.0f);
-    glTexCoord2f() ; glVertex3f(); // Inferior izquierda
-    glTexCoord2f() ; glVertex3f(); // Inferior derecha
-    glTexCoord2f() ; glVertex3f(); // Superior derecha
-    glTexCoord2f() ; glVertex3f(); // Superior izquierda
-
-    // Cara superior
-    glNormal3f(0.0f,0.0f,0.0f);
-    glTexCoord2f() ; glVertex3f(); // Inferior izquierda
-    glTexCoord2f() ; glVertex3f(); // Inferior derecha
-    glTexCoord2f() ; glVertex3f(); // Superior derecha
-    glTexCoord2f() ; glVertex3f(); // Superior izquierda
-
-    // Cara inferior
-    glNormal3f(0.0f,0.0f,0.0f);
-    glTexCoord2f() ; glVertex3f(); // Inferior izquierda
-    glTexCoord2f() ; glVertex3f(); // Inferior derecha
-    glTexCoord2f() ; glVertex3f(); // Superior derecha
-    glTexCoord2f() ; glVertex3f(); // Superior izquierda
-
-    // Cara derecha
-    glNormal3f(0.0f,0.0f,0.0f);
-    glTexCoord2f() ; glVertex3f(); // Inferior izquierda
-    glTexCoord2f() ; glVertex3f(); // Inferior derecha
-    glTexCoord2f() ; glVertex3f(); // Superior derecha
-    glTexCoord2f() ; glVertex3f(); // Superior izquierda
-
-    // Cara izquierda
-    glNormal3f(0.0f,0.0f,0.0f);
-    glTexCoord2f() ; glVertex3f(); // Inferior izquierda
-    glTexCoord2f() ; glVertex3f(); // Inferior derecha
-    glTexCoord2f() ; glVertex3f(); // Superior derecha
-    glTexCoord2f() ; glVertex3f(); // Superior izquierda
-*/

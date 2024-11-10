@@ -23,6 +23,13 @@ void setModo(int M);
 */
 void setIluminacion();
 
+// PRÁCTICA 4
+
+/**
+ * 
+*/
+void establecerLuzActiva();
+
 class Objeto3D{ 
 	public: 
 

@@ -48,6 +48,27 @@ void Malla::asignarExponenteEspecular(float exp){
     e=exp;
 }
 
+void Malla::configuracionMaterial1(){
+    asignarReflectividadAmbiente(0.25f,0.25f,0.25f,1.0f);
+    asignarReflectividadDifusa(0.6f,0.6f,0.6f,1.0f);
+    asignarReflectividadEspecular(0.9f,0.9f,0.9f,1.0f);
+    asignarExponenteEspecular(100.0f);
+}
+
+void Malla::configuracionMaterial2(){
+    asignarReflectividadAmbiente(0.2f,0.2f,0.2f,1.0f);
+    asignarReflectividadDifusa(0.4f,0.4f,0.4f,1.0f);
+    asignarReflectividadEspecular(0.1f,0.1f,0.1f,0.1f);
+    asignarExponenteEspecular(10.0f);
+}
+
+void Malla::configuracionMaterial3(){
+    asignarReflectividadAmbiente(0.15f,0.15f,0.15f,1.0f);
+    asignarReflectividadDifusa(0.7f,0.7f,0.7f,1.0f);
+    asignarReflectividadEspecular(0.5f,0.5f,0.5f,0.5f);
+    asignarExponenteEspecular(50.0f);
+}
+
 // 2) 
 
 void Malla::cargarTextura(const char *archivo){
@@ -56,10 +77,10 @@ void Malla::cargarTextura(const char *archivo){
     unsigned char *imagen = LeerArchivoJPEG(archivo,width,height);
 
     if(!imagen){
-        cerr << "\nError: No se ha cargado la imagen de textura \n";
-        return;
+        cout << "\nNo se ha cargado la imagen de textura \n";
+        tieneTextura=false;
     }else{
-        cout << "\nImagen para textura leida con éxito \n-Altura: " << height << "\n-Anchura: " << width << "\n\n";
+        cout << "\nImagen para textura leida con éxito \n- " << archivo << "\n- Altura: " << height << "\n-Anchura: " << width << "\n\n";
     }
 
     glGenTextures(1,&texId);
@@ -71,6 +92,8 @@ void Malla::cargarTextura(const char *archivo){
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imagen);
 
     delete[] imagen; // Liberamos la memoria RAM usada
+
+    tieneTextura=true;
 }
 
 // 4) 
@@ -198,14 +221,13 @@ void Malla::calculoCoordenadasTexturaEsfera(){
         coordenadasTextura.push_back(ct);
     }
 }
-// //////////////// //
-// RESTO DE MÉTODOS //
-// //////////////// //
 
-/**
- * @brief Constructor sin parámetros. Por defecto se construye una malla que forma un cubo dibujado con sombreado plano.
- * @return Malla de un cubo que se dibuja con sombreado plano.
-*/
+    // ============= //
+    // OTROS MÉTODOS //
+    // ============= //
+
+// Constructores
+
 Malla::Malla(){
     this->suave=false;
     ply::read("plys/cubo.ply",vertices_ply,caras_ply);
@@ -227,25 +249,21 @@ Malla::Malla(){
     calcular_normales_vertices();
 }
 
-/**
- * @brief Constructor con parámetros. Construye una malla a partir de un archivo y establece su tipo de sombreado
- * @param nombre_archivo Nombre del archivo que va a representar la malla
- * @param sombreadoSuave TRUE si queremos usar sombreado SMOOTH. FALSE si queremos usar sombreado FLAT
-*/
+
 Malla::Malla(const char *nombre_archivo,bool sombreadoSuave){
     this->suave=sombreadoSuave;
     ply::read(nombre_archivo,vertices_ply,caras_ply);
     
     // Vuelco el vector de vértices_ply en otro vector en el que cada componente representa un Punto3D
     for(size_t i=0;i<vertices_ply.size();i+=3){
-    Punto3D v(vertices_ply[i],vertices_ply[i+1],vertices_ply[i+2]);
-    vertices.push_back(v);
+        Punto3D v(vertices_ply[i],vertices_ply[i+1],vertices_ply[i+2]);
+        vertices.push_back(v);
     }
 
     // Vuelco el vector de caras_ply en otro vector en el que cada componente representa un trío de índices (cada índice representará un Punto3D)
     for(size_t i=0;i<caras_ply.size();i+=3){
-    Triangulo t(caras_ply[i],caras_ply[i+1],caras_ply[i+2]);
-    caras.push_back(t);
+        Triangulo t(caras_ply[i],caras_ply[i+1],caras_ply[i+2]);
+        caras.push_back(t);
     }
 
     // Calculamos las normales directamente para tenerlas disponibles nada más construir el objeto
@@ -253,18 +271,12 @@ Malla::Malla(const char *nombre_archivo,bool sombreadoSuave){
     calcular_normales_vertices();
 }
 
-/**
- * @brief Modifica el tipo de sombreado
- * @param s True si se usa sombreado Smooth. False si se usa sombreado Flat
-*/
+
 void Malla::setSombreadoSuave(bool s){
     this->suave=s;
 }
 
-/**
- * @brief Función para calcular las normales de las caras.
- * @post El vector normales_caras contendrá todas las normales de las caras almacenadas en el vector caras
-*/
+
 void Malla::calcular_normales_caras(){
     
     // Limpio el vector<Triangulo> normales_caras
@@ -300,10 +312,7 @@ void Malla::calcular_normales_caras(){
     }
 }
 
-/**
- * @brief Función para calcular las normales de los vértices.
- * @post El vector normales_vertices contendrá las normales de todos los vértices almacenados en vertices
-*/
+
 void Malla::calcular_normales_vertices(){
 
     // Vaciamos el vector de normales de vértices
@@ -337,10 +346,7 @@ void Malla::calcular_normales_vertices(){
     }
 }
 
-/**
- * @brief Función para dibujar en función del sombreado
- * (Podríamos tener las 3 funciones integradas en este método, pero así aumentamos el encapsulamiento)
-*/
+
 void Malla::draw(){
     
     glEnable(GL_LIGHTING);
@@ -353,7 +359,7 @@ void Malla::draw(){
     glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
     glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
-    glMaterialf(GL_FRONT, GL_SHININESS,e);
+    glMaterialf(GL_FRONT, GL_SHININESS, e);
 
     if(this->suave){ // Si el atributo suave==TRUE, se dibujará con sombreado suave
         glShadeModel(GL_SMOOTH);
@@ -367,18 +373,7 @@ void Malla::draw(){
     glDisable(GL_LIGHTING);
 }
 
-/**
- * @brief Función para dibujar la malla en modo FLAT.
- * La iluminación de la cara se calcula con la normal que se le pasa a OpenGL antes del último vértice
- * de la cara. 
- * Por tanto, tenemos que dar la normal de cada cara con glNormal3f(...) antes de que se envíe el último
- * vértice de la cara. Es decir, el orden sería:
- * 
- * normalcara
- * vertice1
- * vertice2
- * vertice3
-*/
+
 void Malla::drawFlat(){
     glBegin(GL_TRIANGLES);
     for(size_t i=0; i<this->caras.size();++i){ // Recorro todas las caras
@@ -389,13 +384,13 @@ void Malla::drawFlat(){
         glNormal3f(this->normales_caras[i].x , this->normales_caras[i].y , this->normales_caras[i].z);
         
         // Práctica 4 - Asigno las coordenadas de textura
-        glTexCoord2f(coordenadasTextura[t.getI0()].first, coordenadasTextura[t.getI0()].second);
+        if(tieneTextura){glTexCoord2f(coordenadasTextura[t.getI0()].first, coordenadasTextura[t.getI0()].second);};
         glVertex3f(this->vertices[t.getI0()].x , this->vertices[t.getI0()].y , this->vertices[t.getI0()].z);
         
-        glTexCoord2f(coordenadasTextura[t.getI1()].first, coordenadasTextura[t.getI1()].second);
+        if(tieneTextura){glTexCoord2f(coordenadasTextura[t.getI1()].first, coordenadasTextura[t.getI1()].second);};
         glVertex3f(this->vertices[t.getI1()].x , this->vertices[t.getI1()].y , this->vertices[t.getI1()].z);
         
-        glTexCoord2f(coordenadasTextura[t.getI2()].first, coordenadasTextura[t.getI2()].second);
+        if(tieneTextura){glTexCoord2f(coordenadasTextura[t.getI2()].first, coordenadasTextura[t.getI2()].second);};
         glVertex3f(this->vertices[t.getI2()].x , this->vertices[t.getI2()].y , this->vertices[t.getI2()].z);
         
         // Práctica 2 
@@ -419,17 +414,7 @@ void Malla::drawFlat(){
     glEnd();
 }
 
-/**
- * @brief Función para dibujar la malla en modo SMOOTH
- * Deberemos dar la normal de cada vértice justo antes de enviar el vértice. Es decir, el orden seŕia:
- * 
- * normalVertice1
- * vertice1
- * normalVertice2
- * vertice2
- * normalVertice3
- * vertice3
-*/
+
 void Malla::drawSmooth(){
 
     glBegin(GL_TRIANGLES);
@@ -437,15 +422,15 @@ void Malla::drawSmooth(){
         Triangulo t = this->caras[i]; // Selecciono cada una de las caras.
         
         // Práctica 4 - Asigno las coordenadas de textura
-        glTexCoord2f(coordenadasTextura[t.getI0()].first, coordenadasTextura[t.getI0()].second);
+        if(tieneTextura){glTexCoord2f(coordenadasTextura[t.getI0()].first, coordenadasTextura[t.getI0()].second);};
         glNormal3f(this->normales_vertices[t.getI0()].x , this->normales_vertices[t.getI0()].y , this->normales_vertices[t.getI0()].z);
         glVertex3f(this->vertices[t.getI0()].x , this->vertices[t.getI0()].y , this->vertices[t.getI0()].z);
         
-        glTexCoord2f(coordenadasTextura[t.getI1()].first, coordenadasTextura[t.getI1()].second);
+        if(tieneTextura){glTexCoord2f(coordenadasTextura[t.getI1()].first, coordenadasTextura[t.getI1()].second);};
         glNormal3f(this->normales_vertices[t.getI1()].x , this->normales_vertices[t.getI1()].y , this->normales_vertices[t.getI1()].z);
         glVertex3f(this->vertices[t.getI1()].x , this->vertices[t.getI1()].y , this->vertices[t.getI1()].z);
         
-        glTexCoord2f(coordenadasTextura[t.getI2()].first, coordenadasTextura[t.getI2()].second);
+        if(tieneTextura){glTexCoord2f(coordenadasTextura[t.getI2()].first, coordenadasTextura[t.getI2()].second);};
         glNormal3f(this->normales_vertices[t.getI2()].x , this->normales_vertices[t.getI2()].y , this->normales_vertices[t.getI2()].z);
         glVertex3f(this->vertices[t.getI2()].x , this->vertices[t.getI2()].y , this->vertices[t.getI2()].z);
 

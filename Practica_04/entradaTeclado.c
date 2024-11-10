@@ -89,6 +89,9 @@ void letra (unsigned char k, int x, int y)
     case 'I':
       setIluminacion(); // Práctica 1
       break;
+    case 'w':
+    case 'W':
+      establecerLuzActiva();
     default:
       return;
     }
