@@ -26,7 +26,7 @@ void setIluminacion();
 // PRÁCTICA 4
 
 /**
- * 
+ * @brief Función para altenar entre los focos de luz 
 */
 void establecerLuzActiva();
 

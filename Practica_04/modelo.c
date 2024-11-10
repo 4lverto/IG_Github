@@ -11,9 +11,9 @@ using namespace std;
 // PRÁCTICA 4 - Mallas a dibujar y Dado
 
 Dado dado(4.0f); // Dado "hereda" de Malla
-Malla beeth1("plys/big_dodge.ply",false); // Reflectividad difusa
-Malla beeth2("plys/big_dodge.ply",false); // Reflectividad ambiente
-Malla beeth3("plys/big_dodge.ply",false); // Reflectividad especular
+Malla coche1("plys/big_dodge.ply",false); // Reflectividad difusa
+Malla coche2("plys/big_dodge.ply",false); // Reflectividad ambiente
+Malla coche3("plys/big_dodge.ply",false); // Reflectividad especular
 
 // PRÁCTICA 4 - Dos focos de luz distintos
 
@@ -29,25 +29,23 @@ void
 initModel (){
   // Práctica 4
   dado.cargarTextura("JPEG/dado.jpg");
-
-  dado.asignarReflectividadDifusa(0.5f,0.5f,0.5f,1.0f);  
-  dado.asignarReflectividadEspecular(0.8f,0.8f,0.8f,1.0f);
-  dado.asignarReflectividadAmbiente(1.0f,1.0f,1.0f,1.0f);
-  dado.asignarExponenteEspecular(100.0f);
+  dado.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  dado.asignarExponenteEspecular(49.0f);
   dado.setSombreadoSuave(true);
 
-  beeth1.cargarTextura("JPEG/texturaMetalica2.jpg");
-  beeth1.calculoCoordenadasTexturaCilindrica();
-  beeth1.configuracionMaterial1();
-  beeth1.setSombreadoSuave(true);
+  coche1.cargarTextura("JPEG/texturaMarmol.jpg");
+  coche1.calculoCoordenadasTexturaCilindrica();
+  coche1.configuracionMaterial1();
+  coche1.setSombreadoSuave(true);
 
-  beeth2.cargarTextura("JPEG/texturaMetalica2.jpg");
-  beeth2.calculoCoordenadasTexturaCilindrica();
-  beeth2.configuracionMaterial2();
-  beeth2.setSombreadoSuave(true);
+  coche2.cargarTextura("JPEG/texturaMarmol.jpg");
+  coche2.calculoCoordenadasTexturaCilindrica();
+  coche2.configuracionMaterial2();
+  coche2.setSombreadoSuave(true);
 
-  beeth3.configuracionMaterial3();
-  beeth3.setSombreadoSuave(true);
+  coche3.configuracionMaterial3();
+  coche3.setSombreadoSuave(true);
 }
 
                   // /////////////// //
@@ -111,7 +109,9 @@ void setIluminacion(){
   }
 }
 
-// PRÁCTICA 4 - Alternar entre los focos de luz definidos
+// //////////
+// PRÁCTICA 4 - Alternar entre los focos de luz definidos. Tecla W
+// //////////
 
 void establecerLuzActiva(){
 
@@ -157,14 +157,14 @@ void Dibuja (void){
 
   dado.draw();
 
-  glTranslatef(10.0,0.0,0.0);
-  beeth1.draw();
+  glTranslatef(10.0,0.0,-5.0);
+  coche1.draw();
   
   glTranslatef(0.0,0.0,10.0);
-  beeth2.draw();
+  coche2.draw();
 
   glTranslatef(0.0,0.0,10.0);
-  beeth3.draw();
+  coche3.draw();
 
                               // FIN PRÁCTICA 4
 

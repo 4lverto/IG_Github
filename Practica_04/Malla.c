@@ -14,6 +14,7 @@ using namespace std;
 // ////////// //
 
 // 1)
+
 void Malla::asignarReflectividadDifusa(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa){
     reflectividad_difusa[0]=r;
     reflectividad_difusa[1]=g;
@@ -91,16 +92,20 @@ void Malla::cargarTextura(const char *archivo){
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imagen);
 
-    delete[] imagen; // Liberamos la memoria RAM usada
+    delete[] imagen; // Liberamos la memoria usada
 
-    tieneTextura=true;
+    tieneTextura=true; 
 }
 
 // 4) 
 
+// Se definirá un punto de referencia desde el que se calculará la orientación de cada
+// vértice en el espacio. Esencial para proyecciones cilíndricas y esféricas.
 Punto3D Malla::calcularCentro(){
     Punto3D centro;
     
+    // Sumo cada coordenada de cada vértice de mi malla y defino el centro haciendo
+    // un promedio de cada una de estas coordenadas.
     for(int i=0;i<vertices.size();i++){
         Punto3D v=vertices[i];
 
@@ -116,7 +121,8 @@ Punto3D Malla::calcularCentro(){
     return centro;
 }
 
-
+// Permite normalizar las coordenadas de los vértices de cada eje, de forma que todas
+// las coordenadas de textrura (u,v) etarán en el rango [0,1]
 void Malla::calcularCajaEnvolvente(Punto3D& min, Punto3D& max){
 
     if(vertices.empty()){
@@ -124,9 +130,13 @@ void Malla::calcularCajaEnvolvente(Punto3D& min, Punto3D& max){
         return;
     }
 
+    // Establezco min y max al primer vértice de la malla
+    // (podría ser cualquiera en realidad pero facilitira la iteración)
     min=vertices[0];
     max=vertices[0];
 
+    // Recorro todos los vértices para encontrar la coordenada más alta y más baja,
+    // que serán asignadas respectivamente a cada coordenada de min y max
     for(int i=1;i<vertices.size();i++){
         if(vertices[i].x < min.x){
             min.x=vertices[i].x;
@@ -152,30 +162,40 @@ void Malla::calcularCajaEnvolvente(Punto3D& min, Punto3D& max){
             max.z=vertices[i].z;
         }
     }
+
+    // En este momento, min y max representarán las "esquinas" de la caja envolvente
 }
 
 // Con los siguientes métodos calcularemos las coordenadas de textura usando diferentes proyecciones
 
-
-
 void Malla::calculoCoordenadasTexturaCilindrica(){
     coordenadasTextura.clear();
     
-    Punto3D centro=calcularCentro();
+    Punto3D centro=calcularCentro(); // Calculamos el centro geométrico
+    
     Punto3D min,max;
+    // Calculamos la caja envolvente para definir los límites del obejto en cada eje, facilitando 
+    // la normalización de las coordenadas en el eje Y
     calcularCajaEnvolvente(min,max);
     
     float altura=max.y - min.y;
 
     for(size_t i=0; i<vertices.size(); ++i){
+
+        // Calculo la distancia de las coordenadas X y Z de cada vértice respecto al centro calculado
         float dx = vertices[i].x - centro.x;
         float dz = vertices[i].z - centro.z;
-
+        
         float distanciaXZ = sqrt(dx*dx + dz*dz);
-
+        
+        // Coordenada u -> Representa un ángulo aproximado en todno al eje Y de la malla
         float u = 0.5f + (dx/distanciaXZ) * 0.5f;
-        float v = (vertices[i].y - min.y)/altura;
 
+        // Coordenada v -> Se obtiene a partir de la posición Y de cada vértice, normalizada
+        // dentro de la altura de la caja envolvente. Esto permite distribuir "v" en [0,1]
+        float v = (vertices[i].y - min.y)/altura;
+        
+        // Almacenamos u,v como un par de valores
         pair<float,float> ct(u,v);
         coordenadasTextura.push_back(ct);
     }
@@ -392,25 +412,8 @@ void Malla::drawFlat(){
         
         if(tieneTextura){glTexCoord2f(coordenadasTextura[t.getI2()].first, coordenadasTextura[t.getI2()].second);};
         glVertex3f(this->vertices[t.getI2()].x , this->vertices[t.getI2()].y , this->vertices[t.getI2()].z);
-        
-        // Práctica 2 
-        /*
-        // Envío los 3 vértices (podría hacerlo usando glVertex3f(...) 3 veces)
-        for(int j=0;j<3;++j){
-            int indice;
-
-            if(j==0){
-                indice=t.getI0();
-            }else if(j==1){
-                indice=t.getI1();
-            }else{
-                indice=t.getI2();
-            }
-
-            // Doy un vértice en cada iteración hasta pasar los 3 Punto3D(x,y,z)
-            glVertex3f(this->vertices[indice].x , this->vertices[indice].y , this->vertices[indice].z);
-        }*/
     }
+
     glEnd();
 }
 
@@ -433,26 +436,6 @@ void Malla::drawSmooth(){
         if(tieneTextura){glTexCoord2f(coordenadasTextura[t.getI2()].first, coordenadasTextura[t.getI2()].second);};
         glNormal3f(this->normales_vertices[t.getI2()].x , this->normales_vertices[t.getI2()].y , this->normales_vertices[t.getI2()].z);
         glVertex3f(this->vertices[t.getI2()].x , this->vertices[t.getI2()].y , this->vertices[t.getI2()].z);
-
-
-        // Práctica 2
-        /*
-        // Mando a dibujar los 3 vértices de cada triángulo a partir de los 3 índices del triángulo actual
-        for(int j=0;j<3;++j){
-            int indice;
-
-            if(j==0){
-            indice=t.getI0();
-            }else if(j==1){
-            indice=t.getI1();
-            }else{
-            indice=t.getI2();
-            }
-            
-            // Antes de enviar cada vértice a dibujar, deberemos dar su normal (la del vértice)
-            glNormal3f(this->normales_vertices[indice].x , this->normales_vertices[indice].y , this->normales_vertices[indice].z);
-            glVertex3f(this->vertices[indice].x , this->vertices[indice].y , this->vertices[indice].z);
-        }*/
     }
     glEnd();
 }

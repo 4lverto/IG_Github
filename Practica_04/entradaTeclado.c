@@ -91,7 +91,7 @@ void letra (unsigned char k, int x, int y)
       break;
     case 'w':
     case 'W':
-      establecerLuzActiva();
+      establecerLuzActiva(); // Práctica 4
     default:
       return;
     }

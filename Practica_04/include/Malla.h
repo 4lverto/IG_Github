@@ -21,21 +21,44 @@ class Malla{
 
     // 1) Añadir Materiales y textura a las mallas
 
-    // Variables para almacenar las coordenadas de la luz para modificar el material
+    /**
+     * @brief Reflectividad difusa del material en formato RGBA
+    */
     GLfloat reflectividad_difusa[4] = { 0.8f, 0.8f, 0.8f, 1.0f };
+    
+    /**
+     * @brief Reflectividad especular del material en formato RGBA
+    */
     GLfloat reflectividad_especular[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+    /**
+     * @brief Reflectividad ambiente del material en formato RGBA
+    */
     GLfloat reflectividad_ambiente[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+
+    /**
+     * @brief Exponente especular que define el brillo del material
+    */
     float e=0.0;
 
     // 2) Asignar una textura leída de un archivo a un objeto.
 
-    // Identificador de la textura
+    /**
+     * @brief Identificador de la textura asociada a la malla
+    */
     GLuint texId;
 
     // 4) Añadir coordenadas de textura a las mallas
+
+    /**
+     * @brief Vector que almacenará las coordenadas de textura para cada vértice de la malla
+    */
     vector<pair<float,float>> coordenadasTextura;
 
-    bool tieneTextura=false; // Será true si la Malla tiene una textura asociada y false en caso contrario
+    /**
+     * @brief Será true si la Malla tiene una textura asociada y false en caso contrario
+    */
+    bool tieneTextura=false;
 
       // =============== //
       // OTROS ATRIBUTOS // 
@@ -62,29 +85,99 @@ class Malla{
 
     // 1) Añadir Materiales y textura a las mallas
 
+    /**
+     * @brief Asigna la reflectividad difusa del material
+     * @param r componente roja
+     * @param g componente verde
+     * @param b componente azul
+     * @param alfa componente alfa. Valor predeterminado 1.0f
+    */
     void asignarReflectividadDifusa(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa=1.0f);
+
+    /**
+     * @brief Asigna la reflectividad especular del material
+     * @param r componente roja
+     * @param g componente verde
+     * @param b componente azul
+     * @param alfa componente alfa. Valor predeterminado 1.0f
+    */
     void asignarReflectividadEspecular(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa=1.0f);
+
+    /**
+     * @brief Asigna la reflectividad ambiente del material
+     * @param r componente roja
+     * @param g componente verde
+     * @param b componente azul
+     * @param alfa componente alfa. Valor predeterminado 1.0f
+    */
     void asignarReflectividadAmbiente(GLfloat r, GLfloat g, GLfloat b, GLfloat alfa=1.0f);
-    void asignarExponenteEspecular(float exp=0.0);
+
+    /**
+     * @brief Asigna el exponente especular del material
+     * @param exp Exponente especular. Valor predeterminado 0.0f
+    */
+    void asignarExponenteEspecular(float exp=0.0f);
 
     // Para que se aprecie bien la diferencia de materiales que le asignaré a las mallas que 
     // dibujo, he creado 3 configuraciones con combinaciones de reflectividades muy distintas:
+
+    /**
+     * @brief Configura la primera combinación de reflectividades para el material
+    */
     void configuracionMaterial1();
+
+    /**
+     * @brief Configura la segunda combinación de reflectividades para el material
+    */
     void configuracionMaterial2();
+
+    /**
+     * @brief Configura la tercera combinación de reflectividades para el material
+    */
     void configuracionMaterial3();
 
     // 2) Asignar una textura leída de un archivo a un objeto.
 
+    /**
+     * @brief Se carga una textura desde un archivo (utilizaré JPG/JPEG)
+     * @param archivo Ruta del archivo donde está la textura en cuestión
+    */
     void cargarTextura(const char *archivo);
 
     // 4) Añadir coordenadas de textura a las mallas mediante cálculo procedural
+
+    /**
+     * @brief Calcula el centro geométrico de la malla
+     * @return Punto3D con las coordenadas del centro
+    */
     Punto3D calcularCentro();
+
+    /**
+     * @brief Calcula la caja envolvente de la malla
+     * @param min Punto3D que representa la "esquina" mínima de la malla
+     * @param max Punto3D que representa la "esquina" superior de la malla
+    */
     void calcularCajaEnvolvente(Punto3D &min, Punto3D &max);
 
-      // Implementaré los 3 métodos de cálculo de coordenadas de textura según las proyecciones:
+    // Implementaré los 3 métodos de cálculo de coordenadas de textura según las proyecciones,
+    // aunque sólamente utilizaré la versión de las proyecciones cilíndricas:
     
+    /**
+     * @brief Calcula las coordenadas de textura proyectadas en un plano
+     * Se recomienda usar esta en caso de objetos o superficies planas como suelo o pared
+    */
     void calculoCoordenadasTexturaPlano();
+
+    /**
+     * @brief Calcula las coordenadas de textura proyectadas en una esfera
+     * Se recomienda usar esta con mallas que tienen forma esférica como planetas.
+    */
     void calculoCoordenadasTexturaEsfera(); 
+
+    /**
+     * @brief Calcula las coordenadas de textura proyectadas en un cilindro
+     * Se recomienda usar esta en caso de objetos con simetría cilíndrica como columnas
+    */
     void calculoCoordenadasTexturaCilindrica();
 
     // ============= //
