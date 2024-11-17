@@ -32,31 +32,29 @@ void printHelp ()
   // Ayuda otras teclas
 
   // Práctica 2
-  printf ("p,P -> Modo de visualización :puntos");
-  printf ("l,L -> Modo de visualización :alambre");
-  printf ("f,F -> Modo de visualización :completo");
-  printf ("i,I -> Altenar activación/desactivación de luz");
+  printf ("\n\np,P -> Modo de visualización :puntos\n");
+  printf ("l,L -> Modo de visualización :alambre\n");
+  printf ("f,F -> Modo de visualización :completo\n");
+  printf ("i,I -> Altenar activación/desactivación de luz\n");
 
   // Práctica 3
-  printf ("C   -> Subir el cilindro (base del taburete)");
-  printf ("c   -> Bajar el cilindro (base del taburete)");
-  printf ("V   -> Rotar el asiento hacia la derecha");
-  printf ("v   -> Rotar el asiento hacia la izquierda");
-  printf ("B   -> Inclinar el respaldo hacia atrás ");
+  printf ("\nC   -> Subir el cilindro (base del taburete)\n");
+  printf ("c   -> Bajar el cilindro (base del taburete)\n");
+  printf ("V   -> Rotar el asiento hacia la derecha\n");
+  printf ("v   -> Rotar el asiento hacia la izquierda\n");
+  printf ("B   -> Inclinar el respaldo hacia atrás\n");
   printf ("b   -> Inclinar el respaldo hacia delante");
-  printf ("A,a -> Alternar activación/desactivación de la animación automática");
-  printf ("T,t -> Aumentar la velocidad de giro del cilindro ");
-  printf ("G,g -> Reducir la velocidad de giro del cilindro");
-  printf ("Y,y -> Aumentar la velcocidad de giro del asiento");
-  printf ("H,h -> Reducir la velocidad de giro del asiento");
-  printf ("U,u -> Aumentar la velocidad de inclinación del respaldo");
-  printf ("J,j -> Reducir la velocidad de inclinación del respaldo");
+  printf ("A,a -> Alternar activación/desactivación de la animación automática\n");
+  printf ("T,t -> Aumentar la velocidad de giro del cilindro\n");
+  printf ("G,g -> Reducir la velocidad de giro del cilindro\n");
+  printf ("Y,y -> Aumentar la velcocidad de giro del asiento\n");
+  printf ("H,h -> Reducir la velocidad de giro del asiento\n");
+  printf ("U,u -> Aumentar la velocidad de inclinación del respaldo\n");
+  printf ("J,j -> Reducir la velocidad de inclinación del respaldo\n");
 
   // Práctica 4
-  printf ("W,w -> Alternar entre las dos posiciones de luz activas");
+  printf ("\nW,w -> Alternar entre las dos posiciones de luz activas\n");
 
-
-  printf ("");
   printf ("\n Escape: Salir");
   printf ("\n\n\n");
 }
