@@ -23,11 +23,38 @@ void printHelp ()
   printf ("\n E.T.S.I. Informatica		Univ. de Granada ");
   printf ("\n");
   printf ("\n Opciones: \n\n");
-  printf ("h, H: Imprime informacion de ayuda \n");
+  printf ("z, Z: Imprime informacion de ayuda \n");
   printf ("PgUp, PgDn: avanza y retrocede la cámara \n\n");
   printf ("+,-: avanza y retrocede la cámara \n\n");
   printf ("Teclas de movimiento de cursor: giran la camara\n");
   // Anyade la informacion de las opciones que introduzcas aqui !!       
+  
+  // Ayuda otras teclas
+
+  // Práctica 2
+  printf ("p,P -> Modo de visualización :puntos");
+  printf ("l,L -> Modo de visualización :alambre");
+  printf ("f,F -> Modo de visualización :completo");
+  printf ("i,I -> Altenar activación/desactivación de luz");
+
+  // Práctica 3
+  printf ("C   -> Subir el cilindro (base del taburete)");
+  printf ("c   -> Bajar el cilindro (base del taburete)");
+  printf ("V   -> Rotar el asiento hacia la derecha");
+  printf ("v   -> Rotar el asiento hacia la izquierda");
+  printf ("B   -> Inclinar el respaldo hacia atrás ");
+  printf ("b   -> Inclinar el respaldo hacia delante");
+  printf ("A,a -> Alternar activación/desactivación de la animación automática");
+  printf ("T,t -> Aumentar la velocidad de giro del cilindro ");
+  printf ("G,g -> Reducir la velocidad de giro del cilindro");
+  printf ("Y,y -> Aumentar la velcocidad de giro del asiento");
+  printf ("H,h -> Reducir la velocidad de giro del asiento");
+  printf ("U,u -> Aumentar la velocidad de inclinación del respaldo");
+  printf ("J,j -> Reducir la velocidad de inclinación del respaldo");
+
+  // Práctica 4
+  printf ("W,w -> Alternar entre las dos posiciones de luz activas");
+
 
   printf ("");
   printf ("\n Escape: Salir");
