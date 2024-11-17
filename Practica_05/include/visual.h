@@ -27,10 +27,10 @@
 	visual.h
 */
 
-
+#include <GL/glut.h>		// Libreria de utilidades de OpenGL
+#include <GL/gl.h>
 
 //======================== visual.c
-
 
 /** 	void setCamara()
 

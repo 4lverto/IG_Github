@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <utility>
-#include <GL/glut.h>		// Libreria de utilidades de OpenGL
 #include "include/practicasIG.h"
 
 using namespace std;

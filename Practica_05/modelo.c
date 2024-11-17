@@ -9,7 +9,12 @@
 
 using namespace std;
 
-// PRÁCTICA 3 - Componentes de mi silla
+// PRÁCTICA 2 - Mallas con PLYs
+Malla beethoven("plys/beethoven.ply",true);
+Malla big_dodge("plys/big_dodge.ply",false);
+
+// PRÁCTICA 3 - Componentes de mi modelo jerárquico articulado
+
 bool animacionActiva=false; // Se gestiona con A y a
 float VEL_Cilindro=0.01f;   // Se gestiona con T y G
 float VEL_Asiento=0.5f;     // Se gestiona con Y y H
@@ -139,6 +144,13 @@ void establecerLuzActiva(){
 */
 void Dibuja (void){
 
+  float morado[4]={0.8,0,1,1};
+  float verde[4]={0,1,0,1};
+  float rojo[4]={1,0,0,1};
+  float azul[4]={0,0,1,1};
+  float negro[4]={0,0,0,1};
+  float blanco[4]={1,1,1,1};
+
   glPushMatrix ();		// Apila la transformacion geometrica actual
   
   glClearColor (0.0, 0.0, 0.0, 1.0);	// Fija el color de fondo a negro
@@ -165,7 +177,7 @@ void Dibuja (void){
 
   dado.draw();
 
-  glTranslatef(10.0,0.0,-5.0);
+  glTranslatef(10.0,0.0,-10.0);
   coche1.draw();
   
   glTranslatef(0.0,0.0,10.0);
@@ -174,8 +186,24 @@ void Dibuja (void){
   glTranslatef(0.0,0.0,10.0);
   coche3.draw();
 
-  glTranslatef(-10.0,0.0,-20.0);
+  // PRÁCTICA 3
+
+  glTranslatef(-15.0,0.0,-10.0);
   dibujaTaburete();
+
+
+  // PRÁCTICA 2
+
+  glTranslatef(-5.0,0.0,0.-5.0);
+  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
+  // beethoven.setSombreadoSuave(false); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
+  beethoven.draw();
+
+  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
+  glTranslatef(0.0,0.0,10.0);
+  // big_dodge.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
+  big_dodge.draw();
+
 
                               // FIN PRÁCTICA 4
 
@@ -190,7 +218,6 @@ void Dibuja (void){
 */
 void idle (int v){
 
-  /*
   // Actualización de la velocidad de escalado de altura del cilindro
   if(animacionActiva){
     if(alturaCilindro>=2.0f || alturaCilindro<=0.5f){
@@ -215,7 +242,7 @@ void idle (int v){
 
     inclinacionRespaldo += VEL_Respaldo; 
   }
-  */
+  
 
   glutPostRedisplay ();		// Redibuja
   glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms

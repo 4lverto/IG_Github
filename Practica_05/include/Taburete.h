@@ -7,7 +7,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include <GL/glut.h>		// Libreria de utilidades de OpenGL
-#include "practicasIG.h"
+#include "Asiento.h"
+#include "Cilindro.h"
+#include "Respaldo.h"
 
 // Variables globales para controlar las transformaciones:
 extern float alturaCilindro;

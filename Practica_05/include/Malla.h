@@ -2,6 +2,8 @@
 #ifndef MALLA_H
 #define MALLA_H
 
+#include <GL/glut.h>		// Libreria de utilidades de OpenGL
+#include <GL/gl.h>
 #include <vector>
 #include "Punto3D.h"
 #include "Triangulo.h"

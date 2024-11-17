@@ -9,7 +9,6 @@ modulo visual.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <GL/glut.h>		// Libreria de utilidades de OpenGL
 #include "include/practicasIG.h"
 
 

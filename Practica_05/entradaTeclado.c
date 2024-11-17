@@ -29,6 +29,7 @@ void printHelp ()
   printf ("Teclas de movimiento de cursor: giran la camara\n");
   // Anyade la informacion de las opciones que introduzcas aqui !!       
 
+  printf ("");
   printf ("\n Escape: Salir");
   printf ("\n\n\n");
 }
@@ -61,9 +62,9 @@ void letra (unsigned char k, int x, int y)
 {
   switch (k)
     {
-    case 'h':
-    case 'H':
-      printHelp ();		// H y h imprimen ayuda
+    case 'z':
+    case 'Z':
+      printHelp ();		// Z y z imprimen ayuda
       break;
     case '+':			// acerca la cámara
       dCamara -= 5.0;
@@ -88,6 +89,66 @@ void letra (unsigned char k, int x, int y)
     case 'i':
     case 'I':
       setIluminacion(); // Práctica 1
+      break;
+    case 'C': // A partir de aquí es práctica 3
+      if(alturaCilindro<2.0f){
+        alturaCilindro+=0.1f; // Subir el cilindro 
+      }
+      break;
+    case 'c':
+      if(alturaCilindro>0.5f){
+        alturaCilindro-=0.1f; // Bajar el cilindro 
+      }
+      break;
+    case 'V':
+      rotacionAsiento-=1.0f; // Rotar asiento a la izquierda
+      break;
+    case 'v':
+      rotacionAsiento+=2.0f; // Rotar asiento a la derecha
+      break;
+    case 'B':
+      if(inclinacionRespaldo>-25.0f){
+        inclinacionRespaldo-=0.5f; // Inclinar respaldo hacia la izquierda
+      }
+      break;
+    case 'b':
+      if(inclinacionRespaldo<0.0f){
+        inclinacionRespaldo+=0.5f; // Inclinar respaldo hacia delante
+      }
+      break;
+    case 'A':
+    case 'a':
+      animacionActiva = !animacionActiva; // Activar / desactivar la animación automática  
+      break;
+    case 'T':
+    case 't':
+      VEL_Cilindro+=0.01f; // Aumentar la velocidad de giro del cilindro
+      break;
+    case 'G':
+    case 'g':
+      if(VEL_Cilindro > 0.01f){ // Reducir la velocidad de giro del cilindro
+        VEL_Cilindro-=0.01f;
+      }
+      break;
+    case 'Y':
+    case 'y':
+      VEL_Asiento+=0.1f; // Aumentar la velocidad de giro del asiento
+      break;
+    case 'H':
+    case 'h':
+      if(VEL_Asiento > 0.1f){ // Reducir la velocidad de giro del asiento
+        VEL_Asiento-=0.1f;
+      }
+      break;
+    case 'U':
+    case 'u':
+      VEL_Respaldo+=0.1f; // Aumentar la velocidad de inclinación del respaldo
+      break;
+    case 'J':
+    case 'j':
+      if(VEL_Respaldo > 0.1f){ // Reducir la velocidad de inclinación del respaldo
+        VEL_Respaldo-=0.1f;
+      }
       break;
     case 'w':
     case 'W':
