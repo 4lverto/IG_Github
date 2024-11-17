@@ -51,6 +51,8 @@
         "triangulo.h": "c",
         "respaldo.h": "c",
         "stdlib.h": "c",
-        "file_ply_stl.h": "c"
+        "file_ply_stl.h": "c",
+        "modelo.h": "c",
+        "asiento.h": "c"
     }
 }

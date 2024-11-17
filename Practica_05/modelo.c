@@ -5,8 +5,16 @@
 #include <GL/glut.h>		// Libreria de utilidades de OpenGL
 #include "include/practicasIG.h"
 #include <vector>
+#include <stdbool.h>
 
 using namespace std;
+
+// PRÁCTICA 3 - Componentes de mi silla
+bool animacionActiva=false; // Se gestiona con A y a
+float VEL_Cilindro=0.01f;   // Se gestiona con T y G
+float VEL_Asiento=0.5f;     // Se gestiona con Y y H
+float VEL_Respaldo=0.1f;    // Se gestiona con U y J
+
 
 // PRÁCTICA 4 - Mallas a dibujar y Dado
 
@@ -27,7 +35,9 @@ bool luzActiva=true;
 */
 void
 initModel (){
-  // Práctica 4
+  // ////////// //
+  // Práctica 4 //
+  // ////////// //
   dado.cargarTextura("JPEG/dado.jpg");
   dado.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
   dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
@@ -124,8 +134,6 @@ void establecerLuzActiva(){
   }
 }
 
-// ///////////////////////////////////////////////
-
 /**
  * @brief Procedimiento de dibujo del modelo. Es llamado por glut cada vez que se debe redibujar.
 */
@@ -166,6 +174,9 @@ void Dibuja (void){
   glTranslatef(0.0,0.0,10.0);
   coche3.draw();
 
+  glTranslatef(-10.0,0.0,-20.0);
+  dibujaTaburete();
+
                               // FIN PRÁCTICA 4
 
   glPopMatrix ();		// Desapila la transformacion geometrica
@@ -178,6 +189,34 @@ void Dibuja (void){
  * @brief Procedimiento de fondo. Es llamado por glut cuando no hay eventos pendientes.
 */
 void idle (int v){
+
+  /*
+  // Actualización de la velocidad de escalado de altura del cilindro
+  if(animacionActiva){
+    if(alturaCilindro>=2.0f || alturaCilindro<=0.5f){
+      VEL_Cilindro = -VEL_Cilindro;
+    }
+
+    alturaCilindro += VEL_Cilindro;
+
+    // Actualización de la velocidad de rotación del asiento
+
+    rotacionAsiento += VEL_Asiento;
+
+    if(rotacionAsiento >= 360.0f || rotacionAsiento <= -360.0f){
+      rotacionAsiento=0.0f;  
+    }
+
+    // Actualización de la velocidad de rotación (inclinación) del respaldo
+    
+    if(inclinacionRespaldo >= 0.0f || inclinacionRespaldo <= -25.0f){
+      VEL_Respaldo = -VEL_Respaldo;
+    }
+
+    inclinacionRespaldo += VEL_Respaldo; 
+  }
+  */
+
   glutPostRedisplay ();		// Redibuja
   glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms
 }

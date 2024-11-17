@@ -12,6 +12,12 @@
 #include "Triangulo.h"
 #include "Malla.h"
 
+// PRÁCTICA 3
+#include  "Respaldo.h"
+#include  "Asiento.h"
+#include  "Cilindro.h"
+#include  "Taburete.h"
+
 // PRÁCTICA 4
 #include "lector-jpg.h"
 #include "Dado.h"
