@@ -6,6 +6,8 @@
 #include  "entradaTeclado.h"
 #include  "visual.h"
 #include  "file_ply_stl.h"
+    
+extern bool iluminacionActivada;
 
 // PRÁCTICA 2
 #include "Punto3D.h"

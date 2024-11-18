@@ -150,6 +150,8 @@ void establecerLuzActiva(){
   }else{
     glLightfv(GL_LIGHT0,GL_POSITION,posLuz2);
   }
+
+  glutPostRedisplay();
 }
 
 /**
@@ -187,6 +189,8 @@ void Dibuja (void){
   
   if(iluminacionActivada){    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea afectado al alterar la iluminación
     glEnable(GL_LIGHTING);
+  }else{
+    glDisable(GL_LIGHTING);
   }
 
   dado.draw();
