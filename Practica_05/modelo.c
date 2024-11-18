@@ -176,8 +176,10 @@ void Dibuja (void){
 
   // Dibujamos los ejes de coordenadas de forma que no se vean afectados por la iluminación
   
+  glPushAttrib(GL_LIGHTING_BIT | GL_CURRENT_BIT);
+  glDisable(GL_LIGHTING);
   ejesCoordenadas.draw();			// Dibuja los ejes
-  
+  glPopAttrib();
                               // ////////// //
                               // PRACTICA 4 //
                               // ////////// //
