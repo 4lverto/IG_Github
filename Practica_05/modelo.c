@@ -44,12 +44,18 @@ initModel (){
   // ////////// //
   // Práctica 2 //
   // ////////// //
+  beethoven.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  beethoven.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  beethoven.asignarExponenteEspecular(49.0f);
 
-
+  big_dodge.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  big_dodge.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  big_dodge.asignarExponenteEspecular(49.0f);
 
   // ////////// //
   // Práctica 4 //
   // ////////// //
+
   dado.cargarTextura("JPEG/dado.jpg");
   dado.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
   dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);

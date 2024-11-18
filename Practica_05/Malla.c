@@ -369,16 +369,17 @@ void Malla::calcular_normales_vertices(){
 void Malla::draw(){
     
     glEnable(GL_LIGHTING);
-    
-    // 3)
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texId);
+    if(this->tieneTextura){
+        // 3)
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texId);
 
-    // 1) 
-    glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
-    glMaterialf(GL_FRONT, GL_SHININESS, e);
+        // 1) 
+        glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
+        glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
+        glMaterialf(GL_FRONT, GL_SHININESS, e);
+    }
 
     if(this->suave){ // Si el atributo suave==TRUE, se dibujará con sombreado suave
         glShadeModel(GL_SMOOTH);
@@ -388,8 +389,10 @@ void Malla::draw(){
         this->drawFlat();
     }
     
-    glDisable(GL_TEXTURE_2D);
-    glDisable(GL_LIGHTING);
+    if(this->tieneTextura){
+        glDisable(GL_TEXTURE_2D);
+        glDisable(GL_LIGHTING);
+    }
 }
 
 
