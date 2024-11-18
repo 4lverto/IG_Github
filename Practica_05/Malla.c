@@ -369,6 +369,7 @@ void Malla::calcular_normales_vertices(){
 void Malla::draw(){
     
     glEnable(GL_LIGHTING);
+    glEnable(GL_NORMALIZE);
     if(this->tieneTextura){
         // 3)
         glEnable(GL_TEXTURE_2D);
