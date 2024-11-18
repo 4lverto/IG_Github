@@ -40,6 +40,13 @@ bool luzActiva=true;
 */
 void
 initModel (){
+
+  // ////////// //
+  // Práctica 2 //
+  // ////////// //
+
+
+
   // ////////// //
   // Práctica 4 //
   // ////////// //
@@ -162,7 +169,6 @@ void Dibuja (void){
   // glDisable(GL_CULL_FACE);
 
   // Dibujamos los ejes de coordenadas de forma que no se vean afectados por la iluminación
-  glDisable(GL_LIGHTING);
   
   ejesCoordenadas.draw();			// Dibuja los ejes
   
@@ -191,21 +197,15 @@ void Dibuja (void){
   glTranslatef(-15.0,0.0,-10.0);
   dibujaTaburete();
 
-
   // PRÁCTICA 2
 
   glTranslatef(-5.0,0.0,0.-5.0);
   glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
-  // beethoven.setSombreadoSuave(false); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
   beethoven.draw();
 
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
   glTranslatef(0.0,0.0,10.0);
-  // big_dodge.setSombreadoSuave(true); // Comentar o descomentar esta línea para cambiar el tipo de sombreado
+  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
   big_dodge.draw();
-
-
-                              // FIN PRÁCTICA 4
 
   glPopMatrix ();		// Desapila la transformacion geometrica
 
