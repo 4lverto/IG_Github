@@ -23,6 +23,8 @@ extern bool iluminacionActivada;
 
 // PRÁCTICA 5
 
+extern int objetoSeleccionado;
+
 #define ID_DADO 1
 #define ID_COCHE1 2
 #define ID_COCHE2 3

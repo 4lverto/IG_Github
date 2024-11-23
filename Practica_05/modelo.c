@@ -158,6 +158,8 @@ void establecerLuzActiva(){
                                 // PRÁCTICA 5 //
                                 // ////////// //
 
+int objetoSeleccionado=-1;
+
 // Implemento colorSeleccion //
 // ///////////////////////// //
 
