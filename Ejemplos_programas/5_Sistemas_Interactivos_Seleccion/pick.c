@@ -1,16 +1,9 @@
 /*
-				PICK
-	I.G.						Curso 2021-2022
-
-	Dpto. Lenguajes y Sistemas Informáicos
-	E.T.S.I. Informáica
-	Univ. de Granada
-
-       Tema4. Interacción
-
-        Objetivo: Este programa muestra seleccion por color usando OpenGL
-	
+				PICK -> SELECCIÓN POR COLOR
 */
+
+// COMPILAR --> gcc pick.c -lglut -lGLU -lGL -o pick
+
 #include <math.h>
 #include <GL/glut.h>                   // Libreria de utilidades de OpenGL
 #include <stdio.h>
