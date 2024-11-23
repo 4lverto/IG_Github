@@ -36,31 +36,39 @@ x,y: Posicion, en coordenadas de pantalla, en que se encuantra el cursor.
 
 **/
 
- void clickRaton( int boton, int estado, int x, int y )
-{
-ISINTERACTING=1;
-if(boton==GLUT_LEFT_BUTTON && estado==GLUT_DOWN) {
-	MOUSE_LEFT_DOWN=1;
-	MOUSE_X=x;
-	MOUSE_Y=y;
+void clickRaton( int boton, int estado, int x, int y ){
+	ISINTERACTING=1;
+	
+	if(boton==GLUT_LEFT_BUTTON && estado==GLUT_DOWN) {
+		//MOUSE_LEFT_DOWN=1;
+		//MOUSE_X=x;
+		//MOUSE_Y=y;
+
+		int id;
+
+		if(pick(x,y,&id)){
+			printf("Objeto seleccionado: %d\n",id);
+
+			// Aquí realizaremos acciones en función del objeto seleccionado
+		}
 	}
-else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {
-	MOUSE_MIDDLE_DOWN=1;
-	MOUSE_X=x;
-	MOUSE_Y=y;
+	else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {
+		MOUSE_MIDDLE_DOWN=1;
+		MOUSE_X=x;
+		MOUSE_Y=y;
 	}
-else if(boton==GLUT_RIGHT_BUTTON && estado==GLUT_DOWN) {
-	MOUSE_RIGHT_DOWN=1;
-	MOUSE_X=x;
-	MOUSE_Y=y;
+	else if(boton==GLUT_RIGHT_BUTTON && estado==GLUT_DOWN) {
+		MOUSE_RIGHT_DOWN=1;
+		MOUSE_X=x;
+		MOUSE_Y=y;
 	}
-else {	
-	MOUSE_LEFT_DOWN=0;
-	MOUSE_MIDDLE_DOWN=0;
-	MOUSE_RIGHT_DOWN=0;
-	ISINTERACTING=0;
+	else {	
+		MOUSE_LEFT_DOWN=0;
+		MOUSE_MIDDLE_DOWN=0;
+		MOUSE_RIGHT_DOWN=0;
+		ISINTERACTING=0;
 	}
-glutPostRedisplay();
+	glutPostRedisplay();
 }
 
 
@@ -99,4 +107,27 @@ getCamara (ax, ay, az, d);
 	MOUSE_X=x;
 	MOUSE_Y=y;
 glutPostRedisplay();
+}
+
+// ////////// //
+// PRÁCTICA 5 //
+// ////////// //
+
+int pick(int x, int y, int *id){
+	GLint viewport[4];
+	unsigned char data[4];
+
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	glDisable(GL_DITHER);
+	glDisable(GL_LIGHTING);
+
+	dibujaEscena(true);
+
+	glFlush();
+
+	glReadPixels(x, viewport[3]-y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+	*id=data[0];
+	
+	return *id>0;
 }

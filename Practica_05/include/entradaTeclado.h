@@ -17,3 +17,7 @@ void letra (unsigned char k, int x, int y);
 	y: posicion del cursor en coordenadas de pantalla cuando se pulso la tecla
 **/
 void especial (int k, int x, int y);
+
+// ////////// //
+// PRÁCTICA 5 //
+// ////////// //

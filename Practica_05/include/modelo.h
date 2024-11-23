@@ -31,6 +31,22 @@ void setIluminacion();
 */
 void establecerLuzActiva();
 
+
+// PRÁCTICA 5
+
+/**
+ * @brief Función para asignar colores únicos a objetos seleccionables
+ * @param id
+ * @param componente
+*/
+void colorSeleccion(int id, int componente);
+
+/**
+ * @brief
+ * @param seleccion
+*/
+void dibujaEscena(bool seleccion);
+
 class Objeto3D{ 
 	public: 
 

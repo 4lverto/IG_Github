@@ -235,3 +235,7 @@ void especial (int k, int x, int y)
   setCamara (rotxCamara, rotyCamara, 0.0, dCamara);
   glutPostRedisplay ();		// Actualiza la imagen (ver proc. letra)
 }
+
+// ////////// //
+// PRÁCTICA 5 //
+// ////////// //

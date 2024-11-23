@@ -154,11 +154,25 @@ void establecerLuzActiva(){
   glutPostRedisplay();
 }
 
-/**
- * @brief Procedimiento de dibujo del modelo. Es llamado por glut cada vez que se debe redibujar.
-*/
-void Dibuja (void){
+                                // ////////// //
+                                // PRÁCTICA 5 //
+                                // ////////// //
 
+// Implemento colorSeleccion //
+// ///////////////////////// //
+
+void colorSeleccion(int id, int componente){
+  unsigned char r = id & 0xFF;
+  unsigned char g = componente & 0xFF;
+  glColor3ub(r,g,0);
+}
+
+
+
+// Creo dibujoEscena() a partir de lo que contenía Dibuja() //
+// //////////////////////////////////////////////////////// //
+
+void dibujaEscena(bool seleccion){
   float morado[4]={0.8,0,1,1};
   float verde[4]={0,1,0,1};
   float rojo[4]={1,0,0,1};
@@ -183,44 +197,91 @@ void Dibuja (void){
   ejesCoordenadas.draw();			// Dibuja los ejes
   glPopAttrib();
                               // ////////// //
-                              // PRACTICA 4 //
+                              // PRACTICA 5 //
                               // ////////// //
   
-  
-  if(iluminacionActivada){    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea afectado al alterar la iluminación
-    glEnable(GL_LIGHTING);
-  }else{
+  if(seleccion){
     glDisable(GL_LIGHTING);
-  }
+    glDisable(GL_TEXTURE_2D);
 
-  dado.draw();
+    // PRÁCTICA 4 -> Rojo
 
-  glTranslatef(10.0,0.0,-10.0);
-  coche1.draw();
+    glColor3ub(1,0,0);
+    dado.draw();
+
+    glTranslatef(10.0,0.0,-10.0);
+    glColor3ub(1,0,0);
+    coche1.draw();
+    
+    glTranslatef(0.0,0.0,10.0);
+    glColor3ub(1,0,0);
+    coche2.draw();
+
+    glTranslatef(0.0,0.0,10.0);
+    glColor3ub(1,0,0);
+    coche3.draw();
+
+    // PRÁCTICA 3 -> Verde
+
+    glTranslatef(-15.0,0.0,-10.0);
+    glColor3ub(2,0,0);
+    dibujaTaburete();
+
+    // PRÁCTICA 2 -> Azul
+
+    glTranslatef(-5.0,0.0,0.-5.0);
+    glColor3ub(3,0,0);
+    beethoven.draw();
+
+    glTranslatef(0.0,0.0,10.0);
+    glColor3ub(3,0,0);
+    big_dodge.draw();
   
-  glTranslatef(0.0,0.0,10.0);
-  coche2.draw();
+  }else{
+    if(iluminacionActivada){    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea afectado al alterar la iluminación
+      glEnable(GL_LIGHTING);
+    }else{
+      glDisable(GL_LIGHTING);
+    }
 
-  glTranslatef(0.0,0.0,10.0);
-  coche3.draw();
+    // Práctica 4
 
-  // PRÁCTICA 3
+    dado.draw();
 
-  glTranslatef(-15.0,0.0,-10.0);
-  dibujaTaburete();
+    glTranslatef(10.0,0.0,-10.0);
+    coche1.draw();
+    
+    glTranslatef(0.0,0.0,10.0);
+    coche2.draw();
 
-  // PRÁCTICA 2
+    glTranslatef(0.0,0.0,10.0);
+    coche3.draw();
 
-  glTranslatef(-5.0,0.0,0.-5.0);
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
-  beethoven.draw();
+    // Práctica 3
+    
+    glTranslatef(-15.0,0.0,-10.0);
+    dibujaTaburete();
 
-  glTranslatef(0.0,0.0,10.0);
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
-  big_dodge.draw();
+    // Práctica 2
 
+    glTranslatef(-5.0,0.0,0.-5.0);
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
+    beethoven.draw();
+
+    glTranslatef(0.0,0.0,10.0);
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
+    big_dodge.draw();
+
+  }
+  
   glPopMatrix ();		// Desapila la transformacion geometrica
+}
 
+/**
+ * @brief Procedimiento de dibujo del modelo. Es llamado por glut cada vez que se debe redibujar.
+*/
+void Dibuja (void){
+  dibujaEscena(false);
   glutSwapBuffers ();		// Intercambia el buffer de dibujo y visualizacion
 }
 

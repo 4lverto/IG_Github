@@ -22,3 +22,11 @@ extern bool iluminacionActivada;
 #include "Dado.h"
 
 // PRÁCTICA 5
+
+#define ID_DADO 1
+#define ID_COCHE1 2
+#define ID_COCHE2 3
+#define ID_COCHE3 4
+#define ID_TABURETE 5
+#define ID_BIG_DODGE 6
+#define ID_BEETHOVEN 7 
