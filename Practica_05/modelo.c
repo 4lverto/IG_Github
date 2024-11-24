@@ -163,16 +163,16 @@ int objetoSeleccionado=-1;
 // Implemento colorSeleccion //
 // ///////////////////////// //
 
-void colorSeleccion(int id, int componente){
+void colorSeleccion(int id){
   unsigned char r = id & 0xFF;
-  unsigned char g = componente & 0xFF;
-  glColor3ub(r,g,0);
+  glColor3ub(r,0,0);
 }
 
 // Creo dibujoEscena() a partir de lo que contenía Dibuja() //
 // //////////////////////////////////////////////////////// //
 
 void dibujaEscena(bool seleccion){
+
   float morado[4]={0.8,0,1,1};
   float verde[4]={0,1,0,1};
   float rojo[4]={1,0,0,1};
@@ -188,7 +188,6 @@ void dibujaEscena(bool seleccion){
   
   transformacionVisualizacion ();	// Carga transformacion de visualizacion
 
-  // glDisable(GL_CULL_FACE);
 
   // Dibujamos los ejes de coordenadas de forma que no se vean afectados por la iluminación
   
@@ -196,19 +195,40 @@ void dibujaEscena(bool seleccion){
   glDisable(GL_LIGHTING);
   ejesCoordenadas.draw();			// Dibuja los ejes
   glPopAttrib();
-                              // ////////// //
-                              // PRACTICA 5 //
-                              // ////////// //
-  
-  // Usamos la variable iluminacionActivada para que el color de los ejes no se vea 
-  // afectado al alterar la iluminación
-  if(iluminacionActivada){
-    glEnable(GL_LIGHTING);
-  }else{
-    glDisable(GL_LIGHTING);
-  }
 
-  // Práctica 4
+  if(seleccion){
+    glDisable(GL_LIGHTING);
+    glDisable(GL_TEXTURE_2D);
+
+    // Modo selección: asignar colores únicos
+    glDisable(GL_LIGHTING); // Asegurar que la iluminación esté desactivada
+    glDisable(GL_TEXTURE_2D); // Desactivar texturas si están activadas
+
+    colorSeleccion(1); dado.draw(); // Dado con ID = 1
+    glTranslatef(10.0, 0.0, -10.0);
+    colorSeleccion(2); coche1.draw(); // Coche 1 con ID = 2
+    glTranslatef(0.0, 0.0, 10.0);
+    colorSeleccion(3); coche2.draw(); // Coche 2 con ID = 3
+    glTranslatef(0.0, 0.0, 10.0);
+    colorSeleccion(4); coche3.draw(); // Coche 3 con ID = 4
+    glTranslatef(-15.0, 0.0, -10.0);
+    colorSeleccion(5); dibujaTaburete(); // Taburete completo con ID = 5
+    glTranslatef(-5.0, 0.0, -5.0);
+    colorSeleccion(6); beethoven.draw(); // Beethoven con ID = 6
+    glTranslatef(0.0, 0.0, 10.0);
+    colorSeleccion(7); big_dodge.draw(); // Big Dodge con ID = 7
+  
+  }else{
+
+    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea 
+    // afectado al alterar la iluminación
+    if(iluminacionActivada){
+      glEnable(GL_LIGHTING);
+    }else{
+      glDisable(GL_LIGHTING);
+    }
+
+      // Práctica 4
 
   dado.draw();
 
@@ -235,6 +255,8 @@ void dibujaEscena(bool seleccion){
   glTranslatef(0.0,0.0,10.0);
   glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
   big_dodge.draw();
+
+  }
   
   glPopMatrix ();		// Desapila la transformacion geometrica
 }

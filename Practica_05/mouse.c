@@ -49,10 +49,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 		if(pick(x,y,&id)){
 			printf("Objeto seleccionado: %d\n",id);
 			objetoSeleccionado=id;
-			// Aquí realizaremos 
-			// acciones en función d
-			// el objeto seleccionado
-			interactuaConSuColor(id);
+			dibujaEscena(true);
 		}
 	}
 	else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {
@@ -123,6 +120,7 @@ int pick(int x, int y, int *id){
 	glGetIntegerv(GL_VIEWPORT, viewport);
 	glDisable(GL_DITHER);
 	glDisable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);
 
 	dibujaEscena(true);
 
@@ -132,7 +130,10 @@ int pick(int x, int y, int *id){
 
 	printf("Color del pixel: %d,%d,%d: ",data[0],data[1],data[2]);
 
-	*id=data[0];
+	if(data[0] > 0){
+		*id=data[0];
+		return 1;
+	}
 	
-	return *id>0;
+	return 0;
 }
