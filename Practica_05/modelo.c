@@ -168,21 +168,6 @@ void colorSeleccion(int id){
   glColor3ub(r,0,0);
 }
 
-void configurarMaterialesYTexturas(Malla *malla) {
-    // Configurar materiales
-    glMaterialfv(GL_FRONT, GL_AMBIENT, malla->reflectividad_ambiente);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, malla->reflectividad_difusa);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, malla->reflectividad_especular);
-    glMaterialf(GL_FRONT, GL_SHININESS, malla->e);
-
-    // Configurar texturas si están activadas
-    if (malla->tieneTextura) {
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, malla->texId);
-    } else {
-        glDisable(GL_TEXTURE_2D);
-    }
-}
 
 
 // Creo dibujoEscena() a partir de lo que contenía Dibuja() //
@@ -223,8 +208,8 @@ void dibujaEscena(bool seleccion) {
         colorSeleccion(7); big_dodge.draw(); // Big Dodge (ID 7)
     } else {
         // Modo normal: asignar materiales y resaltar el objeto seleccionado
-        GLfloat colorResaltado[] = {1.0, 1.0, 0.0, 1.0}; // Amarillo (resaltado)
-        GLfloat colorNormal[] = {0.8, 0.8, 0.8, 1.0};    // Gris estándar
+        GLfloat colorResaltado[] = {1.0f, 1.0f, 0.0f, 1.0f}; // Amarillo (resaltado)
+        GLfloat colorNormal[] = {0.8f, 0.8f, 0.8f, 1.0f};    // Gris estándar
 
         if (objetoSeleccionado == 1) {
             glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorResaltado);
