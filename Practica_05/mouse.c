@@ -52,6 +52,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 			// Aquí realizaremos 
 			// acciones en función d
 			// el objeto seleccionado
+			interactuaConSuColor(id);
 		}
 	}
 	else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {
@@ -128,6 +129,8 @@ int pick(int x, int y, int *id){
 	glFlush();
 
 	glReadPixels(x, viewport[3]-y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+	printf("Color del pixel: %d,%d,%d: ",data[0],data[1],data[2]);
 
 	*id=data[0];
 	
