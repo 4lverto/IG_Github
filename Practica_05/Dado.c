@@ -20,13 +20,14 @@ Dado::Dado(float l){
 
 
 void Dado::draw() {
+    /*
     glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
     glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
     glMaterialf(GL_FRONT, GL_SHININESS,e);
 
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texId);
+    glBindTexture(GL_TEXTURE_2D, texId);*/
 
     glBegin(GL_QUADS);
 
@@ -73,5 +74,5 @@ void Dado::draw() {
     glTexCoord2f(0.25f, 0.75f); glVertex3f(-mitad, 0.0f, mitad);
 
     glEnd();
-    glDisable(GL_TEXTURE_2D);
+    // glDisable(GL_TEXTURE_2D);
 }

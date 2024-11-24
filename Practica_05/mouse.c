@@ -40,16 +40,13 @@ void clickRaton( int boton, int estado, int x, int y ){
 	ISINTERACTING=1;
 	
 	if(boton==GLUT_LEFT_BUTTON && estado==GLUT_DOWN) {
-		//MOUSE_LEFT_DOWN=1;
-		//MOUSE_X=x;
-		//MOUSE_Y=y;
-
-		int id;
+		int id=-1;
 
 		if(pick(x,y,&id)){
-			printf("Objeto seleccionado: %d\n",id);
 			objetoSeleccionado=id;
-			dibujaEscena(true);
+			printf("Objeto seleccionado: %d\n",id);
+		}else{
+			objetoSeleccionado=-1;
 		}
 	}
 	else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {
