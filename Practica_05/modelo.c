@@ -172,15 +172,16 @@ void setModoSeleccion(bool s){
 // Implemento colorSeleccion //
 // ///////////////////////// //
 
-void colorSeleccion(int id){
+void colorSeleccion(int id, int componente){
   unsigned char r = id & 0xFF;
-  glColor3ub(r,0,0);
+  unsigned char g = (componente & 0xFF);
+  glColor3ub(r,g,0);
 }
 
 // Creo dibujoEscena() a partir de lo que contenía Dibuja() //
 // //////////////////////////////////////////////////////// //
 
-void dibujaEscena(bool seleccion) {
+void dibujaEscena() {
 
     float morado[4]={0.8,0,1,1};
     float verde[4]={0,1,0,1};
@@ -189,6 +190,8 @@ void dibujaEscena(bool seleccion) {
     glPushMatrix();
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glLoadIdentity();
 
     // Configura la transformación de visualización
     transformacionVisualizacion();
@@ -235,7 +238,13 @@ void dibujaEscena(bool seleccion) {
  * @brief Procedimiento de dibujo del modelo. Es llamado por glut cada vez que se debe redibujar.
 */
 void Dibuja (void){
-  dibujaEscena(false);
+
+  if(modoSeleccion){
+    glDisable(GL_DITHER);
+    glDisable(GL_LIGHTING);
+    glDisable(GL_TEXTURE_2D);
+  }
+  dibujaEscena();
   glutSwapBuffers ();		// Intercambia el buffer de dibujo y visualizacion
 }
 
@@ -270,7 +279,6 @@ void idle (int v){
     inclinacionRespaldo += VEL_Respaldo; 
   }
   
-
   glutPostRedisplay ();		// Redibuja
   glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms
 }

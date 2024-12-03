@@ -309,26 +309,26 @@ void Malla::calcular_normales_caras(){
 
     // Calculo la normal de cada cara y la almaceno en vector<Punto3D> normales_caras
     for(size_t i = 0; i<caras.size(); i++){
-    // Obtengo cada triángulo (cara)
-    Triangulo t=caras[i];
+        // Obtengo cada triángulo (cara)
+        Triangulo t=caras[i];
 
-    // Obtengo los 3 vértices del triángulo a partir de sus índices
-    Punto3D P0=this->vertices[t.getI0()];
-    Punto3D P1=this->vertices[t.getI1()];
-    Punto3D P2=this->vertices[t.getI2()];
-    
-    // Calculo los vectores de los lados del triángulo
-    Punto3D V1=(P1-P0);
-    Punto3D V2=(P2-P0);
+        // Obtengo los 3 vértices del triángulo a partir de sus índices
+        Punto3D P0=this->vertices[t.getI0()];
+        Punto3D P1=this->vertices[t.getI1()];
+        Punto3D P2=this->vertices[t.getI2()];
+        
+        // Calculo los vectores de los lados del triángulo
+        Punto3D V1=(P1-P0);
+        Punto3D V2=(P2-P0);
 
-    // Calculo el producto vectorial (V1 x V2) para obtener la normal
-    Punto3D normal = V1.productoVectorial(V2);
+        // Calculo el producto vectorial (V1 x V2) para obtener la normal
+        Punto3D normal = V1.productoVectorial(V2);
 
-    // Normalizo la normal para que tenga longitud 1
-    normal.normaliza();
+        // Normalizo la normal para que tenga longitud 1
+        normal.normaliza();
 
-    // Almacenamos la normal
-    this->normales_caras[i]=normal;
+        // Almacenamos la normal
+        this->normales_caras[i]=normal;
     }
 }
 
@@ -340,7 +340,7 @@ void Malla::calcular_normales_vertices(){
 
     // Añadimos puntos vacíos (que representarán las normales)
     for(size_t i = 0;i<this->vertices.size();i++){
-    this->normales_vertices.push_back(Punto3D());
+        this->normales_vertices.push_back(Punto3D());
     }
 
     // Calculamos cada normal de cada vértice iterando sobre las caras, por lo que por cada iteración
@@ -348,21 +348,21 @@ void Malla::calcular_normales_vertices(){
     // de vector<Punto3D> normales_vertices tiene sumadas todas las normales de las caras que compone
     for(size_t i=0;i<this->caras.size();++i){
 
-    // Para cada triángulo, obtengo su normal (la normal de la cara)
-    Triangulo t = this->caras[i]; // Ejemplo: t(0,1,2) significará que t.i0=0, t.i1=1, t.i2=2
-    
-    // Obtengo la normal de la cara actual que estamos procesando (ya se calcularon anteriormente)
-    Punto3D normal_triangulo= this->normales_caras[i];
+        // Para cada triángulo, obtengo su normal (la normal de la cara)
+        Triangulo t = this->caras[i]; // Ejemplo: t(0,1,2) significará que t.i0=0, t.i1=1, t.i2=2
+        
+        // Obtengo la normal de la cara actual que estamos procesando (ya se calcularon anteriormente)
+        Punto3D normal_triangulo= this->normales_caras[i];
 
-    // La normal de esa cara se sumará a las normales de los 3 vértices que componen el triángulo que estamos procesando
-    this->normales_vertices[t.getI0()] = this->normales_vertices[t.getI0()] + normal_triangulo;
-    this->normales_vertices[t.getI1()] = this->normales_vertices[t.getI1()] + normal_triangulo;
-    this->normales_vertices[t.getI2()] = this->normales_vertices[t.getI2()] + normal_triangulo;
+        // La normal de esa cara se sumará a las normales de los 3 vértices que componen el triángulo que estamos procesando
+        this->normales_vertices[t.getI0()] = this->normales_vertices[t.getI0()] + normal_triangulo;
+        this->normales_vertices[t.getI1()] = this->normales_vertices[t.getI1()] + normal_triangulo;
+        this->normales_vertices[t.getI2()] = this->normales_vertices[t.getI2()] + normal_triangulo;
     }
 
     // Normaliza todas las normales de los vértices para que tengan longitud 1
     for(size_t i=0; i<this->normales_vertices.size(); i++){
-    this->normales_vertices[i].normaliza();
+        this->normales_vertices[i].normaliza();
     }
 }
 

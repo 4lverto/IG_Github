@@ -45,7 +45,7 @@ void colorSeleccion(int id, int componente);
  * @brief
  * @param seleccion
 */
-void dibujaEscena(bool seleccion);
+void dibujaEscena(/*bool seleccion*/);
 
 /**
  * @brief 

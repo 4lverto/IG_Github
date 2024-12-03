@@ -115,24 +115,27 @@ glutPostRedisplay();
 int pick(int x, int y, int *id){
 	GLint viewport[4];
 	unsigned char data[4];
-
 	glGetIntegerv(GL_VIEWPORT, viewport);
+
 	glDisable(GL_DITHER);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
-
-	dibujaEscena(true);
+	dibujaEscena();
 
 	glFlush();
+	glFinish();
 
 	glReadPixels(x, viewport[3]-y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
+	glEnable(GL_LIGHTING);
+	glEnable(GL_DITHER);
+	glEnable(GL_TEXTURE_2D);
+
 	printf("Color del pixel: %d,%d,%d: ",data[0],data[1],data[2]);
 
-	if(data[0] > 0){
-		*id=data[0];
-		return 1;
-	}
+	*id=data[0];
+
+	glutPostRedisplay();
 	
-	return 0;
+	return *id;
 }
