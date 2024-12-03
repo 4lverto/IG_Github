@@ -31,4 +31,4 @@ extern int objetoSeleccionado;
 #define ID_COCHE3 4
 #define ID_TABURETE 5
 #define ID_BIG_DODGE 6
-#define ID_BEETHOVEN 7 
+#define ID_BEETHOVEN 7

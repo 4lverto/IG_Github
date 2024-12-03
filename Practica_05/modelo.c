@@ -10,6 +10,7 @@
 using namespace std;
 
 // PRÁCTICA 2 - Mallas con PLYs
+
 Malla beethoven("plys/beethoven.ply",true);
 Malla big_dodge("plys/big_dodge.ply",false);
 
@@ -19,7 +20,6 @@ bool animacionActiva=false; // Se gestiona con A y a
 float VEL_Cilindro=0.01f;   // Se gestiona con T y G
 float VEL_Asiento=0.5f;     // Se gestiona con Y y H
 float VEL_Respaldo=0.1f;    // Se gestiona con U y J
-
 
 // PRÁCTICA 4 - Mallas a dibujar y Dado
 
@@ -159,6 +159,15 @@ void establecerLuzActiva(){
                                 // ////////// //
 
 int objetoSeleccionado=-1;
+bool modoSeleccion=false;
+
+bool getModoSeleccion(){
+  return modoSeleccion;
+}
+
+void setModoSeleccion(bool s){
+  modoSeleccion=s;
+}
 
 // Implemento colorSeleccion //
 // ///////////////////////// //
@@ -168,13 +177,15 @@ void colorSeleccion(int id){
   glColor3ub(r,0,0);
 }
 
-
-
 // Creo dibujoEscena() a partir de lo que contenía Dibuja() //
 // //////////////////////////////////////////////////////// //
 
-// Se pone en negro
 void dibujaEscena(bool seleccion) {
+
+    float morado[4]={0.8,0,1,1};
+    float verde[4]={0,1,0,1};
+    float rojo[4]={1,0,0,1};
+
     glPushMatrix();
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -188,180 +199,36 @@ void dibujaEscena(bool seleccion) {
     ejesCoordenadas.draw();
     glPopAttrib();
 
-    if (seleccion) {
-        // Modo selección: asignar colores únicos a cada objeto
-        glDisable(GL_LIGHTING); // Desactiva la iluminación
-        glDisable(GL_TEXTURE_2D); // Desactiva texturas
+    // Práctica 4
 
-        colorSeleccion(1); dado.draw(); // Dado (ID 1)
-        glTranslatef(10.0, 0.0, -10.0);
-        colorSeleccion(2); coche1.draw(); // Coche 1 (ID 2)
-        glTranslatef(0.0, 0.0, 10.0);
-        colorSeleccion(3); coche2.draw(); // Coche 2 (ID 3)
-        glTranslatef(0.0, 0.0, 10.0);
-        colorSeleccion(4); coche3.draw(); // Coche 3 (ID 4)
-        glTranslatef(-15.0, 0.0, -10.0);
-        colorSeleccion(5); dibujaTaburete(); // Taburete (ID 5)
-        glTranslatef(-5.0, 0.0, -5.0);
-        colorSeleccion(6); beethoven.draw(); // Beethoven (ID 6)
-        glTranslatef(0.0, 0.0, 10.0);
-        colorSeleccion(7); big_dodge.draw(); // Big Dodge (ID 7)
-    } else {
-        // Modo normal: asignar materiales y resaltar el objeto seleccionado
-        GLfloat colorResaltado[] = {1.0f, 1.0f, 0.0f, 1.0f}; // Amarillo (resaltado)
-        GLfloat colorNormal[] = {0.8f, 0.8f, 0.8f, 1.0f};    // Gris estándar
+    dado.draw();
 
-        if (objetoSeleccionado == 1) {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorResaltado);
-        } else {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorNormal);
-        }
-        dado.draw();
+    glTranslatef(10.0,0.0,-10.0);
+    coche1.draw();
+    
+    glTranslatef(0.0,0.0,10.0);
+    coche2.draw();
 
-        glTranslatef(10.0, 0.0, -10.0);
-        if (objetoSeleccionado == 2) {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorResaltado);
-        } else {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorNormal);
-        }
-        coche1.draw();
+    glTranslatef(0.0,0.0,10.0);
+    coche3.draw();
 
-        glTranslatef(0.0, 0.0, 10.0);
-        if (objetoSeleccionado == 3) {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorResaltado);
-        } else {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorNormal);
-        }
-        coche2.draw();
+    // Práctica 3
+    
+    glTranslatef(-15.0,0.0,-10.0);
+    dibujaTaburete();
 
-        glTranslatef(0.0, 0.0, 10.0);
-        if (objetoSeleccionado == 4) {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorResaltado);
-        } else {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorNormal);
-        }
-        coche3.draw();
+    // Práctica 2
 
-        glTranslatef(-15.0, 0.0, -10.0);
-        if (objetoSeleccionado == 5) {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorResaltado);
-        } else {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorNormal);
-        }
-        dibujaTaburete();
+    glTranslatef(-5.0,0.0,0.-5.0);
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
+    beethoven.draw();
 
-        glTranslatef(-5.0, 0.0, -5.0);
-        if (objetoSeleccionado == 6) {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorResaltado);
-        } else {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorNormal);
-        }
-        beethoven.draw();
-
-        glTranslatef(0.0, 0.0, 10.0);
-        if (objetoSeleccionado == 7) {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorResaltado);
-        } else {
-            glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, colorNormal);
-        }
-        big_dodge.draw();
-    }
-
+    glTranslatef(0.0,0.0,10.0);
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
+    big_dodge.draw();
+    
     glPopMatrix();
 }
-
-
-/*
-void dibujaEscena(bool seleccion){
-
-  float morado[4]={0.8,0,1,1};
-  float verde[4]={0,1,0,1};
-  float rojo[4]={1,0,0,1};
-  float azul[4]={0,0,1,1};
-  float negro[4]={0,0,0,1};
-  float blanco[4]={1,1,1,1};
-
-  glPushMatrix ();		// Apila la transformacion geometrica actual
-  
-  glClearColor (0.0, 0.0, 0.0, 1.0);	// Fija el color de fondo a negro
-  
-  glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Inicializa el buffer de color y el Z-Buffer
-  
-  transformacionVisualizacion ();	// Carga transformacion de visualizacion
-
-
-  // Dibujamos los ejes de coordenadas de forma que no se vean afectados por la iluminación
-  
-  glPushAttrib(GL_LIGHTING_BIT | GL_CURRENT_BIT);
-  glDisable(GL_LIGHTING);
-  ejesCoordenadas.draw();			// Dibuja los ejes
-  glPopAttrib();
-
-  if(seleccion){
-    glDisable(GL_LIGHTING);
-    glDisable(GL_TEXTURE_2D);
-
-    // Modo selección: asignar colores únicos
-    glDisable(GL_LIGHTING); // Asegurar que la iluminación esté desactivada
-    glDisable(GL_TEXTURE_2D); // Desactivar texturas si están activadas
-
-    colorSeleccion(1); dado.draw(); // Dado con ID = 1
-    glTranslatef(10.0, 0.0, -10.0);
-    colorSeleccion(2); coche1.draw(); // Coche 1 con ID = 2
-    glTranslatef(0.0, 0.0, 10.0);
-    colorSeleccion(3); coche2.draw(); // Coche 2 con ID = 3
-    glTranslatef(0.0, 0.0, 10.0);
-    colorSeleccion(4); coche3.draw(); // Coche 3 con ID = 4
-    glTranslatef(-15.0, 0.0, -10.0);
-    colorSeleccion(5); dibujaTaburete(); // Taburete completo con ID = 5
-    glTranslatef(-5.0, 0.0, -5.0);
-    colorSeleccion(6); beethoven.draw(); // Beethoven con ID = 6
-    glTranslatef(0.0, 0.0, 10.0);
-    colorSeleccion(7); big_dodge.draw(); // Big Dodge con ID = 7
-  
-  }else{
-
-    // Usamos la variable iluminacionActivada para que el color de los ejes no se vea 
-    // afectado al alterar la iluminación
-    if(iluminacionActivada){
-      glEnable(GL_LIGHTING);
-    }else{
-      glDisable(GL_LIGHTING);
-    }
-
-      // Práctica 4
-
-  dado.draw();
-
-  glTranslatef(10.0,0.0,-10.0);
-  coche1.draw();
-  
-  glTranslatef(0.0,0.0,10.0);
-  coche2.draw();
-
-  glTranslatef(0.0,0.0,10.0);
-  coche3.draw();
-
-  // Práctica 3
-  
-  glTranslatef(-15.0,0.0,-10.0);
-  dibujaTaburete();
-
-  // Práctica 2
-
-  glTranslatef(-5.0,0.0,0.-5.0);
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
-  beethoven.draw();
-
-  glTranslatef(0.0,0.0,10.0);
-  glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
-  big_dodge.draw();
-
-  }
-  
-  glPopMatrix ();		// Desapila la transformacion geometrica
-}
-*/
 
 
 /**

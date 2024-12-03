@@ -45,8 +45,10 @@ void clickRaton( int boton, int estado, int x, int y ){
 		if(pick(x,y,&id)){
 			objetoSeleccionado=id;
 			printf("Objeto seleccionado: %d\n",id);
+			setModoSeleccion(true);
 		}else{
 			objetoSeleccionado=-1;
+			setModoSeleccion(false);
 		}
 	}
 	else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {

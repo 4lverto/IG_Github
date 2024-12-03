@@ -47,6 +47,16 @@ void colorSeleccion(int id, int componente);
 */
 void dibujaEscena(bool seleccion);
 
+/**
+ * @brief 
+*/
+bool getModoSeleccion();
+
+/**
+ * @brief 
+*/
+void setModoSeleccion(bool s);
+
 class Objeto3D{ 
 	public: 
 

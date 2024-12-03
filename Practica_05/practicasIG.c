@@ -6,8 +6,6 @@
 //#include "hiply.h"
 
 
-
-
 /*=================================================*/
 
 int main (int argc, char *argv[])
