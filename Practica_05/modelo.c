@@ -203,56 +203,64 @@ void dibujaEscena() {
     glPopAttrib();
 
     // Práctica 4 y 5
+    glPushMatrix();
     if(getModoSeleccion()){
       colorSeleccion(ID_DADO);
     }
     dado.draw();
+    glPopMatrix();
 
+    glPushMatrix();
     glTranslatef(10.0,0.0,-10.0);
     if(getModoSeleccion()){
       colorSeleccion(ID_COCHE1);
     }
     coche1.draw();
-    
+    glPopMatrix();
 
-    glTranslatef(0.0,0.0,10.0);
+    glPushMatrix();
+    glTranslatef(10.0,0.0,0.0);
     if(getModoSeleccion()){
       colorSeleccion(ID_COCHE2);
     }
     coche2.draw();
+    glPopMatrix();
 
-    glTranslatef(0.0,0.0,10.0);
+    glPushMatrix();
+    glTranslatef(10.0,0.0,10.0);
     if(getModoSeleccion()){
       colorSeleccion(ID_COCHE3);
     }
     coche3.draw();
+    glPopMatrix();
 
     // Práctica 3
-    
-    glTranslatef(-15.0,0.0,-10.0);
-    if(getModoSeleccion()){
-      colorSeleccion(ID_TABURETE);
-    }
+    glPushMatrix();
+    glTranslatef(-5.0,0.0,-10.0);
     dibujaTaburete();
-
+    glPopMatrix();
     // Práctica 2
 
-    glTranslatef(-5.0,0.0,0.-5.0);
+    glPushMatrix();
+    glTranslatef(-10.0,0.0,0.-5.0);
     if(getModoSeleccion()){
       colorSeleccion(ID_BEETHOVEN);
     }else{
       glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
     }
     beethoven.draw();
+    glPopMatrix();
 
-    glTranslatef(0.0,0.0,10.0);
+    glPushMatrix();
+    glTranslatef(-10.0,0.0,5.0);
     if(getModoSeleccion()){
-      colorSeleccion(ID_BEETHOVEN);
+      colorSeleccion(ID_BIG_DODGE);
     }else{
-      glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
+      glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,morado);
     }
     big_dodge.draw();
-    
+    glPopMatrix();
+
     glPopMatrix();
 }
 

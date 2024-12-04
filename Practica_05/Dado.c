@@ -21,13 +21,16 @@ Dado::Dado(float l){
 
 
 void Dado::draw() {
-    
+    glPushAttrib(GL_LIGHTING|GL_TEXTURE_BIT|GL_CURRENT_BIT);
+
     if(!getModoSeleccion()){
         glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
         glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
         glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
         glMaterialf(GL_FRONT, GL_SHININESS,e);
         glEnable(GL_TEXTURE_2D); 
+    }else{
+        colorSeleccion(ID_DADO);
     }
 
     glBindTexture(GL_TEXTURE_2D, texId);  
@@ -81,4 +84,6 @@ void Dado::draw() {
     if(!getModoSeleccion()){
         glDisable(GL_TEXTURE_2D);
     }
+
+    glPopAttrib();
 }

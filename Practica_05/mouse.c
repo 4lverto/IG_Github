@@ -145,13 +145,13 @@ int pick(int x, int y, int *id){
 	unsigned char data[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
 
+	//setModoSeleccion(true);
+
 	glDisable(GL_DITHER);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
 
-	setModoSeleccion(true);
 	dibujaEscena();
-	setModoSeleccion(false);
 
 	glFlush();
 	glFinish();
@@ -161,7 +161,8 @@ int pick(int x, int y, int *id){
 	*id=data[0] | (data[1] << 8);
 
 	printf("Color del pixel: %d,%d,%d: ",data[0],data[1],data[2]);
-
+	
+	// setModoSeleccion(false);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DITHER);
 	glEnable(GL_TEXTURE_2D);
