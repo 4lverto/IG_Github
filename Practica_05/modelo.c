@@ -174,7 +174,7 @@ void setModoSeleccion(bool s){
 
 void colorSeleccion(int id, int componente){
   unsigned char r = id & 0xFF;
-  unsigned char g = (componente & 0xFF);
+  unsigned char g = (id >> 8) & 0xFF;
   glColor3ub(r,g,0);
 }
 
@@ -202,8 +202,12 @@ void dibujaEscena() {
     ejesCoordenadas.draw();
     glPopAttrib();
 
-    // Práctica 4
+    // Práctica 4 y 5
 
+    
+    if(modoSeleccion){
+      colorSeleccion(ID_DADO);
+    }
     dado.draw();
 
     glTranslatef(10.0,0.0,-10.0);

@@ -39,7 +39,7 @@ void establecerLuzActiva();
  * @param id
  * @param componente
 */
-void colorSeleccion(int id, int componente);
+void colorSeleccion(int id/*, int componente*/);
 
 /**
  * @brief

@@ -44,11 +44,39 @@ void clickRaton( int boton, int estado, int x, int y ){
 
 		if(pick(x,y,&id)){
 			objetoSeleccionado=id;
-			printf("Objeto seleccionado: %d\n",id);
-			setModoSeleccion(true);
+			//printf("Objeto seleccionado: %d\n",id);
+			//setModoSeleccion(true);
+		
+			switch(id){
+				case ID_BEETHOVEN:
+					printf("Has seleccionado al Beethoven");
+					break;
+				case ID_BIG_DODGE:
+					printf("Has seleccionado al Big_Dodge");
+					break;
+				case ID_TABURETE:
+					printf("Has seleccionado el Taburete");
+					break;
+				case ID_DADO:
+					printf("Has seleccionado el Dado");
+					break;
+				case ID_COCHE1:
+					printf("Has seleccionado el Coche 1");
+					break;
+				case ID_COCHE2:
+					printf("Has seleccionado el Coche 2");
+					break;
+				case ID_COCHE3:
+					printf("Has seleccionado el Coche 3");
+					break;
+				default:
+					printf("No estás clicando sobre ningún objeto");
+					break;
+			}
 		}else{
 			objetoSeleccionado=-1;
-			setModoSeleccion(false);
+			printf("No estás clicando sobre ningún objeto");
+			//setModoSeleccion(false);
 		}
 	}
 	else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {
@@ -127,13 +155,13 @@ int pick(int x, int y, int *id){
 
 	glReadPixels(x, viewport[3]-y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
-	glEnable(GL_LIGHTING);
-	glEnable(GL_DITHER);
-	glEnable(GL_TEXTURE_2D);
+	*id=data[0] | (data[1] << 8);
 
 	printf("Color del pixel: %d,%d,%d: ",data[0],data[1],data[2]);
 
-	*id=data[0];
+	glEnable(GL_LIGHTING);
+	glEnable(GL_DITHER);
+	glEnable(GL_TEXTURE_2D);
 
 	glutPostRedisplay();
 	
