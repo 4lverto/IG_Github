@@ -45,7 +45,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 		if(pick(x,y,&id)){
 			objetoSeleccionado=id;
 			// printf("Objeto seleccionado: %d\n",id);
-			setModoSeleccion(true);
+			//setModoSeleccion(true);
 		
 			switch(id){
 				case ID_BEETHOVEN:
@@ -76,13 +76,10 @@ void clickRaton( int boton, int estado, int x, int y ){
 		}else{
 			objetoSeleccionado=-1;
 			printf("\nNo estás clicando sobre ningún objeto");
-			setModoSeleccion(false);
+			//setModoSeleccion(false);
 		}
-	}
-	glutPostRedisplay();
-	/*
-	}
-	else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {
+	
+	}else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {
 		MOUSE_MIDDLE_DOWN=1;
 		MOUSE_X=x;
 		MOUSE_Y=y;
@@ -97,7 +94,9 @@ void clickRaton( int boton, int estado, int x, int y ){
 		MOUSE_MIDDLE_DOWN=0;
 		MOUSE_RIGHT_DOWN=0;
 		ISINTERACTING=0;
-	}*/
+	}
+
+	glutPostRedisplay();
 }
 
 
@@ -147,7 +146,7 @@ int pick(int x, int y, int *id){
 	unsigned char data[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
 
-	//setModoSeleccion(true);
+	setModoSeleccion(true);
 
 	glDisable(GL_DITHER);
 	glDisable(GL_LIGHTING);
@@ -156,6 +155,7 @@ int pick(int x, int y, int *id){
 	setModoSeleccion(true);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 	dibujaEscena();
 
 	setModoSeleccion(false);
@@ -167,14 +167,5 @@ int pick(int x, int y, int *id){
 
 	*id=data[0] | (data[1] << 8);
 
-	// printf("Color del pixel: %d,%d,%d: para el Objeto: ",data[0],data[1],data[2],id);
-	
-	// setModoSeleccion(false);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_DITHER);
-	glEnable(GL_TEXTURE_2D);
-
-	glutPostRedisplay();
-	
 	return *id;
 }

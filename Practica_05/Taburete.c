@@ -20,11 +20,11 @@ float brillo=10.f;
  
 void dibujaTaburete(int _id){
 
+        if(getModoSeleccion()){
+            colorSeleccion(_id);
+        }
     // Dibujo el cilindro. Su grado de libertad de escalado se gestiona mediante 'C' y 'c'
     glPushMatrix();
-        if(getModoSeleccion()){
-            colorSeleccion(ID_TABURETE);
-        }
         glScalef(1.0f,alturaCilindro,1.0f); // Ecalado del cilindro en el eje Y (manteniendo igual lo demás)
         glRotatef(-90,1.0f,0.0f,0.0f);
         if(!getModoSeleccion()){
@@ -36,9 +36,6 @@ void dibujaTaburete(int _id){
     // Dibujo el asiento. Su grado de libertad de rotación(Y) se gestiona mediante 'V' y 'v'
 
     glPushMatrix();
-        if(getModoSeleccion()){
-            colorSeleccion(ID_TABURETE);
-        }
         glTranslatef(0.0f,4.0f*alturaCilindro,0.0f);
         glRotatef(rotacionAsiento,0.0f,1.0f,0.0f); // Rotación del asiento y respaldo sobre su propio eje Y
         if(!getModoSeleccion()){
@@ -48,9 +45,6 @@ void dibujaTaburete(int _id){
 
     // Dibujo el respaldo. Su grado de libertad de rotación (Z) se gestiona mediante 'B' y 'b'
         glPushMatrix();
-            if(getModoSeleccion()){
-                colorSeleccion(ID_TABURETE);
-            }
             glTranslatef(0.0f,1.50f,-1.75f);
             glRotatef(90.0f,0.0f,1.0f,0.0f);
             glRotatef(inclinacionRespaldo,0.0f,0.0f,1.0f); // Inclinación (Rotación) del respaldo sobre su eje Z

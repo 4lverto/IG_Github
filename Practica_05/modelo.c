@@ -173,10 +173,15 @@ void setModoSeleccion(bool s){
 // ///////////////////////// //
 
 void colorSeleccion(int id/*, int componente*/){
+  static int ultimoID=-1;
   unsigned char r = id & 0xFF;
   unsigned char g = (id >> 8) & 0xFF;
   glColor3ub(r,g,0);
-  printf("Asignando color: R=%d, G=%d, B=%d para ID=%d\n",r,g,0,id);
+
+  if(id!=ultimoID){
+    printf("Asignando color: R=%d, G=%d, B=%d para ID=%d\n",r,g,0,id);
+    ultimoID=id;
+  }
 }
 
 // Creo dibujoEscena() a partir de lo que contenía Dibuja() //
