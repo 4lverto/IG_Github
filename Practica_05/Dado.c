@@ -14,9 +14,10 @@
 using namespace std;
 
 
-Dado::Dado(float l){
+Dado::Dado(float l,int _id){
     this->lado=l;
     this->mitad=this->lado/2;
+    this->id=_id;
 }
 
 

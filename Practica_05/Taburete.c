@@ -18,7 +18,7 @@ float brillo=10.f;
 // Integro los dibujos de las diferentes partes que componen mi modelo Taburete
 // siguiendo el grafo de escena diseñado.
  
-void dibujaTaburete(){
+void dibujaTaburete(int _id){
 
     // Dibujo el cilindro. Su grado de libertad de escalado se gestiona mediante 'C' y 'c'
     glPushMatrix();

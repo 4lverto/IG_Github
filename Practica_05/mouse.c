@@ -45,7 +45,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 		if(pick(x,y,&id)){
 			objetoSeleccionado=id;
 			// printf("Objeto seleccionado: %d\n",id);
-			setModoSeleccion(true);
+			// setModoSeleccion(true);
 		
 			switch(id){
 				case ID_BEETHOVEN:
@@ -76,8 +76,11 @@ void clickRaton( int boton, int estado, int x, int y ){
 		}else{
 			objetoSeleccionado=-1;
 			printf("\nNo estás clicando sobre ningún objeto");
-			setModoSeleccion(false);
+			//setModoSeleccion(false);
 		}
+	}
+	glutPostRedisplay();
+	/*
 	}
 	else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {
 		MOUSE_MIDDLE_DOWN=1;
@@ -94,8 +97,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 		MOUSE_MIDDLE_DOWN=0;
 		MOUSE_RIGHT_DOWN=0;
 		ISINTERACTING=0;
-	}
-	glutPostRedisplay();
+	}*/
 }
 
 
@@ -152,11 +154,12 @@ int pick(int x, int y, int *id){
 	glDisable(GL_TEXTURE_2D);
 
 	setModoSeleccion(true);
-	
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	dibujaEscena();
 
 	setModoSeleccion(false);
+
 	glFlush();
 	glFinish();
 

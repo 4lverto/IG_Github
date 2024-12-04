@@ -19,12 +19,17 @@ class Dado : public Malla{
         */
         float mitad;
 
+        /**
+         * 
+        */
+       int id;
+
     public:
         /**
          * @brief Constructor de un dado (cubo) a partir de un tamaño de lado dado
          * @param f Será la longitud del lado
         */
-        Dado(float f);
+        Dado(float f,int id);
 
         /**
          * @brief Función "sobrecargada" de la clase Malla donde creo mi dado.

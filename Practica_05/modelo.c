@@ -23,7 +23,7 @@ float VEL_Respaldo=0.1f;    // Se gestiona con U y J
 
 // PRÁCTICA 4 - Mallas a dibujar y Dado
 
-Dado dado(4.0f); // Dado "hereda" de Malla
+Dado dado(4.0f,ID_DADO); // Dado "hereda" de Malla
 Malla coche1("plys/big_dodge.ply",false,ID_COCHE1); // Reflectividad difusa
 Malla coche2("plys/big_dodge.ply",false,ID_COCHE2); // Reflectividad ambiente
 Malla coche3("plys/big_dodge.ply",false,ID_COCHE3); // Reflectividad especular
@@ -249,7 +249,7 @@ void dibujaEscena() {
     if(getModoSeleccion()){
       colorSeleccion(ID_TABURETE);
     }
-    dibujaTaburete();
+    dibujaTaburete(ID_TABURETE);
     glPopMatrix();
     
     // Práctica 2
