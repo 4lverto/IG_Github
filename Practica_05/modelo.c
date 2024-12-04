@@ -176,6 +176,7 @@ void colorSeleccion(int id/*, int componente*/){
   unsigned char r = id & 0xFF;
   unsigned char g = (id >> 8) & 0xFF;
   glColor3ub(r,g,0);
+  printf("Asignando color: R=%d, G=%d, B=%d para ID=%d\n",r,g,0,id);
 }
 
 // Creo dibujoEscena() a partir de lo que contenía Dibuja() //
@@ -203,6 +204,8 @@ void dibujaEscena() {
     glPopAttrib();
 
     // Práctica 4 y 5
+  
+      // Dado
     glPushMatrix();
     if(getModoSeleccion()){
       colorSeleccion(ID_DADO);
@@ -210,6 +213,7 @@ void dibujaEscena() {
     dado.draw();
     glPopMatrix();
 
+      // Coche 1
     glPushMatrix();
     glTranslatef(10.0,0.0,-10.0);
     if(getModoSeleccion()){
@@ -218,6 +222,7 @@ void dibujaEscena() {
     coche1.draw();
     glPopMatrix();
 
+      // Coche 2
     glPushMatrix();
     glTranslatef(10.0,0.0,0.0);
     if(getModoSeleccion()){
@@ -226,6 +231,7 @@ void dibujaEscena() {
     coche2.draw();
     glPopMatrix();
 
+      // Coche 3
     glPushMatrix();
     glTranslatef(10.0,0.0,10.0);
     if(getModoSeleccion()){
@@ -234,11 +240,18 @@ void dibujaEscena() {
     coche3.draw();
     glPopMatrix();
 
+
     // Práctica 3
+
+      // Taburete
     glPushMatrix();
     glTranslatef(-5.0,0.0,-10.0);
+    if(getModoSeleccion()){
+      colorSeleccion(ID_TABURETE);
+    }
     dibujaTaburete();
     glPopMatrix();
+    
     // Práctica 2
 
     glPushMatrix();

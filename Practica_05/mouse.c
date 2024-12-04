@@ -44,38 +44,38 @@ void clickRaton( int boton, int estado, int x, int y ){
 
 		if(pick(x,y,&id)){
 			objetoSeleccionado=id;
-			printf("Objeto seleccionado: %d\n",id);
+			// printf("Objeto seleccionado: %d\n",id);
 			setModoSeleccion(true);
 		
 			switch(id){
 				case ID_BEETHOVEN:
-					printf("Has seleccionado al Beethoven\n");
+					printf("\nHas seleccionado al Beethoven\n");
 					break;
 				case ID_BIG_DODGE:
-					printf("Has seleccionado al Big_Dodge\n");
+					printf("\nHas seleccionado al Big_Dodge\n");
 					break;
 				case ID_TABURETE:
-					printf("Has seleccionado el Taburete\n");
+					printf("\nHas seleccionado el Taburete\n");
 					break;
 				case ID_DADO:
-					printf("Has seleccionado el Dado\n");
+					printf("\nHas seleccionado el Dado\n");
 					break;
 				case ID_COCHE1:
-					printf("Has seleccionado el Coche 1\n");
+					printf("\nHas seleccionado el Coche 1\n");
 					break;
 				case ID_COCHE2:
-					printf("Has seleccionado el Coche 2\n");
+					printf("\nHas seleccionado el Coche 2\n");
 					break;
 				case ID_COCHE3:
-					printf("Has seleccionado el Coche 3\n");
+					printf("\nHas seleccionado el Coche 3\n");
 					break;
 				default:
-					printf("No estás clicando sobre ningún objeto\n");
+					printf("\nNo estás clicando sobre ningún objeto\n");
 					break;
 			}
 		}else{
 			objetoSeleccionado=-1;
-			printf("No estás clicando sobre ningún objeto");
+			printf("\nNo estás clicando sobre ningún objeto");
 			setModoSeleccion(false);
 		}
 	}
@@ -151,8 +151,12 @@ int pick(int x, int y, int *id){
 	glDisable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
 
+	setModoSeleccion(true);
+	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	dibujaEscena();
 
+	setModoSeleccion(false);
 	glFlush();
 	glFinish();
 
@@ -160,7 +164,7 @@ int pick(int x, int y, int *id){
 
 	*id=data[0] | (data[1] << 8);
 
-	printf("Color del pixel: %d,%d,%d: ",data[0],data[1],data[2]);
+	// printf("Color del pixel: %d,%d,%d: para el Objeto: ",data[0],data[1],data[2],id);
 	
 	// setModoSeleccion(false);
 	glEnable(GL_LIGHTING);
