@@ -1,6 +1,6 @@
 #include <iostream>
 #include<cmath>
-#include "include/Taburete.h"
+#include "include/practicasIG.h"
 
 using namespace std;
 
@@ -22,26 +22,41 @@ void dibujaTaburete(){
 
     // Dibujo el cilindro. Su grado de libertad de escalado se gestiona mediante 'C' y 'c'
     glPushMatrix();
+        if(getModoSeleccion()){
+            colorSeleccion(ID_TABURETE);
+        }
         glScalef(1.0f,alturaCilindro,1.0f); // Ecalado del cilindro en el eje Y (manteniendo igual lo demás)
         glRotatef(-90,1.0f,0.0f,0.0f);
-        glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,gris);
+        if(!getModoSeleccion()){
+            glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,gris);
+        }
         dibujaCilindro();
     glPopMatrix();
 
     // Dibujo el asiento. Su grado de libertad de rotación(Y) se gestiona mediante 'V' y 'v'
 
     glPushMatrix();
+        if(getModoSeleccion()){
+            colorSeleccion(ID_TABURETE);
+        }
         glTranslatef(0.0f,4.0f*alturaCilindro,0.0f);
         glRotatef(rotacionAsiento,0.0f,1.0f,0.0f); // Rotación del asiento y respaldo sobre su propio eje Y
-        glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,marron);
+        if(!getModoSeleccion()){
+            glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,marron);
+        }
         dibujaAsiento();
 
     // Dibujo el respaldo. Su grado de libertad de rotación (Z) se gestiona mediante 'B' y 'b'
         glPushMatrix();
+            if(getModoSeleccion()){
+                colorSeleccion(ID_TABURETE);
+            }
             glTranslatef(0.0f,1.50f,-1.75f);
             glRotatef(90.0f,0.0f,1.0f,0.0f);
             glRotatef(inclinacionRespaldo,0.0f,0.0f,1.0f); // Inclinación (Rotación) del respaldo sobre su eje Z
-            glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,marron);
+            if(!getModoSeleccion()){
+                glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,marron);
+            }
             dibujaRespaldo();
 
         glPopMatrix(); // Fin del nodo repaldo

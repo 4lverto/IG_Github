@@ -172,7 +172,7 @@ void setModoSeleccion(bool s){
 // Implemento colorSeleccion //
 // ///////////////////////// //
 
-void colorSeleccion(int id, int componente){
+void colorSeleccion(int id/*, int componente*/){
   unsigned char r = id & 0xFF;
   unsigned char g = (id >> 8) & 0xFF;
   glColor3ub(r,g,0);
@@ -203,31 +203,54 @@ void dibujaEscena() {
     glPopAttrib();
 
     // Práctica 4 y 5
-
+    if(getModoSeleccion()){
+      colorSeleccion(ID_DADO);
+    }
     dado.draw();
 
     glTranslatef(10.0,0.0,-10.0);
+    if(getModoSeleccion()){
+      colorSeleccion(ID_COCHE1);
+    }
     coche1.draw();
     
+
     glTranslatef(0.0,0.0,10.0);
+    if(getModoSeleccion()){
+      colorSeleccion(ID_COCHE2);
+    }
     coche2.draw();
 
     glTranslatef(0.0,0.0,10.0);
+    if(getModoSeleccion()){
+      colorSeleccion(ID_COCHE3);
+    }
     coche3.draw();
 
     // Práctica 3
     
     glTranslatef(-15.0,0.0,-10.0);
+    if(getModoSeleccion()){
+      colorSeleccion(ID_TABURETE);
+    }
     dibujaTaburete();
 
     // Práctica 2
 
     glTranslatef(-5.0,0.0,0.-5.0);
-    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
+    if(getModoSeleccion()){
+      colorSeleccion(ID_BEETHOVEN);
+    }else{
+      glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
+    }
     beethoven.draw();
 
     glTranslatef(0.0,0.0,10.0);
-    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
+    if(getModoSeleccion()){
+      colorSeleccion(ID_BEETHOVEN);
+    }else{
+      glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,rojo);
+    }
     big_dodge.draw();
     
     glPopMatrix();
