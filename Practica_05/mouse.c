@@ -44,8 +44,8 @@ void clickRaton( int boton, int estado, int x, int y ){
 
 		if(pick(x,y,&id)){
 			objetoSeleccionado=id;
-			//printf("Objeto seleccionado: %d\n",id);
-			//setModoSeleccion(true);
+			printf("Objeto seleccionado: %d\n",id);
+			setModoSeleccion(true);
 		
 			switch(id){
 				case ID_BEETHOVEN:
@@ -76,7 +76,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 		}else{
 			objetoSeleccionado=-1;
 			printf("No estás clicando sobre ningún objeto");
-			//setModoSeleccion(false);
+			setModoSeleccion(false);
 		}
 	}
 	else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {

@@ -204,10 +204,6 @@ void dibujaEscena() {
 
     // Práctica 4 y 5
 
-    
-    if(modoSeleccion){
-      colorSeleccion(ID_DADO);
-    }
     dado.draw();
 
     glTranslatef(10.0,0.0,-10.0);
