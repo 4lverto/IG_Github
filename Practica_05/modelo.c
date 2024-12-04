@@ -11,8 +11,8 @@ using namespace std;
 
 // PRÁCTICA 2 - Mallas con PLYs
 
-Malla beethoven("plys/beethoven.ply",true);
-Malla big_dodge("plys/big_dodge.ply",false);
+Malla beethoven("plys/beethoven.ply",true,ID_BEETHOVEN);
+Malla big_dodge("plys/big_dodge.ply",false,ID_BIG_DODGE);
 
 // PRÁCTICA 3 - Componentes de mi modelo jerárquico articulado
 
@@ -24,9 +24,9 @@ float VEL_Respaldo=0.1f;    // Se gestiona con U y J
 // PRÁCTICA 4 - Mallas a dibujar y Dado
 
 Dado dado(4.0f); // Dado "hereda" de Malla
-Malla coche1("plys/big_dodge.ply",false); // Reflectividad difusa
-Malla coche2("plys/big_dodge.ply",false); // Reflectividad ambiente
-Malla coche3("plys/big_dodge.ply",false); // Reflectividad especular
+Malla coche1("plys/big_dodge.ply",false,ID_COCHE1); // Reflectividad difusa
+Malla coche2("plys/big_dodge.ply",false,ID_COCHE2); // Reflectividad ambiente
+Malla coche3("plys/big_dodge.ply",false,ID_COCHE3); // Reflectividad especular
 
 // PRÁCTICA 4 - Dos focos de luz distintos
 
@@ -261,12 +261,6 @@ void dibujaEscena() {
  * @brief Procedimiento de dibujo del modelo. Es llamado por glut cada vez que se debe redibujar.
 */
 void Dibuja (void){
-
-  if(modoSeleccion){
-    glDisable(GL_DITHER);
-    glDisable(GL_LIGHTING);
-    glDisable(GL_TEXTURE_2D);
-  }
   dibujaEscena();
   glutSwapBuffers ();		// Intercambia el buffer de dibujo y visualizacion
 }

@@ -26,9 +26,9 @@ extern bool iluminacionActivada;
 extern int objetoSeleccionado;
 
 #define ID_DADO 1
-#define ID_COCHE1 2
-#define ID_COCHE2 3
-#define ID_COCHE3 4
-#define ID_TABURETE 5
+#define ID_TABURETE 2
+#define ID_COCHE1 3
+#define ID_COCHE2 4
+#define ID_COCHE3 5
 #define ID_BIG_DODGE 6
 #define ID_BEETHOVEN 7

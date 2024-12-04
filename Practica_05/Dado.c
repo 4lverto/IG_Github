@@ -22,12 +22,11 @@ Dado::Dado(float l){
 
 void Dado::draw() {
     
-    glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
-    glMaterialf(GL_FRONT, GL_SHININESS,e);
-
     if(!getModoSeleccion()){
+        glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
+        glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
+        glMaterialf(GL_FRONT, GL_SHININESS,e);
         glEnable(GL_TEXTURE_2D); 
     }
 

@@ -62,6 +62,11 @@ class Malla{
     */
     bool tieneTextura=false;
 
+    /**
+     * @brief ID de color asociado
+    */
+    int id;
+
       // =============== //
       // OTROS ATRIBUTOS // 
       // =============== //
@@ -199,7 +204,7 @@ class Malla{
      * @param nombre_archivo Nombre del archivo que va a representar la malla
      * @param sombreadoSuave TRUE si queremos usar sombreado SMOOTH. FALSE si queremos usar sombreado FLAT
     */
-    Malla(const char* nombre_archivo, bool sombreadoSuave); // Constructor con archivo
+    Malla(const char* nombre_archivo, bool sombreadoSuave,int id); // Constructor con archivo
 
     // Resto de métodos
 
@@ -254,6 +259,10 @@ class Malla{
     */
     void drawSmooth();
 
+
+    int getId();
+
+    void setId(int n);
 };
 
 #endif // MALLA_H

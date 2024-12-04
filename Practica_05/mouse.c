@@ -49,28 +49,28 @@ void clickRaton( int boton, int estado, int x, int y ){
 		
 			switch(id){
 				case ID_BEETHOVEN:
-					printf("Has seleccionado al Beethoven");
+					printf("Has seleccionado al Beethoven\n");
 					break;
 				case ID_BIG_DODGE:
-					printf("Has seleccionado al Big_Dodge");
+					printf("Has seleccionado al Big_Dodge\n");
 					break;
 				case ID_TABURETE:
-					printf("Has seleccionado el Taburete");
+					printf("Has seleccionado el Taburete\n");
 					break;
 				case ID_DADO:
-					printf("Has seleccionado el Dado");
+					printf("Has seleccionado el Dado\n");
 					break;
 				case ID_COCHE1:
-					printf("Has seleccionado el Coche 1");
+					printf("Has seleccionado el Coche 1\n");
 					break;
 				case ID_COCHE2:
-					printf("Has seleccionado el Coche 2");
+					printf("Has seleccionado el Coche 2\n");
 					break;
 				case ID_COCHE3:
-					printf("Has seleccionado el Coche 3");
+					printf("Has seleccionado el Coche 3\n");
 					break;
 				default:
-					printf("No estás clicando sobre ningún objeto");
+					printf("No estás clicando sobre ningún objeto\n");
 					break;
 			}
 		}else{
@@ -148,7 +148,10 @@ int pick(int x, int y, int *id){
 	glDisable(GL_DITHER);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
+
+	setModoSeleccion(true);
 	dibujaEscena();
+	setModoSeleccion(false);
 
 	glFlush();
 	glFinish();

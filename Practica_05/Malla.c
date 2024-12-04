@@ -250,6 +250,8 @@ void Malla::calculoCoordenadasTexturaEsfera(){
 
 Malla::Malla(){
     this->suave=false;
+    int randomNumber=rand() % 5 + 3;
+    this->id=randomNumber;
     ply::read("plys/cubo.ply",vertices_ply,caras_ply);
 
     // Vuelco el vector de vértices_ply en otro vector en el que cada componente representa un Punto3D
@@ -270,8 +272,9 @@ Malla::Malla(){
 }
 
 
-Malla::Malla(const char *nombre_archivo,bool sombreadoSuave){
+Malla::Malla(const char *nombre_archivo,bool sombreadoSuave,int _id){
     this->suave=sombreadoSuave;
+    this->id=_id;
     ply::read(nombre_archivo,vertices_ply,caras_ply);
     
     // Vuelco el vector de vértices_ply en otro vector en el que cada componente representa un Punto3D
@@ -369,26 +372,31 @@ void Malla::calcular_normales_vertices(){
 
 void Malla::draw(){
     
-    
-    if(iluminacionActivada){
-        glEnable(GL_LIGHTING);
+    if(getModoSeleccion()){
+        colorSeleccion(getId());
     }else{
-        glDisable(GL_LIGHTING);
-    }
 
-    glEnable(GL_NORMALIZE);
+        if(iluminacionActivada){
+            glEnable(GL_LIGHTING);
+        }else{
+            glDisable(GL_LIGHTING);
+        }
+
+        glEnable(GL_NORMALIZE);
     
-    if(this->tieneTextura && !getModoSeleccion()){
-        // 3)
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, texId);
+        if(this->tieneTextura){
+            // 3)
+            glEnable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, texId);
 
-        // 1) 
-        glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
-        glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
-        glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
-        glMaterialf(GL_FRONT, GL_SHININESS, e);
+            // 1) 
+            glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
+            glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
+            glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
+            glMaterialf(GL_FRONT, GL_SHININESS, e);
+        }
     }
+
 
     if(this->suave){ // Si el atributo suave==TRUE, se dibujará con sombreado suave
         glShadeModel(GL_SMOOTH);
@@ -400,7 +408,6 @@ void Malla::draw(){
     
     if(this->tieneTextura && !getModoSeleccion()){
         glDisable(GL_TEXTURE_2D);
-        glDisable(GL_LIGHTING);
     }
 }
 
@@ -449,4 +456,12 @@ void Malla::drawSmooth(){
         glVertex3f(this->vertices[t.getI2()].x , this->vertices[t.getI2()].y , this->vertices[t.getI2()].z);
     }
     glEnd();
+}
+
+int Malla::getId(){
+    return this->id;
+}
+
+void Malla::setId(int n){
+    this->id=n;
 }
