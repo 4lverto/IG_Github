@@ -11,8 +11,8 @@ using namespace std;
 
 // PRÁCTICA 2 - Mallas con PLYs
 
-Malla beethoven("plys/beethoven.ply",true,ID_BEETHOVEN);
-Malla big_dodge("plys/big_dodge.ply",false,ID_BIG_DODGE);
+// Malla beethoven("plys/beethoven.ply",true,ID_BEETHOVEN);
+// Malla big_dodge("plys/big_dodge.ply",false,ID_BIG_DODGE);
 
 // PRÁCTICA 3 - Componentes de mi modelo jerárquico articulado
 
@@ -23,10 +23,10 @@ float VEL_Respaldo=0.1f;    // Se gestiona con U y J
 
 // PRÁCTICA 4 - Mallas a dibujar y Dado
 
-Dado dado(4.0f,ID_DADO); // Dado "hereda" de Malla
-Malla coche1("plys/big_dodge.ply",false,ID_COCHE1); // Reflectividad difusa
-Malla coche2("plys/big_dodge.ply",false,ID_COCHE2); // Reflectividad ambiente
-Malla coche3("plys/big_dodge.ply",false,ID_COCHE3); // Reflectividad especular
+// Dado dado(4.0f,ID_DADO); // Dado "hereda" de Malla
+// Malla coche1("plys/big_dodge.ply",false,ID_COCHE1); // Reflectividad difusa
+// Malla coche2("plys/big_dodge.ply",false,ID_COCHE2); // Reflectividad ambiente
+// Malla coche3("plys/big_dodge.ply",false,ID_COCHE3); // Reflectividad especular
 
 // PRÁCTICA 4 - Dos focos de luz distintos
 
@@ -45,36 +45,36 @@ initModel (){
   // Práctica 2 //
   // ////////// //
 
-  beethoven.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
-  beethoven.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
-  beethoven.asignarExponenteEspecular(49.0f);
+  // beethoven.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  // beethoven.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  // beethoven.asignarExponenteEspecular(49.0f);
 
-  big_dodge.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
-  big_dodge.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
-  big_dodge.asignarExponenteEspecular(49.0f);
+  // big_dodge.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  // big_dodge.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  // big_dodge.asignarExponenteEspecular(49.0f);
 
   // ////////// //
   // Práctica 4 //
   // ////////// //
 
-  dado.cargarTextura("JPEG/dado.jpg");
-  dado.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
-  dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
-  dado.asignarExponenteEspecular(49.0f);
-  dado.setSombreadoSuave(true);
+  // dado.cargarTextura("JPEG/dado.jpg");
+  // dado.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  // dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  // dado.asignarExponenteEspecular(49.0f);
+  // dado.setSombreadoSuave(true);
 
-  coche1.cargarTextura("JPEG/texturaMarmol.jpg");
-  coche1.calculoCoordenadasTexturaCilindrica();
-  coche1.configuracionMaterial1();
-  coche1.setSombreadoSuave(true);
+  // coche1.cargarTextura("JPEG/texturaMarmol.jpg");
+  // coche1.calculoCoordenadasTexturaCilindrica();
+  // coche1.configuracionMaterial1();
+  // coche1.setSombreadoSuave(true);
 
-  coche2.cargarTextura("JPEG/texturaMarmol.jpg");
-  coche2.calculoCoordenadasTexturaCilindrica();
-  coche2.configuracionMaterial2();
-  coche2.setSombreadoSuave(true);
+  // coche2.cargarTextura("JPEG/texturaMarmol.jpg");
+  // coche2.calculoCoordenadasTexturaCilindrica();
+  // coche2.configuracionMaterial2();
+  // coche2.setSombreadoSuave(true);
 
-  coche3.configuracionMaterial3();
-  coche3.setSombreadoSuave(true);
+  // coche3.configuracionMaterial3();
+  // coche3.setSombreadoSuave(true);
 }
 
                   // /////////////// //
@@ -159,7 +159,6 @@ void establecerLuzActiva(){
                                 // PRÁCTICA 5 //
                                 // ////////// //
 
-int objetoSeleccionado=-1;
 bool modoSeleccion=false;
 
 bool getModoSeleccion(){
@@ -209,49 +208,10 @@ void dibujaEscena() {
     ejesCoordenadas.draw();
     glPopAttrib();
 
-    // Práctica 4 y 5
-  
-      // Dado
-    glPushMatrix();
-    if(getModoSeleccion()){
-      colorSeleccion(ID_DADO);
-    }
-    dado.draw();
-    glPopMatrix();
-
-      // Coche 1
-    glPushMatrix();
-    glTranslatef(10.0,0.0,-10.0);
-    if(getModoSeleccion()){
-      colorSeleccion(ID_COCHE1);
-    }
-    coche1.draw();
-    glPopMatrix();
-
-      // Coche 2
-    glPushMatrix();
-    glTranslatef(10.0,0.0,0.0);
-    if(getModoSeleccion()){
-      colorSeleccion(ID_COCHE2);
-    }
-    coche2.draw();
-    glPopMatrix();
-
-      // Coche 3
-    glPushMatrix();
-    glTranslatef(10.0,0.0,10.0);
-    if(getModoSeleccion()){
-      colorSeleccion(ID_COCHE3);
-    }
-    coche3.draw();
-    glPopMatrix();
-
-
     // Práctica 3
 
-      // Taburete
+    // Taburete
     glPushMatrix();
-    glTranslatef(-5.0,0.0,-10.0);
     if(getModoSeleccion()){
       colorSeleccion(ID_TABURETE1);
     }
@@ -259,33 +219,11 @@ void dibujaEscena() {
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(-10.0,0.0,-10.0);
+    glTranslatef(-5.0,0.0,-5.0);
     if(getModoSeleccion()){
       colorSeleccion(ID_TABURETE2);
     }
     dibujaTaburete(ID_TABURETE2);
-    glPopMatrix();
-    
-    // Práctica 2
-
-    glPushMatrix();
-    glTranslatef(-10.0,0.0,0.-5.0);
-    if(getModoSeleccion()){
-      colorSeleccion(ID_BEETHOVEN);
-    }else{
-      glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,verde);
-    }
-    beethoven.draw();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(-10.0,0.0,5.0);
-    if(getModoSeleccion()){
-      colorSeleccion(ID_BIG_DODGE);
-    }else{
-      glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,morado);
-    }
-    big_dodge.draw();
     glPopMatrix();
 
     glPopMatrix();

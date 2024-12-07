@@ -43,31 +43,12 @@ void clickRaton( int boton, int estado, int x, int y ){
 		int id=-1;
 
 		if(pick(x,y,&id)){
-			objetoSeleccionado=id;
 			// printf("Objeto seleccionado: %d\n",id);
-			// setModoSeleccion(true);
+			setModoSeleccion(true);
 		
 			switch(id){
-				case ID_BEETHOVEN:
-					printf("\nHas seleccionado al Beethoven\n");
-					break;
-				case ID_BIG_DODGE:
-					printf("\nHas seleccionado al Big_Dodge\n");
-					break;
 				case ID_TABURETE1:
 					printf("\nHas seleccionado el Primer Taburete\n");
-					break;
-				case ID_DADO:
-					printf("\nHas seleccionado el Dado\n");
-					break;
-				case ID_COCHE1:
-					printf("\nHas seleccionado el Coche 1\n");
-					break;
-				case ID_COCHE2:
-					printf("\nHas seleccionado el Coche 2\n");
-					break;
-				case ID_COCHE3:
-					printf("\nHas seleccionado el Coche 3\n");
 					break;
 				case ID_TABURETE2:
 					printf("\nHas seleccionado el Segundo Taburete\n");
@@ -77,9 +58,8 @@ void clickRaton( int boton, int estado, int x, int y ){
 					break;
 			}
 		}else{
-			objetoSeleccionado=-1;
 			printf("\nNo estás clicando sobre ningún objeto");
-			//setModoSeleccion(false);
+			setModoSeleccion(false);
 		}
 	
 	}else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {
@@ -149,10 +129,7 @@ int pick(int x, int y, int *id){
 	unsigned char data[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
 
-	setModoSeleccion(true);
-
-	glDisable(GL_DITHER);
-	glDisable(GL_LIGHTING);
+	// glDisable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
 
 	setModoSeleccion(true);
