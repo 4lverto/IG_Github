@@ -21,6 +21,162 @@ float VEL_Cilindro=0.01f;   // Se gestiona con T y G
 float VEL_Asiento=0.5f;     // Se gestiona con Y y H
 float VEL_Respaldo=0.1f;    // Se gestiona con U y J
 
+float posTaburete1[3] = {0.0f,0.0f,0.0f};
+float posTaburete2[3] = {-5.0f,0.0f,-5.0f};
+float posTaburete3[3] = {3.0f,0.0f,10.0f};
+
+float angulo1=0.0f;
+float angulo2=0.0f;
+float angulo3=0.0f;
+
+void girar(int ntaburete){
+  switch(ntaburete){
+    case 1:
+      angulo1+=90.0f;
+      break;
+    
+    case 2:
+      angulo2+=90.0f;
+      break;
+    
+    case 3:
+      angulo3+=90.0f;
+      break;
+    
+    default:
+      printf("\nNingún objeto está girando");
+      break;
+  }
+}
+
+void moverse(int ntaburete,char coordenada,float cantidad){
+  
+  if(coordenada=='x'){
+    switch(ntaburete){
+      case 1:
+        if(comprobarTopeX(ntaburete,cantidad)){
+          posTaburete1[0]+=cantidad;
+        }else{
+          posTaburete1[0]+=(cantidad*-1);
+        }
+        break;
+      
+      case 2:
+        if(comprobarTopeX(ntaburete,cantidad)){
+          posTaburete2[0]+=cantidad;
+        }else{
+          posTaburete2[0]+=(cantidad*-1);
+        }
+        break;
+    
+      case 3:
+        if(comprobarTopeX(ntaburete,cantidad)){
+          posTaburete3[0]+=cantidad;
+        }else{
+          posTaburete3[0]+=(cantidad*-1);
+        }
+        break;
+
+      default:
+        printf("\nNo estás seleccionando un taburete válido");
+    }
+  }else{
+    switch(ntaburete){
+      case 1:
+        if(comprobarTopeZ(ntaburete,cantidad)){
+          posTaburete1[2]+=cantidad;
+        }else{
+          posTaburete1[2]+=(cantidad*-1);
+        }
+        break;
+      
+      case 2:
+        if(comprobarTopeZ(ntaburete,cantidad)){
+          posTaburete2[2]+=cantidad;
+        }else{
+          posTaburete2[0]+=(cantidad*-1);
+        }
+        break;
+    
+      case 3:
+        if(comprobarTopeZ(ntaburete,cantidad)){
+          posTaburete3[2]+=cantidad;
+        }else{
+          posTaburete3[0]+=(cantidad*-1);
+        }
+        break;
+
+      default:
+        printf("\nNo se está moviendo el taburete");
+    }
+
+  }
+}
+
+bool comprobarTopeX(int ntaburete,float cantidad){
+  bool valido;
+  switch(ntaburete){
+    case 1:
+      if(posTaburete1[0]+cantidad<30 && posTaburete1[0]+cantidad>-30){
+        valido=true;
+      }else{
+        valido=false;
+      }
+      break;
+    case 2:
+      if(posTaburete2[0]+cantidad<30 && posTaburete2[0]+cantidad>-30){
+        valido=true;
+      }else{
+        valido=false;
+      }
+      break;
+    case 3:
+      if(posTaburete3[0]+cantidad<30 && posTaburete3[0]+cantidad>-30){
+        valido=true;
+      }else{
+        valido=false;
+      }
+      break;
+    default:
+      printf("\nLlamada a comprobarTopeX incorrecta");
+  }
+
+  return valido;
+}
+
+bool comprobarTopeZ(int ntaburete, float cantidad)
+{
+    bool valido;
+    switch (ntaburete)
+    {
+    case 1:
+      if(posTaburete1[2]+cantidad<30 && posTaburete1[2]+cantidad>-30){
+        valido=true;
+      }else{
+        valido=false;
+      }
+      break;
+    case 2:
+      if(posTaburete2[2]+cantidad<30 && posTaburete2[2]+cantidad>-30){
+        valido=true;
+      }else{
+        valido=false;
+      }
+      break;
+    case 3:
+      if(posTaburete3[2]+cantidad<30 && posTaburete3[2]+cantidad>-30){
+        valido=true;
+      }else{
+        valido=false;
+      }
+      break;
+    default:
+      printf("\nLlamada a comprobarTopeX incorrecta");
+  }
+
+  return valido;
+}
+
 // PRÁCTICA 4 - Mallas a dibujar y Dado
 
 // Dado dado(4.0f,ID_DADO); // Dado "hereda" de Malla
@@ -175,7 +331,7 @@ void setModoSeleccion(bool s){
 void colorSeleccion(int id/*, int componente*/){
   static int ultimoID=-1;
   unsigned char r = id & 0xFF;
-  unsigned char g = (id >> 9) & 0xFF;
+  unsigned char g = (id >> 10) & 0xFF;
   glColor3ub(r,g,0);
 
   if(id!=ultimoID){
@@ -208,23 +364,38 @@ void dibujaEscena() {
     ejesCoordenadas.draw();
     glPopAttrib();
 
-    // Práctica 3
-
-    // Taburete
+    // Taburete 1
     glPushMatrix();
+    glTranslatef(posTaburete1[0],posTaburete1[1],posTaburete1[2]);
+    glRotatef(angulo1,0,1,0);
     if(getModoSeleccion()){
       colorSeleccion(ID_TABURETE1);
     }
     dibujaTaburete(ID_TABURETE1);
     glPopMatrix();
 
+    // Taburete 2
     glPushMatrix();
-    glTranslatef(-5.0,0.0,-5.0);
+    glTranslatef(posTaburete2[0],posTaburete2[1],posTaburete2[2]);
+    glRotatef(angulo2,0,1,0);
     if(getModoSeleccion()){
       colorSeleccion(ID_TABURETE2);
     }
     dibujaTaburete(ID_TABURETE2);
     glPopMatrix();
+
+    // Taburete 3
+    glPushMatrix();
+    glTranslatef(posTaburete3[0],posTaburete3[1],posTaburete3[2]);
+    glRotatef(angulo3,0,1,0);
+    if(getModoSeleccion()){
+      colorSeleccion(ID_TABURETE3);
+    }
+    dibujaTaburete(ID_TABURETE3);
+    glPopMatrix();
+
+    // MESA
+    dibujaMesa();
 
     glPopMatrix();
 }
@@ -271,4 +442,29 @@ void idle (int v){
   
   glutPostRedisplay ();		// Redibuja
   glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms
+}
+
+void dibujaMesa(){
+  float marronTabla[4]={0.55f,0.27f,0.07f,1.0f};
+  float grisPatas[4]={0.5f,0.5f,0.5f,1.0f};
+
+  glPushMatrix();
+    glTranslatef(0.0f,5.0f,0.0f);
+    glScalef(30.0f,0.5f,6.0f);
+    glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,marronTabla);
+    glutSolidCube(1.0f);
+  glPopMatrix();
+
+  for(float x=-10.0f; x<=10.0f; x+=20.0f){
+    for(float z=-2.5f;z<=2.5f;z+=5.0f){
+      glPushMatrix();
+        glTranslatef(x,0.0f,z);
+        glRotatef(-90.0f,1.0f,0.0f,0.0f);
+        glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,grisPatas);
+        GLUquadric* quad=gluNewQuadric();
+        gluCylinder(quad,0.3f,0.3f,5.0f,32,32);
+        gluDeleteQuadric(quad);
+      glPopMatrix();
+    }
+  }
 }

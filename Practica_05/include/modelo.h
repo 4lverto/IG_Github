@@ -57,6 +57,20 @@ bool getModoSeleccion();
 */
 void setModoSeleccion(bool s);
 
+/**
+ * 
+*/
+
+void girar(int ntaburete);
+
+void moverse(int ntaburete,char coordenada,float cantidad);
+
+bool comprobarTopeX(int ntaburete,float cantidad);
+
+bool comprobarTopeZ(int ntaburete,float cantidad);
+
+void dibujaMesa();
+
 class Objeto3D{ 
 	public: 
 
