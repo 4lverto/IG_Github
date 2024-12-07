@@ -44,6 +44,7 @@ initModel (){
   // ////////// //
   // Práctica 2 //
   // ////////// //
+
   beethoven.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
   beethoven.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
   beethoven.asignarExponenteEspecular(49.0f);
@@ -175,11 +176,11 @@ void setModoSeleccion(bool s){
 void colorSeleccion(int id/*, int componente*/){
   static int ultimoID=-1;
   unsigned char r = id & 0xFF;
-  unsigned char g = (id >> 8) & 0xFF;
+  unsigned char g = (id >> 9) & 0xFF;
   glColor3ub(r,g,0);
 
   if(id!=ultimoID){
-    printf("Asignando color: R=%d, G=%d, B=%d para ID=%d\n",r,g,0,id);
+    // printf("Asignando color: R=%d, G=%d, B=%d para ID=%d\n",r,g,0,id);
     ultimoID=id;
   }
 }
@@ -252,9 +253,17 @@ void dibujaEscena() {
     glPushMatrix();
     glTranslatef(-5.0,0.0,-10.0);
     if(getModoSeleccion()){
-      colorSeleccion(ID_TABURETE);
+      colorSeleccion(ID_TABURETE1);
     }
-    dibujaTaburete(ID_TABURETE);
+    dibujaTaburete(ID_TABURETE1);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-10.0,0.0,-10.0);
+    if(getModoSeleccion()){
+      colorSeleccion(ID_TABURETE2);
+    }
+    dibujaTaburete(ID_TABURETE2);
     glPopMatrix();
     
     // Práctica 2

@@ -45,7 +45,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 		if(pick(x,y,&id)){
 			objetoSeleccionado=id;
 			// printf("Objeto seleccionado: %d\n",id);
-			//setModoSeleccion(true);
+			// setModoSeleccion(true);
 		
 			switch(id){
 				case ID_BEETHOVEN:
@@ -54,8 +54,8 @@ void clickRaton( int boton, int estado, int x, int y ){
 				case ID_BIG_DODGE:
 					printf("\nHas seleccionado al Big_Dodge\n");
 					break;
-				case ID_TABURETE:
-					printf("\nHas seleccionado el Taburete\n");
+				case ID_TABURETE1:
+					printf("\nHas seleccionado el Primer Taburete\n");
 					break;
 				case ID_DADO:
 					printf("\nHas seleccionado el Dado\n");
@@ -68,6 +68,9 @@ void clickRaton( int boton, int estado, int x, int y ){
 					break;
 				case ID_COCHE3:
 					printf("\nHas seleccionado el Coche 3\n");
+					break;
+				case ID_TABURETE2:
+					printf("\nHas seleccionado el Segundo Taburete\n");
 					break;
 				default:
 					printf("\nNo estás clicando sobre ningún objeto\n");
@@ -165,7 +168,7 @@ int pick(int x, int y, int *id){
 
 	glReadPixels(x, viewport[3]-y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
-	*id=data[0] | (data[1] << 8);
+	*id=data[0] | (data[1] << 9);
 
 	return *id;
 }
