@@ -407,7 +407,7 @@ void dibujaEscena() {
     
     // DADO
     glPushMatrix();
-    glTranslatef(4.0f,5.0f,-10.0f);
+    glTranslatef(4.0f,5.5f,-10.0f);
     dado.draw();
     glPopMatrix();
 

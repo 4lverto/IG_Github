@@ -38,13 +38,13 @@ void printHelp ()
   printf ("i,I -> Altenar activación/desactivación de luz\n");
 
   // Práctica 3
-  printf ("\nC   -> Subir el cilindro (base del taburete)\n");
-  printf ("c   -> Bajar el cilindro (base del taburete)\n");
-  printf ("V   -> Rotar el asiento hacia la derecha\n");
-  printf ("v   -> Rotar el asiento hacia la izquierda\n");
+  printf ("\nN   -> Subir los cilindros (base del taburete)\n");
+  printf ("n   -> Bajar los cilindro (base del taburete)\n");
+  printf ("V   -> Rotar los asiento hacia la derecha\n");
+  printf ("v   -> Rotar los asiento hacia la izquierda\n");
   printf ("B   -> Inclinar el respaldo hacia atrás\n");
   printf ("b   -> Inclinar el respaldo hacia delante");
-  printf ("A,a -> Alternar activación/desactivación de la animación automática\n");
+  printf ("M,m -> Alternar activación/desactivación de la animación automática\n");
   printf ("T,t -> Aumentar la velocidad de giro del cilindro\n");
   printf ("G,g -> Reducir la velocidad de giro del cilindro\n");
   printf ("Y,y -> Aumentar la velcocidad de giro del asiento\n");
@@ -87,8 +87,8 @@ void letra (unsigned char k, int x, int y)
 {
   switch (k)
     {
-    case 'z':
-    case 'Z':
+    case '<':
+    case '>':
       printHelp ();		// Z y z imprimen ayuda
       break;
     case '+':			// acerca la cámara
@@ -113,14 +113,18 @@ void letra (unsigned char k, int x, int y)
       break;
     case 'i':
     case 'I':
-      setIluminacion(); // Práctica 1
+      setIluminacion();
       break;
-    case 'C': // A partir de aquí es práctica 3
+    case 'M':
+    case 'm':
+      animacionActiva = !animacionActiva; // Activar / desactivar la animación automática  
+      break;
+    case 'N': 
       if(alturaCilindro<2.0f){
         alturaCilindro+=0.1f; // Subir el cilindro 
       }
       break;
-    case 'c':
+    case 'n':
       if(alturaCilindro>0.5f){
         alturaCilindro-=0.1f; // Bajar el cilindro 
       }
@@ -140,10 +144,6 @@ void letra (unsigned char k, int x, int y)
       if(inclinacionRespaldo<0.0f){
         inclinacionRespaldo+=0.5f; // Inclinar respaldo hacia delante
       }
-      break;
-    case 'A':
-    case 'a':
-      animacionActiva = !animacionActiva; // Activar / desactivar la animación automática  
       break;
     case 'T':
     case 't':
@@ -175,9 +175,54 @@ void letra (unsigned char k, int x, int y)
         VEL_Respaldo-=0.1f;
       }
       break;
-    case 'w':
-    case 'W':
+    case 'q':
+    case 'Q':
       establecerLuzActiva(); // Práctica 4
+    case 'A':
+      moverse(1,'x',5);
+      break;
+    case 'a':
+      moverse(1,'x',-5);
+      break;
+    case 'S':
+      moverse(2,'x',5);
+      break;
+    case 's':
+      moverse(2,'x',-5);
+      break;
+    case 'D':
+      moverse(3,'x',5);
+      break;
+    case 'd':
+      moverse(3,'x',-5);
+      break;
+    case 'Z':
+      moverse(1,'z',5);
+      break;
+    case 'z':
+      moverse(1,'z',-5);
+      break;
+    case 'X':
+      moverse(2,'z',5);
+      break;
+    case 'x':
+      moverse(2,'z',-5);
+      break;
+    case 'C':
+      moverse(3,'z',5);
+      break;
+    case 'c':
+      moverse(3,'z',-5);
+      break;
+    case '1':
+      girar(1);
+      break;
+    case '2':
+      girar(2);
+      break;
+    case '3':
+      girar(3);
+      break;
     default:
       return;
     }
