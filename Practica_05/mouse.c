@@ -52,12 +52,15 @@ void clickRaton( int boton, int estado, int x, int y ){
 					moverse(1,'x',5);
 					break;
 				case ID_TABURETE2:
-					printf("\n(IZQ)Has seleccionado el Segundo Taburete\n");
+					printf("\n(IZQ) Has seleccionado el Segundo Taburete\n");
 					moverse(2,'x',5);
 					break;
 				case ID_TABURETE3:
-					printf("\n(IZQ)Has seleccionado el Tercer Taburete\n");
+					printf("\n(IZQ) Has seleccionado el Tercer Taburete\n");
 					moverse(3,'x',5);
+					break;
+				case ID_DADO:
+					printf("\n(IZQ) Has seleccionado el Dado\n");
 					break;
 				default:
 					printf("\n(IZQ) No estás haciendo click izquierdo sobre ningún objeto\n");
@@ -91,6 +94,9 @@ void clickRaton( int boton, int estado, int x, int y ){
 					printf("\n(CENTRO) Has seleccionado el Tercer Taburete\n");
 					girar(3);
 					break;
+				case ID_DADO:
+					printf("\n(CENTRO) Has seleccionado el Dado\n");
+					break;
 				default:
 					printf("\nNo estás haciendo click central sobre ningún objeto\n");
 					break;
@@ -122,6 +128,9 @@ void clickRaton( int boton, int estado, int x, int y ){
 				case ID_TABURETE3:
 					printf("\n(DCHA) Has seleccionado el Tercer Taburete\n");
 					moverse(3,'z',5);
+					break;
+				case ID_DADO:
+					printf("\n(DCHA) Has seleccionado el Dado\n");
 					break;
 				default:
 					printf("\nNo estás haciendo click derecho sobre ningún objeto\n");

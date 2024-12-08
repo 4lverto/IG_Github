@@ -24,13 +24,13 @@ Dado::Dado(float l,int _id){
 void Dado::draw() {
     glPushAttrib(GL_LIGHTING|GL_TEXTURE_BIT|GL_CURRENT_BIT);
 
-    if(!getModoSeleccion()){
-        glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
-        glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
-        glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
-        glMaterialf(GL_FRONT, GL_SHININESS,e);
-        glEnable(GL_TEXTURE_2D); 
-    }else{
+    glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
+    glMaterialf(GL_FRONT, GL_SHININESS,e);
+    glEnable(GL_TEXTURE_2D); 
+    
+    if(getModoSeleccion){
         colorSeleccion(ID_DADO);
     }
 
@@ -81,10 +81,6 @@ void Dado::draw() {
     glTexCoord2f(0.25f, 0.75f); glVertex3f(-mitad, 0.0f, mitad);
 
     glEnd();
-
-    if(!getModoSeleccion()){
-        glDisable(GL_TEXTURE_2D);
-    }
 
     glPopAttrib();
 }

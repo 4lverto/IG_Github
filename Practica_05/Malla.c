@@ -374,40 +374,34 @@ void Malla::draw(){
     
     if(getModoSeleccion()){
         colorSeleccion(getId());
-    }else{
-
-        if(iluminacionActivada){
-            glEnable(GL_LIGHTING);
-        }else{
-            glDisable(GL_LIGHTING);
-        }
-
-        glEnable(GL_NORMALIZE);
-    
-        if(this->tieneTextura){
-            // 3)
-            glEnable(GL_TEXTURE_2D);
-            glBindTexture(GL_TEXTURE_2D, texId);
-
-            // 1) 
-            glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
-            glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
-            glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
-            glMaterialf(GL_FRONT, GL_SHININESS, e);
-        }
     }
 
+    if(iluminacionActivada){
+        glEnable(GL_LIGHTING);
+    }else{
+        glDisable(GL_LIGHTING);
+    }
 
+    glEnable(GL_NORMALIZE);
+
+    if(this->tieneTextura){
+        // 3)
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texId);
+
+        // 1) 
+        glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
+        glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
+        glMaterialf(GL_FRONT, GL_SHININESS, e);
+    }
+    
     if(this->suave){ // Si el atributo suave==TRUE, se dibujará con sombreado suave
         glShadeModel(GL_SMOOTH);
         this->drawSmooth();
     }else{ // Si el atributo suave==FALSE, se dibujará con sombreado plano
         glShadeModel(GL_FLAT);
         this->drawFlat();
-    }
-    
-    if(this->tieneTextura && !getModoSeleccion()){
-        glDisable(GL_TEXTURE_2D);
     }
 }
 

@@ -179,7 +179,7 @@ bool comprobarTopeZ(int ntaburete, float cantidad)
 
 // PRÁCTICA 4 - Mallas a dibujar y Dado
 
-// Dado dado(4.0f,ID_DADO); // Dado "hereda" de Malla
+Dado dado(4.0f,ID_DADO); // Dado "hereda" de Malla
 // Malla coche1("plys/big_dodge.ply",false,ID_COCHE1); // Reflectividad difusa
 // Malla coche2("plys/big_dodge.ply",false,ID_COCHE2); // Reflectividad ambiente
 // Malla coche3("plys/big_dodge.ply",false,ID_COCHE3); // Reflectividad especular
@@ -213,7 +213,7 @@ initModel (){
   // Práctica 4 //
   // ////////// //
 
-  // dado.cargarTextura("JPEG/dado.jpg");
+    dado.cargarTextura("JPEG/dado.jpg");
   // dado.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
   // dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
   // dado.asignarExponenteEspecular(49.0f);
@@ -350,7 +350,7 @@ void dibujaEscena() {
     float rojo[4]={1,0,0,1};
 
     glPushMatrix();
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glLoadIdentity();
@@ -395,7 +395,21 @@ void dibujaEscena() {
     glPopMatrix();
 
     // MESA
+    glPushMatrix();
     dibujaMesa();
+    glPopMatrix();
+
+    // MESITA
+    glPushMatrix();
+    glTranslatef(4.0f,0.0f,-10.0f);
+    dibujaMesaPequenia();
+    glPopMatrix();
+    
+    // DADO
+    glPushMatrix();
+    glTranslatef(4.0f,5.0f,-10.0f);
+    dado.draw();
+    glPopMatrix();
 
     glPopMatrix();
 }
@@ -444,6 +458,8 @@ void idle (int v){
   glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms
 }
 
+
+
 void dibujaMesa(){
   float marronTabla[4]={0.55f,0.27f,0.07f,1.0f};
   float grisPatas[4]={0.5f,0.5f,0.5f,1.0f};
@@ -463,6 +479,31 @@ void dibujaMesa(){
         glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,grisPatas);
         GLUquadric* quad=gluNewQuadric();
         gluCylinder(quad,0.3f,0.3f,5.0f,32,32);
+        gluDeleteQuadric(quad);
+      glPopMatrix();
+    }
+  }
+}
+
+void dibujaMesaPequenia(){
+  float colorTabla[4]={0.8f,0.0f,1.0f,1.0f};
+  float grisPatas[4]={0.5f,0.5f,0.5f,1.0f};
+
+  glPushMatrix();
+    glTranslatef(0.0f,5.0f,0.0f);
+    glScalef(6.0f,0.5f,6.0f);
+    glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,colorTabla);
+    glutSolidCube(1.0f);
+  glPopMatrix();
+
+  for(float x=-2.0f; x<=2.0f; x+=4.0f){
+    for(float z=-1.0f;z<=1.0f;z+=2.0f){
+      glPushMatrix();
+        glTranslatef(x,0.0f,z);
+        glRotatef(-90.0f,1.0f,0.0f,0.0f);
+        glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,grisPatas);
+        GLUquadric* quad=gluNewQuadric();
+        gluCylinder(quad,0.2f,0.2f,5.0f,32,32);
         gluDeleteQuadric(quad);
       glPopMatrix();
     }

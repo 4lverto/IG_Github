@@ -71,6 +71,8 @@ bool comprobarTopeZ(int ntaburete,float cantidad);
 
 void dibujaMesa();
 
+void dibujaMesaPequenia();
+
 class Objeto3D{ 
 	public: 
 

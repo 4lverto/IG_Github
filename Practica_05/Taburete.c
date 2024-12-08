@@ -10,6 +10,7 @@ float inclinacionRespaldo=0.0f;
 
 float gris[4]={0.5f,0.5f,0.5f,1.0f};
 float marron[4]={0.65f,0.32f,0.17f,1.0f};
+float verde[4]={0.0f,1.0f,0.0f,1.0f};
 
 // Práctica 5
 float especular[4]={0.1f,0.1f,0.1f,1.0f};
@@ -36,7 +37,7 @@ void dibujaTaburete(int _id){
     glPushMatrix();
         glTranslatef(0.0f,4.0f*alturaCilindro,0.0f);
         glRotatef(rotacionAsiento,0.0f,1.0f,0.0f); // Rotación del asiento y respaldo sobre su propio eje Y
-        glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,marron);
+        glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,verde);
         dibujaAsiento();
 
     // Dibujo el respaldo. Su grado de libertad de rotación (Z) se gestiona mediante 'B' y 'b'
@@ -44,7 +45,7 @@ void dibujaTaburete(int _id){
             glTranslatef(0.0f,1.50f,-1.75f);
             glRotatef(90.0f,0.0f,1.0f,0.0f);
             glRotatef(inclinacionRespaldo,0.0f,0.0f,1.0f); // Inclinación (Rotación) del respaldo sobre su eje Z
-            glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,marron);
+            glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,verde);
             dibujaRespaldo();
 
         glPopMatrix(); // Fin del nodo repaldo
