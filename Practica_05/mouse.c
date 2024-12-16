@@ -50,10 +50,11 @@ void clickRaton( int boton, int estado, int x, int y ){
 				case ID_TABURETE1:
 					printf("\n(IZQ) Has seleccionado el Primer Taburete\n");
 					// moverse(1,'x',5);
+					
 					if(!getMT1){
 						setMT1(true);
-						//glutTimerFunc(30,idle,0);
-						moverTabureteAutomatico(1);
+						// glutTimerFunc(30,idle,0);
+						// moverTabureteAutomatico(1);
 					}
 					
 					break;
@@ -63,7 +64,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 					if(!getMT2){
 						setMT2(true);
 						//glutTimerFunc(30,idle,0);
-						moverTabureteAutomatico(2);
+						// moverTabureteAutomatico(2);
 					}
 					
 					break;
@@ -71,7 +72,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 					printf("\n(IZQ) Has seleccionado el Tercer Taburete\n");
 					// moverse(3,'x',5);
 					if(!getMT3){
-						moverTabureteAutomatico(3);
+						// moverTabureteAutomatico(3);
 						setMT3(true);
 						//glutTimerFunc(30,idle,0);	
 					}

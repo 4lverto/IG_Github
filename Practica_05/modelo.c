@@ -548,7 +548,6 @@ void idle (int v){
   
   // Nueva animación
   
-  /*
   if(moviendoTaburete1){
     moverAutomatico(posTaburete1,destinoTaburete1,&moviendoTaburete1);
     // setMT1(false);
@@ -561,8 +560,7 @@ void idle (int v){
 
   if(moviendoTaburete3){
     moverAutomatico(posTaburete3,destinoTaburete3,&moviendoTaburete3);
-    // setMT3(false);
-  }*/
+  }
 
   glutPostRedisplay ();		// Redibuja
   glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms

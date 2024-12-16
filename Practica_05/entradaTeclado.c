@@ -88,7 +88,7 @@ void letra (unsigned char k, int x, int y)
     {
     case '<':
     case '>':
-      printHelp ();		// Z y z imprimen ayuda
+      printHelp ();		// < y > imprimen ayuda
       break;
     case '+':			// acerca la cámara
       dCamara -= 5.0;
