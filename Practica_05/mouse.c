@@ -49,15 +49,33 @@ void clickRaton( int boton, int estado, int x, int y ){
 			switch(id){
 				case ID_TABURETE1:
 					printf("\n(IZQ) Has seleccionado el Primer Taburete\n");
-					moverse(1,'x',5);
+					// moverse(1,'x',5);
+					if(!getMT1){
+						setMT1(true);
+						//glutTimerFunc(30,idle,0);
+						moverTabureteAutomatico(1);
+					}
+					
 					break;
 				case ID_TABURETE2:
 					printf("\n(IZQ) Has seleccionado el Segundo Taburete\n");
-					moverse(2,'x',5);
+					// moverse(2,'x',5);
+					if(!getMT2){
+						setMT2(true);
+						//glutTimerFunc(30,idle,0);
+						moverTabureteAutomatico(2);
+					}
+					
 					break;
 				case ID_TABURETE3:
 					printf("\n(IZQ) Has seleccionado el Tercer Taburete\n");
-					moverse(3,'x',5);
+					// moverse(3,'x',5);
+					if(!getMT3){
+						moverTabureteAutomatico(3);
+						setMT3(true);
+						//glutTimerFunc(30,idle,0);	
+					}
+					
 					break;
 				case ID_DADO:
 					printf("\n(IZQ) Has seleccionado el Dado\n");
@@ -85,17 +103,24 @@ void clickRaton( int boton, int estado, int x, int y ){
 				case ID_TABURETE1:
 					printf("\n(CENTRO) Has seleccionado el Primer Taburete\n");
 					girar(1);
+					// moverTabureteAutomatico(1);
+					// setMT1(true);
 					break;
 				case ID_TABURETE2:
 					printf("\n(CENTRO) Has seleccionado el Segundo Taburete\n");
 					girar(2);
+					// moverTabureteAutomatico(2);
+					// setMT2(true);
 					break;
 				case ID_TABURETE3:
 					printf("\n(CENTRO) Has seleccionado el Tercer Taburete\n");
 					girar(3);
+					// moverTabureteAutomatico(3);
+					// setMT3(true);
 					break;
 				case ID_DADO:
 					printf("\n(CENTRO) Has seleccionado el Dado\n");
+					
 					break;
 				default:
 					printf("\nNo estás haciendo click central sobre ningún objeto\n");

@@ -82,7 +82,6 @@ y:
 float rotxCamara = 30, rotyCamara = 45;
 float dCamara = 10;
 
-
 void letra (unsigned char k, int x, int y)
 {
   switch (k)

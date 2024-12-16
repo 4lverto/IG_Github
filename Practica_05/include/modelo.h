@@ -69,9 +69,21 @@ bool comprobarTopeX(int ntaburete,float cantidad);
 
 bool comprobarTopeZ(int ntaburete,float cantidad);
 
+void moverTabureteAutomatico(int nt);
+
+void moverAutomatico(float* posActual, float* destino, bool* moviendo);
+
 void dibujaMesa();
 
 void dibujaMesaPequenia();
+
+bool getMT1();
+void setMT1(bool m);
+bool getMT2();
+void setMT2(bool m);
+bool getMT3();
+void setMT3(bool m);
+
 
 class Objeto3D{ 
 	public: 

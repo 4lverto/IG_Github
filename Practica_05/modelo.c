@@ -29,6 +29,38 @@ float angulo1=0.0f;
 float angulo2=0.0f;
 float angulo3=0.0f;
 
+float destinoTaburete1[3] = {10.0f,0.0f,10.0f};
+float destinoTaburete2[3] = {-10.0f,0.0f,-10.0f};
+float destinoTaburete3[3] = {0.0f,0.0f,-10.0f};
+
+bool moviendoTaburete1=false;
+bool moviendoTaburete2=false;
+bool moviendoTaburete3=false;
+
+bool getMT1(){
+  return moviendoTaburete1;
+}
+
+void setMT1(bool m){
+  moviendoTaburete1=m;
+}
+
+bool getMT2(){
+  return moviendoTaburete2;
+}
+
+void setMT2(bool m){
+  moviendoTaburete2=m;
+}
+
+bool getMT3(){
+  return moviendoTaburete3;
+}
+
+void setMT3(bool m){
+  moviendoTaburete3=m;
+}
+
 void girar(int ntaburete){
   switch(ntaburete){
     case 1:
@@ -175,6 +207,66 @@ bool comprobarTopeZ(int ntaburete, float cantidad)
   }
 
   return valido;
+}
+
+void moverTabureteAutomatico(int ntaburete){
+  float* posActual;
+  float* destino;
+  bool* moviendo;
+
+  printf("\n MOVIENDO TABURETE AUTOMÁTICAMENTE\n");
+
+  switch(ntaburete){
+    case ID_TABURETE1:
+      posActual=posTaburete1;
+      destino=destinoTaburete1;
+      moviendo = &moviendoTaburete1;
+      break;
+    case ID_TABURETE2:
+      posActual=posTaburete2;
+      destino=destinoTaburete2;
+      moviendo = &moviendoTaburete2;
+      break;
+    case ID_TABURETE3:
+      posActual=posTaburete3;
+      destino=destinoTaburete3;
+      moviendo = &moviendoTaburete3;
+      break;
+    default:
+      return;
+  }
+
+  bool alcanzado=true;
+
+  for(int i=0;i<3;i++){
+    if(fabs(posActual[i] - destino[i]) > 0.1f){
+      posActual[i] += (destino[i] - posActual[i]) * 0.1f;
+      alcanzado=false;
+    }
+  }
+
+  glutPostRedisplay();
+
+  if(!alcanzado){
+    glutTimerFunc(30,moverTabureteAutomatico,ntaburete);
+  }else{
+    *moviendo=false;
+  }
+}
+
+void moverAutomatico(float* posActual, float* destino, bool* moviendo){
+  bool alcanzado=true;
+
+  for(int i=0;i<3;i++){
+    if(fabs(posActual[i] += (destino[i] - posActual[i])) > 0.1f){
+      posActual[i] += (destino[i] - posActual[i]) *0.1f;
+      alcanzado=false;
+    }
+  }
+
+  if(alcanzado){
+    *moviendo=false;
+  }
 }
 
 // PRÁCTICA 4 - Mallas a dibujar y Dado
@@ -454,6 +546,24 @@ void idle (int v){
     inclinacionRespaldo += VEL_Respaldo; 
   }
   
+  // Nueva animación
+  
+  /*
+  if(moviendoTaburete1){
+    moverAutomatico(posTaburete1,destinoTaburete1,&moviendoTaburete1);
+    // setMT1(false);
+  }
+
+  if(moviendoTaburete2){
+    moverAutomatico(posTaburete2,destinoTaburete2,&moviendoTaburete2);
+    // setMT2(false);
+  }
+
+  if(moviendoTaburete3){
+    moverAutomatico(posTaburete3,destinoTaburete3,&moviendoTaburete3);
+    // setMT3(false);
+  }*/
+
   glutPostRedisplay ();		// Redibuja
   glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms
 }
