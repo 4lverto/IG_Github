@@ -17,6 +17,8 @@ using namespace std;
 // PRÁCTICA 3 - Componentes de mi modelo jerárquico articulado
 
 bool animacionActiva=false; // Se gestiona con A y a
+bool otraAnimacion=false;
+
 float VEL_Cilindro=0.01f;   // Se gestiona con T y G
 float VEL_Asiento=0.5f;     // Se gestiona con Y y H
 float VEL_Respaldo=0.1f;    // Se gestiona con U y J
@@ -258,7 +260,7 @@ void moverAutomatico(float* posActual, float* destino, bool* moviendo){
   bool alcanzado=true;
 
   for(int i=0;i<3;i++){
-    if(fabs(posActual[i] += (destino[i] - posActual[i])) > 0.1f){
+    if(fabs(posActual[i] - (destino[i])) > 0.1f){
       posActual[i] += (destino[i] - posActual[i]) *0.1f;
       alcanzado=false;
     }
@@ -516,58 +518,6 @@ void Dibuja (void){
 }
 
 
-/**
- * @brief Procedimiento de fondo. Es llamado por glut cuando no hay eventos pendientes.
-*/
-void idle (int v){
-
-  // Actualización de la velocidad de escalado de altura del cilindro
-  if(animacionActiva){
-    if(alturaCilindro>=2.0f || alturaCilindro<=0.5f){
-      VEL_Cilindro = -VEL_Cilindro;
-    }
-
-    alturaCilindro += VEL_Cilindro;
-
-    // Actualización de la velocidad de rotación del asiento
-
-    rotacionAsiento += VEL_Asiento;
-
-    if(rotacionAsiento >= 360.0f || rotacionAsiento <= -360.0f){
-      rotacionAsiento=0.0f;  
-    }
-
-    // Actualización de la velocidad de rotación (inclinación) del respaldo
-    
-    if(inclinacionRespaldo >= 0.0f || inclinacionRespaldo <= -25.0f){
-      VEL_Respaldo = -VEL_Respaldo;
-    }
-
-    inclinacionRespaldo += VEL_Respaldo; 
-  }
-  
-  // Nueva animación
-  
-  if(moviendoTaburete1){
-    moverAutomatico(posTaburete1,destinoTaburete1,&moviendoTaburete1);
-    // setMT1(false);
-  }
-
-  if(moviendoTaburete2){
-    moverAutomatico(posTaburete2,destinoTaburete2,&moviendoTaburete2);
-    // setMT2(false);
-  }
-
-  if(moviendoTaburete3){
-    moverAutomatico(posTaburete3,destinoTaburete3,&moviendoTaburete3);
-  }
-
-  glutPostRedisplay ();		// Redibuja
-  glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms
-}
-
-
-
 void dibujaMesa(){
   float marronTabla[4]={0.55f,0.27f,0.07f,1.0f};
   float grisPatas[4]={0.5f,0.5f,0.5f,1.0f};
@@ -616,4 +566,102 @@ void dibujaMesaPequenia(){
       glPopMatrix();
     }
   }
+}
+
+/**
+ * @brief Procedimiento de fondo. Es llamado por glut cuando no hay eventos pendientes.
+*/
+void idle (int v){
+
+  // Actualización de la velocidad de escalado de altura del cilindro
+  if(animacionActiva){
+    if(alturaCilindro>=2.0f || alturaCilindro<=0.5f){
+      VEL_Cilindro = -VEL_Cilindro;
+    }
+
+    alturaCilindro += VEL_Cilindro;
+
+    // Actualización de la velocidad de rotación del asiento
+
+    rotacionAsiento += VEL_Asiento;
+
+    if(rotacionAsiento >= 360.0f || rotacionAsiento <= -360.0f){
+      rotacionAsiento=0.0f;  
+    }
+
+    // Actualización de la velocidad de rotación (inclinación) del respaldo
+    
+    if(inclinacionRespaldo >= 0.0f || inclinacionRespaldo <= -25.0f){
+      VEL_Respaldo = -VEL_Respaldo;
+    }
+
+    inclinacionRespaldo += VEL_Respaldo; 
+  }
+  
+  if(otraAnimacion){
+
+    if(getMT1){
+      
+      bool alcanzado=false;
+
+      if(fabs(posActual[0] - (destino[0])) > 0.1f){
+        posActual[0] += (destino[0] - posActual[0]) *0.1f;
+      }else{
+        alcanzado = true;
+        setMT1(false);
+      }
+      }
+    
+    if(getMT2){
+      
+      bool alcanzado=false;
+
+        if(fabs(posActual[1] - (destino[i])) > 0.1f){
+          posActual[1] += (destino[1] - posActual[1]) *0.1f;
+        }else{
+          alcanzado = true;
+          setMT2(false);
+        }
+      
+    }  
+  }
+  
+  
+  
+  
+  
+  }
+
+    bool alcanzado=true;
+
+  for(int i=0;i<3;i++){
+    if(fabs(posActual[i] - (destino[i])) > 0.1f){
+      posActual[i] += (destino[i] - posActual[i]) *0.1f;
+      alcanzado=false;
+    }
+  }
+
+  if(alcanzado){
+    *moviendo=false;
+  }
+  
+  /*
+  // Nueva animación
+  
+  if(moviendoTaburete1){
+    moverAutomatico(posTaburete1,destinoTaburete1,&moviendoTaburete1);
+    // setMT1(false);
+  }
+
+  if(moviendoTaburete2){
+    moverAutomatico(posTaburete2,destinoTaburete2,&moviendoTaburete2);
+    // setMT2(false);
+  }
+
+  if(moviendoTaburete3){
+    moverAutomatico(posTaburete3,destinoTaburete3,&moviendoTaburete3);
+  }*/
+
+  glutPostRedisplay ();		// Redibuja
+  glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms
 }
