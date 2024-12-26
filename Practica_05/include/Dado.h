@@ -35,6 +35,11 @@ class Dado : public Malla{
          * @brief Función "sobrecargada" de la clase Malla donde creo mi dado.
         */
         void draw();
+
+        /**
+         * @brief Función que simulará la acción de lanzar el dado
+        */
+       void lanzar();
 };
 
 #endif // DADO_H

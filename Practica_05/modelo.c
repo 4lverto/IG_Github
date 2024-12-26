@@ -218,6 +218,10 @@ Dado dado(4.0f,ID_DADO); // Dado "hereda" de Malla
 // Malla coche2("plys/big_dodge.ply",false,ID_COCHE2); // Reflectividad ambiente
 // Malla coche3("plys/big_dodge.ply",false,ID_COCHE3); // Reflectividad especular
 
+void lanzarDado(){
+  dado.lanzar();
+}
+
 // PRÁCTICA 4 - Dos focos de luz distintos
 
 GLfloat posLuz1[4] = {5.0,5.0,10.0,0.0}; // Será el foco de luz por defecto (la que hemos tenido hasta ahora)
@@ -441,8 +445,8 @@ void dibujaEscena() {
     
     // DADO
     glPushMatrix();
-    glTranslatef(4.0f,5.5f,-10.0f);
-    dado.draw();
+      glTranslatef(4.0f,5.5f,-10.0f);
+      dado.draw();
     glPopMatrix();
 
     glPopMatrix();

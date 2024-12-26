@@ -71,6 +71,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 					break;
 				case ID_DADO:
 					printf("\n(IZQ) Has seleccionado el Dado\n");
+					lanzarDado();
 					break;
 				default:
 					printf("\n(IZQ) No estás haciendo click izquierdo sobre ningún objeto\n");

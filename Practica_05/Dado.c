@@ -8,11 +8,14 @@
 #include "include/practicasIG.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstdlib>
+#include <ctime>
 #include <math.h>
 #include <GL/glut.h>	
+#include <thread>
+#include <chrono>
 
 using namespace std;
-
 
 Dado::Dado(float l,int _id){
     this->lado=l;
@@ -83,4 +86,33 @@ void Dado::draw() {
     glEnd();
 
     glPopAttrib();
+}
+
+void Dado::lanzar(){
+    srand(time(nullptr));
+
+    float subida=2.0f;
+    float rotX = rand() % 360;
+    float rotY = rand() % 360;
+    float rotZ = rand() % 360;
+
+    for(float t=0; t<=1.0f; t+=0.05f){
+        
+        float altura = t * subida;
+
+        glPushMatrix();
+            glTranslatef(0.0f, altura, 0.0f);
+            glRotatef(rotX * t,1,0,0);
+            glRotatef(rotY * t,0,1,0);
+            glRotatef(rotZ * t,0,0,1);
+            this->draw();
+        glPopMatrix();
+
+        glutPostRedisplay();
+        std::this_thread::sleep_for(std::chrono::milliseconds(30));
+    }
+
+    glPushMatrix();
+        draw();
+    glPopMatrix();
 }
