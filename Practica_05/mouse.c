@@ -49,32 +49,23 @@ void clickRaton( int boton, int estado, int x, int y ){
 			switch(id){
 				case ID_TABURETE1:
 					printf("\n(IZQ) Has seleccionado el Primer Taburete\n");
-					// moverse(1,'x',5);
 					
 					if(!getMT1){
 						setMT1(true);
-						// glutTimerFunc(30,idle,0);
-						// moverTabureteAutomatico(1);
 					}
 					
 					break;
 				case ID_TABURETE2:
 					printf("\n(IZQ) Has seleccionado el Segundo Taburete\n");
-					// moverse(2,'x',5);
 					if(!getMT2){
 						setMT2(true);
-						//glutTimerFunc(30,idle,0);
-						// moverTabureteAutomatico(2);
 					}
 					
 					break;
 				case ID_TABURETE3:
 					printf("\n(IZQ) Has seleccionado el Tercer Taburete\n");
-					// moverse(3,'x',5);
 					if(!getMT3){
-						// moverTabureteAutomatico(3);
 						setMT3(true);
-						//glutTimerFunc(30,idle,0);	
 					}
 					
 					break;
@@ -91,9 +82,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 		}
 	
 	}else if(boton==GLUT_MIDDLE_BUTTON && estado==GLUT_DOWN) {
-		/*MOUSE_MIDDLE_DOWN=1;
-		MOUSE_X=x;
-		MOUSE_Y=y;*/
+
 		int id=-1;
 
 		if(pick(x,y,&id)){
@@ -104,24 +93,17 @@ void clickRaton( int boton, int estado, int x, int y ){
 				case ID_TABURETE1:
 					printf("\n(CENTRO) Has seleccionado el Primer Taburete\n");
 					girar(1);
-					// moverTabureteAutomatico(1);
-					// setMT1(true);
 					break;
 				case ID_TABURETE2:
 					printf("\n(CENTRO) Has seleccionado el Segundo Taburete\n");
 					girar(2);
-					// moverTabureteAutomatico(2);
-					// setMT2(true);
 					break;
 				case ID_TABURETE3:
 					printf("\n(CENTRO) Has seleccionado el Tercer Taburete\n");
 					girar(3);
-					// moverTabureteAutomatico(3);
-					// setMT3(true);
 					break;
 				case ID_DADO:
 					printf("\n(CENTRO) Has seleccionado el Dado\n");
-					
 					break;
 				default:
 					printf("\nNo estás haciendo click central sobre ningún objeto\n");
@@ -133,9 +115,6 @@ void clickRaton( int boton, int estado, int x, int y ){
 		}
 	}
 	else if(boton==GLUT_RIGHT_BUTTON && estado==GLUT_DOWN) {
-		/*MOUSE_RIGHT_DOWN=1;
-		MOUSE_X=x;
-		MOUSE_Y=y;*/
 		int id=-1;
 
 		if(pick(x,y,&id)){
@@ -145,15 +124,12 @@ void clickRaton( int boton, int estado, int x, int y ){
 			switch(id){
 				case ID_TABURETE1:
 					printf("\n(DCHA) Has seleccionado el Primer Taburete\n");
-					moverse(1,'z',5);
 					break;
 				case ID_TABURETE2:
 					printf("\n(DCHA) Has seleccionado el Segundo Taburete\n");
-					moverse(2,'z',5);
 					break;
 				case ID_TABURETE3:
 					printf("\n(DCHA) Has seleccionado el Tercer Taburete\n");
-					moverse(3,'z',5);
 					break;
 				case ID_DADO:
 					printf("\n(DCHA) Has seleccionado el Dado\n");
@@ -212,7 +188,8 @@ getCamara (ax, ay, az, d);
 		}
 	MOUSE_X=x;
 	MOUSE_Y=y;
-glutPostRedisplay();
+	
+	glutPostRedisplay();
 }
 
 // ////////// //
@@ -222,10 +199,9 @@ glutPostRedisplay();
 int pick(int x, int y, int *id){
 	GLint viewport[4];
 	unsigned char data[4];
+	
 	glGetIntegerv(GL_VIEWPORT, viewport);
 
-	//glDisable(GL_DITHER);
-	//glDisable(GL_TEXTURE_2D);
 	glDisable(GL_LIGHTING);
 
 	setModoSeleccion(true);
@@ -244,5 +220,6 @@ int pick(int x, int y, int *id){
 	*id=data[0] | (data[1] << 10);
 
 	glEnable(GL_LIGHTING);
+
 	return *id;
 }

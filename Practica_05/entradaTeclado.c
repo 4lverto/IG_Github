@@ -146,7 +146,7 @@ void letra (unsigned char k, int x, int y)
       break;
     case 'T':
     case 't':
-      VEL_Cilindro+=0.01f; // Aumentar la velocidad de giro del cilindro
+      VEL_Cilindro+=0.01f; // Aumentar la velocidad de subida y bajada del cilindro
       break;
     case 'G':
     case 'g':
@@ -177,6 +177,7 @@ void letra (unsigned char k, int x, int y)
     case 'q':
     case 'Q':
       establecerLuzActiva(); // Práctica 4
+      break;
     case 'A':
       moverse(1,'x',5);
       break;
@@ -279,7 +280,3 @@ void especial (int k, int x, int y)
   setCamara (rotxCamara, rotyCamara, 0.0, dCamara);
   glutPostRedisplay ();		// Actualiza la imagen (ver proc. letra)
 }
-
-// ////////// //
-// PRÁCTICA 5 //
-// ////////// //

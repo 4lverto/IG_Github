@@ -211,66 +211,6 @@ bool comprobarTopeZ(int ntaburete, float cantidad)
   return valido;
 }
 
-void moverTabureteAutomatico(int ntaburete){
-  float* posActual;
-  float* destino;
-  bool* moviendo;
-
-  printf("\n MOVIENDO TABURETE AUTOMÁTICAMENTE\n");
-
-  switch(ntaburete){
-    case ID_TABURETE1:
-      posActual=posTaburete1;
-      destino=destinoTaburete1;
-      moviendo = &moviendoTaburete1;
-      break;
-    case ID_TABURETE2:
-      posActual=posTaburete2;
-      destino=destinoTaburete2;
-      moviendo = &moviendoTaburete2;
-      break;
-    case ID_TABURETE3:
-      posActual=posTaburete3;
-      destino=destinoTaburete3;
-      moviendo = &moviendoTaburete3;
-      break;
-    default:
-      return;
-  }
-
-  bool alcanzado=true;
-
-  for(int i=0;i<3;i++){
-    if(fabs(posActual[i] - destino[i]) > 0.1f){
-      posActual[i] += (destino[i] - posActual[i]) * 0.1f;
-      alcanzado=false;
-    }
-  }
-
-  glutPostRedisplay();
-
-  if(!alcanzado){
-    glutTimerFunc(30,moverTabureteAutomatico,ntaburete);
-  }else{
-    *moviendo=false;
-  }
-}
-
-void moverAutomatico(float* posActual, float* destino, bool* moviendo){
-  bool alcanzado=true;
-
-  for(int i=0;i<3;i++){
-    if(fabs(posActual[i] - (destino[i])) > 0.1f){
-      posActual[i] += (destino[i] - posActual[i]) *0.1f;
-      alcanzado=false;
-    }
-  }
-
-  if(alcanzado){
-    *moviendo=false;
-  }
-}
-
 // PRÁCTICA 4 - Mallas a dibujar y Dado
 
 Dado dado(4.0f,ID_DADO); // Dado "hereda" de Malla
@@ -598,70 +538,6 @@ void idle (int v){
     inclinacionRespaldo += VEL_Respaldo; 
   }
   
-  if(otraAnimacion){
-
-    if(getMT1){
-      
-      bool alcanzado=false;
-
-      if(fabs(posActual[0] - (destino[0])) > 0.1f){
-        posActual[0] += (destino[0] - posActual[0]) *0.1f;
-      }else{
-        alcanzado = true;
-        setMT1(false);
-      }
-      }
-    
-    if(getMT2){
-      
-      bool alcanzado=false;
-
-        if(fabs(posActual[1] - (destino[i])) > 0.1f){
-          posActual[1] += (destino[1] - posActual[1]) *0.1f;
-        }else{
-          alcanzado = true;
-          setMT2(false);
-        }
-      
-    }  
-  }
-  
-  
-  
-  
-  
-  }
-
-    bool alcanzado=true;
-
-  for(int i=0;i<3;i++){
-    if(fabs(posActual[i] - (destino[i])) > 0.1f){
-      posActual[i] += (destino[i] - posActual[i]) *0.1f;
-      alcanzado=false;
-    }
-  }
-
-  if(alcanzado){
-    *moviendo=false;
-  }
-  
-  /*
-  // Nueva animación
-  
-  if(moviendoTaburete1){
-    moverAutomatico(posTaburete1,destinoTaburete1,&moviendoTaburete1);
-    // setMT1(false);
-  }
-
-  if(moviendoTaburete2){
-    moverAutomatico(posTaburete2,destinoTaburete2,&moviendoTaburete2);
-    // setMT2(false);
-  }
-
-  if(moviendoTaburete3){
-    moverAutomatico(posTaburete3,destinoTaburete3,&moviendoTaburete3);
-  }*/
-
   glutPostRedisplay ();		// Redibuja
   glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms
 }
