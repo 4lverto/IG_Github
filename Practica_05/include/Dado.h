@@ -39,7 +39,7 @@ class Dado : public Malla{
         /**
          * @brief Función que simulará la acción de lanzar el dado
         */
-       void lanzar();
+       // void lanzar();
 };
 
 #endif // DADO_H

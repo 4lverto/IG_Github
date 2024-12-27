@@ -24,7 +24,7 @@ extern bool iluminacionActivada;
 // PRÁCTICA 5
 
 extern int objetoSeleccionado;
-
+void lanzarDado();
 #define ID_DADO 1
 #define ID_TABURETE1 2
 #define ID_COCHE1 3

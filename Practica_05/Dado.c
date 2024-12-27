@@ -88,7 +88,39 @@ void Dado::draw() {
     glPopAttrib();
 }
 
+/*
 void Dado::lanzar(){
+    printf("\nESTOY LANZANDO");
+
+    static float t = 0.0f;
+    static bool animacionEnCurso = true;
+
+    if(t>1.0f){
+        animacionEnCurso=false;
+        t = 0.0f;
+        return;
+    }
+
+    glPushMatrix();
+        glTranslatef(0.0f, t*2.0f, 0.0f);
+        glRotatef(t * 360.0f,1,1,0);
+        draw();
+    glPopMatrix();
+
+    glutPostRedisplay();
+
+    t+=0.05f;
+
+    if(animacionEnCurso){
+        glutTimerFunc(30,idle,0);
+    }
+}
+*/
+
+/*
+void Dado::lanzar(){
+
+    printf("\n SE ESTÁ LLAMANDO A LA FUNCIÓN lanzar()");
     srand(time(nullptr));
 
     float subida=2.0f;
@@ -97,7 +129,8 @@ void Dado::lanzar(){
     float rotZ = rand() % 360;
 
     for(float t=0; t<=1.0f; t+=0.05f){
-        
+        // OPCIÓN 1
+
         float altura = t * subida;
 
         glPushMatrix();
@@ -107,7 +140,15 @@ void Dado::lanzar(){
             glRotatef(rotZ * t,0,0,1);
             this->draw();
         glPopMatrix();
+        
+        // OPCIÓN 2
 
+        glPushMatrix();
+            glTranslatef(0.0f,t*2.0f,0.0f);
+            glRotatef(t*360.0f,1,1,0);
+            draw();
+        glPopMatrix();
+        
         glutPostRedisplay();
         std::this_thread::sleep_for(std::chrono::milliseconds(30));
     }
@@ -115,4 +156,4 @@ void Dado::lanzar(){
     glPushMatrix();
         draw();
     glPopMatrix();
-}
+}*/

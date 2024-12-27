@@ -57,9 +57,13 @@ bool getModoSeleccion();
 */
 void setModoSeleccion(bool s);
 
-/**
- * 
-*/
+// DIBUJAR LAS MESAS
+
+void dibujaMesa();
+
+void dibujaMesaPequenia();
+
+// MOVIMIENTO DE LOS TABURETES
 
 void girar(int ntaburete);
 
@@ -73,17 +77,31 @@ void moverTabureteAutomatico(int nt);
 
 void moverAutomatico(float* posActual, float* destino, bool* moviendo);
 
-void dibujaMesa();
-
-void dibujaMesaPequenia();
-
 bool getMT1();
+
 void setMT1(bool m);
+
 bool getMT2();
+
 void setMT2(bool m);
+
 bool getMT3();
+
 void setMT3(bool m);
 
+// ANIMACIÓN DEL DADO
+
+bool getDadoEnAnimacion();
+
+void setDadoEnAnimacion(bool b);
+
+void setAlturaDado(float a);
+
+void setRotacionDadoX(float r);
+
+void setRotacionDadoY(float r);
+
+void setRotacionDadoZ(float r);
 
 class Objeto3D{ 
 	public: 

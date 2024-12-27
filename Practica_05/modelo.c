@@ -213,16 +213,43 @@ bool comprobarTopeZ(int ntaburete, float cantidad)
 
 // PRÁCTICA 4 - Mallas a dibujar y Dado
 
+bool dadoEnAnimacion=false;
+float alturaDado=0.0f;
+float rotacionDadoX=0.0f;
+float rotacionDadoY=0.0f;
+float rotacionDadoZ=0.0f;
+
+bool getDadoEnAnimacion(){
+  return dadoEnAnimacion;
+}
+
+void setDadoEnAnimacion(bool b){
+  dadoEnAnimacion=b;
+}
+
+void setAlturaDado(float a){
+  alturaDado=a;
+}
+
+void setRotacionDadoX(float r){
+  rotacionDadoX=r;
+}
+
+void setRotacionDadoY(float r){
+  rotacionDadoY=r;
+}
+
+void setRotacionDadoZ(float r){
+  rotacionDadoZ=r;
+}
+
 Dado dado(4.0f,ID_DADO); // Dado "hereda" de Malla
 // Malla coche1("plys/big_dodge.ply",false,ID_COCHE1); // Reflectividad difusa
 // Malla coche2("plys/big_dodge.ply",false,ID_COCHE2); // Reflectividad ambiente
 // Malla coche3("plys/big_dodge.ply",false,ID_COCHE3); // Reflectividad especular
 
-void lanzarDado(){
-  dado.lanzar();
-}
 
-// PRÁCTICA 4 - Dos focos de luz distintos
+// PRÁCTICA 3 - Dos focos de luz distintos
 
 GLfloat posLuz1[4] = {5.0,5.0,10.0,0.0}; // Será el foco de luz por defecto (la que hemos tenido hasta ahora)
 GLfloat posLuz2[4] = {-5.0,10.0,-5.0,1.0};
@@ -445,7 +472,10 @@ void dibujaEscena() {
     
     // DADO
     glPushMatrix();
-      glTranslatef(4.0f,5.5f,-10.0f);
+      glTranslatef(4.0f,5.5f + alturaDado,-10.0f);
+      glRotatef(rotacionDadoX,1,0,0);
+      glRotatef(rotacionDadoY,0,1,0);
+      glRotatef(rotacionDadoZ,0,0,1);
       dado.draw();
     glPopMatrix();
 
@@ -540,6 +570,40 @@ void idle (int v){
     }
 
     inclinacionRespaldo += VEL_Respaldo; 
+  }
+
+  if(dadoEnAnimacion){
+    if(alturaDado<10.0f){
+      alturaDado+=0.25f;
+    }else if(alturaDado>10.0f){
+      alturaDado-=0.25f;
+    }else{
+      printf("\nYA SE HA LANZADO EL DADO");
+      dadoEnAnimacion=false;
+      alturaDado=0.0f;
+      rotacionDadoX=0.0f;
+      rotacionDadoY=0.0f;
+      rotacionDadoZ=0.0f;
+    }
+
+    if(dadoEnAnimacion && alturaDado > 2.0f){
+      rotacionDadoX+=15.0f;
+      rotacionDadoY+=20.0f;
+      rotacionDadoZ+=10.0f;
+
+      if(rotacionDadoX >= 360.0f){
+        rotacionDadoX -= 360.0f;
+      }
+
+      if(rotacionDadoY >= 360.0f){
+        rotacionDadoY -= 360.0f;
+      }
+
+      if(rotacionDadoZ >= 360.0f){
+        rotacionDadoZ -= 360.0f;
+      }
+    }
+    
   }
   
   glutPostRedisplay ();		// Redibuja
