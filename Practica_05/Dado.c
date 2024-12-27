@@ -35,7 +35,7 @@ void Dado::draw() {
     glMaterialf(GL_FRONT, GL_SHININESS,e);
     glEnable(GL_TEXTURE_2D); 
     
-    if(getModoSeleccion){
+    if(getModoSeleccion()){
         colorSeleccion(ID_DADO);
     }
 

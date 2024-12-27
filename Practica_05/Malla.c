@@ -371,11 +371,10 @@ void Malla::calcular_normales_vertices(){
 
 
 void Malla::draw(){
-    
     if(getModoSeleccion()){
-        colorSeleccion(getId());
+        colorSeleccion(this->getId());
     }
-
+    
     if(iluminacionActivada){
         glEnable(GL_LIGHTING);
     }else{
@@ -385,11 +384,9 @@ void Malla::draw(){
     glEnable(GL_NORMALIZE);
 
     if(this->tieneTextura){
-        // 3)
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, texId);
 
-        // 1) 
         glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
         glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
         glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);

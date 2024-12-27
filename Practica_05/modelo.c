@@ -395,6 +395,12 @@ void setModoSeleccion(bool s){
 // ///////////////////////// //
 
 void colorSeleccion(int id/*, int componente*/){
+  /*unsigned char r = id;
+  unsigned char g = 0;
+  unsigned char b = 0;
+
+  glColor3ub(r,g,b);
+  printf("Asignando color para ID: %d, RGB=(%d,%d,%d)\n",id,r,g,b);*/
   static int ultimoID=-1;
   unsigned char r = id & 0xFF;
   unsigned char g = (id >> 11) & 0xFF;

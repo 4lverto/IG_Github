@@ -228,6 +228,8 @@ int pick(int x, int y, int *id){
 	glGetIntegerv(GL_VIEWPORT, viewport);
 
 	glDisable(GL_LIGHTING);
+	glDisable(GL_DITHER);
+	glDisable(GL_TEXTURE_2D);
 
 	setModoSeleccion(true);
 
@@ -244,7 +246,11 @@ int pick(int x, int y, int *id){
 
 	*id=data[0] | (data[1] << 11);
 
+	printf("\nID devuelto por pick: %d\n", *id);
+
 	glEnable(GL_LIGHTING);
+	glEnable(GL_DITHER);
+	glEnable(GL_TEXTURE_2D);
 
 	return *id;
 }

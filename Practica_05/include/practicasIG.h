@@ -23,9 +23,6 @@ extern bool iluminacionActivada;
 
 // PRÁCTICA 5
 
-extern int objetoSeleccionado;
-void lanzarDado();
-
 #define ID_TABURETE1 1
 #define ID_TABURETE2 2
 #define ID_TABURETE3 3
