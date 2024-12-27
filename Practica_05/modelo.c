@@ -259,6 +259,7 @@ initModel (){
   // Práctica 2 //
   // ////////// //
 
+  // beethoven1.cargarTextura("JPEG/texturaMarmol.jpg");
   beethoven1.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
   beethoven1.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
   beethoven1.asignarExponenteEspecular(49.0f);
@@ -270,6 +271,10 @@ initModel (){
   beethoven3.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
   beethoven3.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
   beethoven3.asignarExponenteEspecular(49.0f);
+
+  printf("\nBEETHOVEN 1 tiene ID = %d",beethoven1.getId());
+  printf("\nBEETHOVEN 2 tiene ID = %d",beethoven2.getId());
+  printf("\nBEETHOVEN 3 tiene ID = %d",beethoven3.getId());
 
   big_dodge.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
   big_dodge.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
@@ -482,7 +487,7 @@ void dibujaEscena() {
 
     // BEETHOVEN
     glPushMatrix();
-      glTranslatef(0.0f,6.5f,0.0f);
+      glTranslatef(-3.0f,6.5f,0.0f);
       glScalef(0.25,0.25f,0.25);
       if(getModoSeleccion()){
         colorSeleccion(ID_BEETHOVEN1);
@@ -491,7 +496,7 @@ void dibujaEscena() {
     glPopMatrix();
 
     glPushMatrix();
-      glTranslatef(3.0f,6.5f,0.0f);
+      glTranslatef(0.0f,6.5f,0.0f);
       glScalef(0.25,0.25f,0.25);
       if(getModoSeleccion()){
         colorSeleccion(ID_BEETHOVEN2);
@@ -500,7 +505,7 @@ void dibujaEscena() {
     glPopMatrix();
 
     glPushMatrix();
-      glTranslatef(-3.0f,6.5f,0.0f);
+      glTranslatef(3.0f,6.5f,0.0f);
       glScalef(0.25,0.25f,0.25);
       if(getModoSeleccion()){
         colorSeleccion(ID_BEETHOVEN3);
