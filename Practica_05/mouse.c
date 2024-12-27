@@ -49,25 +49,14 @@ void clickRaton( int boton, int estado, int x, int y ){
 			switch(id){
 				case ID_TABURETE1:
 					printf("\n(IZQ) Has seleccionado el Primer Taburete\n");
-					
-					if(!getMT1){
-						setMT1(true);
-					}
-					
 					break;
 				case ID_TABURETE2:
 					printf("\n(IZQ) Has seleccionado el Segundo Taburete\n");
-					if(!getMT2){
-						setMT2(true);
-					}
-					
+
 					break;
 				case ID_TABURETE3:
 					printf("\n(IZQ) Has seleccionado el Tercer Taburete\n");
-					if(!getMT3){
-						setMT3(true);
-					}
-					
+
 					break;
 				case ID_DADO:
 					printf("\n(IZQ) Has seleccionado el Dado\n");
@@ -77,6 +66,10 @@ void clickRaton( int boton, int estado, int x, int y ){
 						setRotacionDadoX(0.0f);
 						setRotacionDadoY(0.0f);
 						setRotacionDadoZ(0.0f);
+
+						int nuevaCara = rand() % 6;
+						cambiarCaraVisible(nuevaCara);
+						printf("\nNUEVA CARA -> %d",nuevaCara+1);
 					}
 					break;
 				default:

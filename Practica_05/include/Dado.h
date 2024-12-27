@@ -24,22 +24,35 @@ class Dado : public Malla{
         */
        int id;
 
+       /**
+        * 
+       */
+      int caraVisible;
+
     public:
         /**
          * @brief Constructor de un dado (cubo) a partir de un tamaño de lado dado
          * @param f Será la longitud del lado
+         * @param id
+         * @param c
         */
-        Dado(float f,int id);
+        Dado(float f,int id,int c);
 
         /**
          * @brief Función "sobrecargada" de la clase Malla donde creo mi dado.
         */
         void draw();
 
+
         /**
-         * @brief Función que simulará la acción de lanzar el dado
+         * 
         */
-       // void lanzar();
+        int getCaraVisible();
+
+        /**
+         * @brief 
+        */
+       void setCaraVisible(int c);
 };
 
 #endif // DADO_H

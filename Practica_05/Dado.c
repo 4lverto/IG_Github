@@ -17,10 +17,12 @@
 
 using namespace std;
 
-Dado::Dado(float l,int _id){
+Dado::Dado(float l,int _id,int c){
     this->lado=l;
     this->mitad=this->lado/2;
     this->id=_id;
+
+    this->caraVisible=c;
 }
 
 
@@ -86,6 +88,16 @@ void Dado::draw() {
     glEnd();
 
     glPopAttrib();
+}
+
+int Dado::getCaraVisible(){
+    return caraVisible;
+}
+
+void Dado::setCaraVisible(int c){
+    if(c>=1 && c<= 6){
+        this->caraVisible=c;
+    }
 }
 
 /*

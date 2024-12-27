@@ -23,8 +23,8 @@ float VEL_Cilindro=0.01f;   // Se gestiona con T y G
 float VEL_Asiento=0.5f;     // Se gestiona con Y y H
 float VEL_Respaldo=0.1f;    // Se gestiona con U y J
 
-float posTaburete1[3] = {0.0f,0.0f,0.0f};
-float posTaburete2[3] = {-5.0f,0.0f,-5.0f};
+float posTaburete1[3] = {-15.0f,0.0f,-5.0f};
+float posTaburete2[3] = {0.0f,0.0f,-5.0f};
 float posTaburete3[3] = {3.0f,0.0f,10.0f};
 
 float angulo1=0.0f;
@@ -35,33 +35,6 @@ float destinoTaburete1[3] = {10.0f,0.0f,10.0f};
 float destinoTaburete2[3] = {-10.0f,0.0f,-10.0f};
 float destinoTaburete3[3] = {0.0f,0.0f,-10.0f};
 
-bool moviendoTaburete1=false;
-bool moviendoTaburete2=false;
-bool moviendoTaburete3=false;
-
-bool getMT1(){
-  return moviendoTaburete1;
-}
-
-void setMT1(bool m){
-  moviendoTaburete1=m;
-}
-
-bool getMT2(){
-  return moviendoTaburete2;
-}
-
-void setMT2(bool m){
-  moviendoTaburete2=m;
-}
-
-bool getMT3(){
-  return moviendoTaburete3;
-}
-
-void setMT3(bool m){
-  moviendoTaburete3=m;
-}
 
 void girar(int ntaburete){
   switch(ntaburete){
@@ -214,6 +187,20 @@ bool comprobarTopeZ(int ntaburete, float cantidad)
 // PRÁCTICA 4 - Mallas a dibujar y Dado
 
 bool dadoEnAnimacion=false;
+bool bajando=false;
+
+float carasDado[6][2] = {
+  {0.0f,0.0f},
+  {90.0f,0.0f},
+  {-90.0f,0.0f},
+  {0.0f,90.0f},
+  {0.0f,-90.0f},
+  {180.0f,0.0f}
+};
+
+float ajusteAlturaCaras[6] = {0.0f,2.0f,2.0f,0.0f,0.0f,0.0f};
+float ajusteProfundidadCaras[6] = {0.0f,-2.0f,2.0f,0.0f,0.0f,0.0f};
+
 float alturaDado=0.0f;
 float rotacionDadoX=0.0f;
 float rotacionDadoY=0.0f;
@@ -243,7 +230,12 @@ void setRotacionDadoZ(float r){
   rotacionDadoZ=r;
 }
 
-Dado dado(4.0f,ID_DADO); // Dado "hereda" de Malla
+Dado dado(4.0f,ID_DADO,1); // Dado "hereda" de Malla
+
+void cambiarCaraVisible(int c){
+  dado.setCaraVisible(c);
+}
+
 // Malla coche1("plys/big_dodge.ply",false,ID_COCHE1); // Reflectividad difusa
 // Malla coche2("plys/big_dodge.ply",false,ID_COCHE2); // Reflectividad ambiente
 // Malla coche3("plys/big_dodge.ply",false,ID_COCHE3); // Reflectividad especular
@@ -279,10 +271,10 @@ initModel (){
   // ////////// //
 
     dado.cargarTextura("JPEG/dado.jpg");
-  // dado.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
-  // dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
-  // dado.asignarExponenteEspecular(49.0f);
-  // dado.setSombreadoSuave(true);
+    dado.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+    dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+    dado.asignarExponenteEspecular(49.0f);
+    dado.setSombreadoSuave(true);
 
   // coche1.cargarTextura("JPEG/texturaMarmol.jpg");
   // coche1.calculoCoordenadasTexturaCilindrica();
@@ -466,13 +458,18 @@ void dibujaEscena() {
 
     // MESITA
     glPushMatrix();
-    glTranslatef(4.0f,0.0f,-10.0f);
+    glTranslatef(4.0f,0.0f,-20.0f);
     dibujaMesaPequenia();
     glPopMatrix();
     
     // DADO
+
+    int caraVisible = dado.getCaraVisible();
+    float ajusteAltura = ajusteAlturaCaras[caraVisible-1];
+    float ajusteProfundidad = ajusteProfundidadCaras[caraVisible-1];
+
     glPushMatrix();
-      glTranslatef(4.0f,5.5f + alturaDado,-10.0f);
+      glTranslatef(4.0f,5.5f + alturaDado + ajusteAltura,-20.0f + ajusteProfundidad);
       glRotatef(rotacionDadoX,1,0,0);
       glRotatef(rotacionDadoY,0,1,0);
       glRotatef(rotacionDadoZ,0,0,1);
@@ -573,14 +570,11 @@ void idle (int v){
   }
 
   if(dadoEnAnimacion){
-    if(alturaDado<4.0f){
+  
+    if(alturaDado<10.0f){
       alturaDado+=0.25f;
-    }else if(alturaDado<8.0f && alturaDado>4.0f){
-      alturaDado+=0.15f;
-    }else if(alturaDado>8.0f){
-      dadoBajando=true;
-      alturaDado-=0.25f;
-
+    }else if(alturaDado>10.0f){
+      alturaDado-=0.15f;
     }else{
       printf("\nYA SE HA LANZADO EL DADO");
       dadoEnAnimacion=false;
@@ -590,7 +584,7 @@ void idle (int v){
       rotacionDadoZ=0.0f;
     }
 
-    if(dadoEnAnimacion && alturaDado > 2.0f){
+    if(dadoEnAnimacion && alturaDado > 3.0f){
       rotacionDadoX+=15.0f;
       rotacionDadoY+=20.0f;
       rotacionDadoZ+=10.0f;
@@ -606,6 +600,16 @@ void idle (int v){
       if(rotacionDadoZ >= 360.0f){
         rotacionDadoZ -= 360.0f;
       }
+
+      bajando=true;
+    }
+
+    if(!dadoEnAnimacion){
+      int cara = dado.getCaraVisible();
+
+      rotacionDadoX = carasDado[cara-1][0];
+      rotacionDadoY = carasDado[cara-1][1];
+      rotacionDadoZ = 0.0f;
     }
     
   }
