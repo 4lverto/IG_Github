@@ -11,8 +11,10 @@ using namespace std;
 
 // PRÁCTICA 2 - Mallas con PLYs
 
-// Malla beethoven("plys/beethoven.ply",true,ID_BEETHOVEN);
-// Malla big_dodge("plys/big_dodge.ply",false,ID_BIG_DODGE);
+Malla beethoven1("plys/beethoven.ply",true,ID_BEETHOVEN1);
+Malla beethoven2("plys/beethoven.ply",true,ID_BEETHOVEN2);
+Malla beethoven3("plys/beethoven.ply",true,ID_BEETHOVEN3);
+Malla big_dodge("plys/big_dodge.ply",false,ID_BIG_DODGE);
 
 // PRÁCTICA 3 - Componentes de mi modelo jerárquico articulado
 
@@ -187,7 +189,6 @@ bool comprobarTopeZ(int ntaburete, float cantidad)
 // PRÁCTICA 4 - Mallas a dibujar y Dado
 
 bool dadoEnAnimacion=false;
-bool bajando=false;
 
 float carasDado[6][2] = {
   {0.0f,0.0f},
@@ -258,23 +259,31 @@ initModel (){
   // Práctica 2 //
   // ////////// //
 
-  // beethoven.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
-  // beethoven.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
-  // beethoven.asignarExponenteEspecular(49.0f);
+  beethoven1.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  beethoven1.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  beethoven1.asignarExponenteEspecular(49.0f);
 
-  // big_dodge.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
-  // big_dodge.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
-  // big_dodge.asignarExponenteEspecular(49.0f);
+  beethoven2.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  beethoven2.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  beethoven2.asignarExponenteEspecular(49.0f);
+
+  beethoven3.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  beethoven3.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  beethoven3.asignarExponenteEspecular(49.0f);
+
+  big_dodge.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  big_dodge.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  big_dodge.asignarExponenteEspecular(49.0f);
 
   // ////////// //
   // Práctica 4 //
   // ////////// //
 
-    dado.cargarTextura("JPEG/dado.jpg");
-    dado.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
-    dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
-    dado.asignarExponenteEspecular(49.0f);
-    dado.setSombreadoSuave(true);
+  dado.cargarTextura("JPEG/dado.jpg");
+  dado.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  dado.asignarExponenteEspecular(49.0f);
+  dado.setSombreadoSuave(true);
 
   // coche1.cargarTextura("JPEG/texturaMarmol.jpg");
   // coche1.calculoCoordenadasTexturaCilindrica();
@@ -388,7 +397,7 @@ void setModoSeleccion(bool s){
 void colorSeleccion(int id/*, int componente*/){
   static int ultimoID=-1;
   unsigned char r = id & 0xFF;
-  unsigned char g = (id >> 10) & 0xFF;
+  unsigned char g = (id >> 11) & 0xFF;
   glColor3ub(r,g,0);
 
   if(id!=ultimoID){
@@ -417,49 +426,38 @@ void dibujaEscena() {
 
     // Dibujar los ejes (sin iluminación)
     glPushAttrib(GL_LIGHTING_BIT | GL_CURRENT_BIT);
-    glDisable(GL_LIGHTING);
-    ejesCoordenadas.draw();
+      glDisable(GL_LIGHTING);
+      ejesCoordenadas.draw();
     glPopAttrib();
 
     // Taburete 1
     glPushMatrix();
-    glTranslatef(posTaburete1[0],posTaburete1[1],posTaburete1[2]);
-    glRotatef(angulo1,0,1,0);
-    if(getModoSeleccion()){
-      colorSeleccion(ID_TABURETE1);
-    }
-    dibujaTaburete(ID_TABURETE1);
+      glTranslatef(posTaburete1[0],posTaburete1[1],posTaburete1[2]);
+      glRotatef(angulo1,0,1,0);
+      if(getModoSeleccion()){
+        colorSeleccion(ID_TABURETE1);
+      }
+      dibujaTaburete(ID_TABURETE1);
     glPopMatrix();
 
     // Taburete 2
     glPushMatrix();
-    glTranslatef(posTaburete2[0],posTaburete2[1],posTaburete2[2]);
-    glRotatef(angulo2,0,1,0);
-    if(getModoSeleccion()){
-      colorSeleccion(ID_TABURETE2);
-    }
-    dibujaTaburete(ID_TABURETE2);
+      glTranslatef(posTaburete2[0],posTaburete2[1],posTaburete2[2]);
+      glRotatef(angulo2,0,1,0);
+      if(getModoSeleccion()){
+        colorSeleccion(ID_TABURETE2);
+      }
+      dibujaTaburete(ID_TABURETE2);
     glPopMatrix();
 
     // Taburete 3
     glPushMatrix();
-    glTranslatef(posTaburete3[0],posTaburete3[1],posTaburete3[2]);
-    glRotatef(angulo3,0,1,0);
-    if(getModoSeleccion()){
-      colorSeleccion(ID_TABURETE3);
-    }
-    dibujaTaburete(ID_TABURETE3);
-    glPopMatrix();
-
-    // MESA
-    glPushMatrix();
-    dibujaMesa();
-    glPopMatrix();
-
-    // MESITA
-    glPushMatrix();
-    glTranslatef(4.0f,0.0f,-20.0f);
-    dibujaMesaPequenia();
+      glTranslatef(posTaburete3[0],posTaburete3[1],posTaburete3[2]);
+      glRotatef(angulo3,0,1,0);
+      if(getModoSeleccion()){
+        colorSeleccion(ID_TABURETE3);
+      }
+      dibujaTaburete(ID_TABURETE3);
     glPopMatrix();
     
     // DADO
@@ -476,6 +474,49 @@ void dibujaEscena() {
       dado.draw();
     glPopMatrix();
 
+    // BEETHOVEN
+    glPushMatrix();
+      glTranslatef(0.0f,6.5f,0.0f);
+      glScalef(0.25,0.25f,0.25);
+      if(getModoSeleccion()){
+        colorSeleccion(ID_BEETHOVEN1);
+      }
+      beethoven1.draw();
+    glPopMatrix();
+
+    glPushMatrix();
+      glTranslatef(3.0f,6.5f,0.0f);
+      glScalef(0.25,0.25f,0.25);
+      if(getModoSeleccion()){
+        colorSeleccion(ID_BEETHOVEN2);
+      }
+      beethoven2.draw();
+    glPopMatrix();
+
+    glPushMatrix();
+      glTranslatef(-3.0f,6.5f,0.0f);
+      glScalef(0.25,0.25f,0.25);
+      if(getModoSeleccion()){
+        colorSeleccion(ID_BEETHOVEN3);
+      }
+      beethoven3.draw();
+    glPopMatrix();
+
+    // BIG_DODGE
+
+    // MESA
+    glPushMatrix();
+    dibujaMesa();
+    glPopMatrix();
+
+    // MESITA
+    glPushMatrix();
+    glTranslatef(4.0f,0.0f,-20.0f);
+    dibujaMesaPequenia();
+    glPopMatrix();
+
+
+    // Fin
     glPopMatrix();
 }
 
@@ -600,8 +641,6 @@ void idle (int v){
       if(rotacionDadoZ >= 360.0f){
         rotacionDadoZ -= 360.0f;
       }
-
-      bajando=true;
     }
 
     if(!dadoEnAnimacion){

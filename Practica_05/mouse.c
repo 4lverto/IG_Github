@@ -48,15 +48,22 @@ void clickRaton( int boton, int estado, int x, int y ){
 		
 			switch(id){
 				case ID_TABURETE1:
-					printf("\n(IZQ) Has seleccionado el Primer Taburete\n");
+					printf("\n(IZQ) Has seleccionado el Primer Taburete");
 					break;
 				case ID_TABURETE2:
-					printf("\n(IZQ) Has seleccionado el Segundo Taburete\n");
-
+					printf("\n(IZQ) Has seleccionado el Segundo Taburete");
 					break;
 				case ID_TABURETE3:
-					printf("\n(IZQ) Has seleccionado el Tercer Taburete\n");
-
+					printf("\n(IZQ) Has seleccionado el Tercer Taburete");
+					break;
+				case ID_BEETHOVEN1:
+					printf("\n(IZQ) Has seleccionado al Primer Beethoven");
+					break;
+				case ID_BEETHOVEN2:
+					printf("\n(IZQ) Has seleccionado al Segundo Beethoven");
+					break;
+				case ID_BEETHOVEN3:
+					printf("\n(IZQ) Has seleccionado al Tercer Beethoven");
 					break;
 				case ID_DADO:
 					printf("\n(IZQ) Has seleccionado el Dado\n");
@@ -102,6 +109,15 @@ void clickRaton( int boton, int estado, int x, int y ){
 					printf("\n(CENTRO) Has seleccionado el Tercer Taburete\n");
 					girar(3);
 					break;
+				case ID_BEETHOVEN1:
+					printf("\n(CENTRO) Has seleccionado al Primer Beethoven");
+					break;
+				case ID_BEETHOVEN2:
+					printf("\n(CENTRO) Has seleccionado al Segundo Beethoven");
+					break;
+				case ID_BEETHOVEN3:
+					printf("\n(CENTRO) Has seleccionado al Tercer Beethoven");
+					break;
 				case ID_DADO:
 					printf("\n(CENTRO) Has seleccionado el Dado\n");
 					break;
@@ -130,6 +146,15 @@ void clickRaton( int boton, int estado, int x, int y ){
 					break;
 				case ID_TABURETE3:
 					printf("\n(DCHA) Has seleccionado el Tercer Taburete\n");
+					break;
+				case ID_BEETHOVEN1:
+					printf("\n(DCHA) Has seleccionado al Primer Beethoven");
+					break;
+				case ID_BEETHOVEN2:
+					printf("\n(DCHA) Has seleccionado al Segundo Beethoven");
+					break;
+				case ID_BEETHOVEN3:
+					printf("\n(DCHA) Has seleccionado al Tercer Beethoven");
 					break;
 				case ID_DADO:
 					printf("\n(DCHA) Has seleccionado el Dado\n");
@@ -217,7 +242,7 @@ int pick(int x, int y, int *id){
 
 	glReadPixels(x, viewport[3]-y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
-	*id=data[0] | (data[1] << 10);
+	*id=data[0] | (data[1] << 11);
 
 	glEnable(GL_LIGHTING);
 
