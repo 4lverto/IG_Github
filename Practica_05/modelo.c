@@ -573,10 +573,14 @@ void idle (int v){
   }
 
   if(dadoEnAnimacion){
-    if(alturaDado<10.0f){
+    if(alturaDado<4.0f){
       alturaDado+=0.25f;
-    }else if(alturaDado>10.0f){
+    }else if(alturaDado<8.0f && alturaDado>4.0f){
+      alturaDado+=0.15f;
+    }else if(alturaDado>8.0f){
+      dadoBajando=true;
       alturaDado-=0.25f;
+
     }else{
       printf("\nYA SE HA LANZADO EL DADO");
       dadoEnAnimacion=false;
