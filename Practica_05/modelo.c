@@ -591,17 +591,18 @@ void dibujaEscena() {
       glColor3f(1,1,0);
       drawText(text4.data(),text4.size(),20,45);
     glPopMatrix();
+    
     glPushMatrix();
       string text5;
       text5 ="-¿Por que no lanzas el Dado?";
       glColor3f(0,1,1);
-      drawText(text5.data(),text5.size(),20,30);
+      drawText(text5.data(),text5.size(),20,550);
     glPopMatrix();
     glPushMatrix();
       string text6;
-      text6 =(string)("-La cara actual es " + dado.getCaraVisible());
+      text6 =("-La cara actual es " + std::to_string(dado.getCaraVisible()));
       glColor3f(0,1,1);
-      drawText(text6.data(),text6.size(),20,15);
+      drawText(text6.data(),text6.size(),20,535);
     glPopMatrix();
 
     // Fin
