@@ -90,7 +90,10 @@ void setRotacionDadoZ(float r);
 void cambiarCaraVisible(int c);
 
 void seleccionarMalla(int n);
+
 bool mallaSeleccionada(int n);
+
+void drawText(const char *text, int length, int x, int y);
 
 class Objeto3D{ 
 	public: 

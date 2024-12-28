@@ -55,7 +55,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 					break;
 				case ID_TABURETE3:
 					printf("\n(IZQ) Has seleccionado el Tercer Taburete");
-					break;
+					break;/*
 				case ID_BEETHOVEN1:
 					printf("\n(IZQ) Has seleccionado al Primer Beethoven");
 					seleccionarMalla(ID_BEETHOVEN1);
@@ -67,7 +67,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 				case ID_BEETHOVEN3:
 					printf("\n(IZQ) Has seleccionado al Tercer Beethoven");
 					seleccionarMalla(ID_BEETHOVEN3);
-					break;
+					break;*/
 				case ID_DADO:
 					printf("\n(IZQ) Has seleccionado el Dado\n");
 					if(!getDadoEnAnimacion()){

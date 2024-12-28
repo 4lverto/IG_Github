@@ -16,6 +16,7 @@ Malla beethoven2("plys/beethoven.ply",true,ID_BEETHOVEN2);
 Malla beethoven3("plys/beethoven.ply",true,ID_BEETHOVEN3);
 // Malla big_dodge("plys/big_dodge.ply",false,ID_BIG_DODGE);
 
+
 void seleccionarMalla(int c){
   beethoven1.setSeleccionado(false);
   beethoven2.setSeleccionado(false);
@@ -565,6 +566,31 @@ void dibujaEscena() {
       dibujaMesaPequenia();
     glPopMatrix();
 
+        // TEXTO
+    glPushMatrix();
+      string text1;
+      text1="Instrucciones para los TABURETES:";
+      glColor3f(1,0,0);
+      drawText(text1.data(),text1.size(),20,80);
+    glPopMatrix();
+    glPushMatrix();
+      string text2;
+      text2="-TABURETE 1 -> Usamos A,a,Z,z";
+      glColor3f(1,1,0);
+      drawText(text2.data(),text2.size(),20,60);
+    glPopMatrix();
+    glPushMatrix();
+      string text3;
+      text3="-TABURETE 2 -> Usamos S,s,X,x";
+      glColor3f(1,1,0);
+      drawText(text3.data(),text3.size(),20,45);
+    glPopMatrix();
+    glPushMatrix();
+      string text4;
+      text4 ="-TABURETE 3 -> Usamos D,d,C,c";
+      glColor3f(1,1,0);
+      drawText(text4.data(),text4.size(),20,30);
+    glPopMatrix();
 
     // Fin
     glPopMatrix();
@@ -705,4 +731,24 @@ void idle (int v){
   
   glutPostRedisplay ();		// Redibuja
   glutTimerFunc (30, idle, 0);	// Vuelve a activarse dentro de 30 ms
+}
+
+void drawText(const char *text, int lenght, int x, int y){
+  glMatrixMode(GL_PROJECTION);
+  double *matrix = new double[16];
+  glGetDoublev(GL_PROJECTION_MATRIX,matrix);
+  glLoadIdentity();
+  glOrtho(0,800,0,600,-5,5);
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+  glPushMatrix();
+    glLoadIdentity();
+    glRasterPos2i(x,y);
+    for(int i=0;i<lenght;i++){
+      glutBitmapCharacter(GLUT_BITMAP_9_BY_15,(int)text[i]);
+    }
+  glPopMatrix();
+  glMatrixMode(GL_PROJECTION);
+  glLoadMatrixd(matrix);
+  glMatrixMode(GL_MODELVIEW);
 }
