@@ -374,19 +374,18 @@ void Malla::draw(){
     
     glPushAttrib(GL_LIGHTING|GL_TEXTURE_BIT|GL_CURRENT_BIT);
 
-    if(this->tieneTextura){
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, texId);
-
-        glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
-        glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
-        glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
-        glMaterialf(GL_FRONT, GL_SHININESS, e);
-    }
+    glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
+    glMaterialf(GL_FRONT, GL_SHININESS, e);
+    glEnable(GL_TEXTURE_2D);
 
     if(getModoSeleccion()){
+        glDisable(GL_TEXTURE_2D);
         colorSeleccion(this->getId());
     }
+
+    glBindTexture(GL_TEXTURE_2D, texId);
 
     if(this->suave){ // Si el atributo suave==TRUE, se dibujará con sombreado suave
         glShadeModel(GL_SMOOTH);
