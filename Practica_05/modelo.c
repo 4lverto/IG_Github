@@ -16,6 +16,44 @@ Malla beethoven2("plys/beethoven.ply",true,ID_BEETHOVEN2);
 Malla beethoven3("plys/beethoven.ply",true,ID_BEETHOVEN3);
 Malla big_dodge("plys/big_dodge.ply",false,ID_BIG_DODGE);
 
+void seleccionarMalla(int c){
+  beethoven1.setSeleccionado(false);
+  beethoven2.setSeleccionado(false);
+  beethoven3.setSeleccionado(false);
+  
+  switch(c){
+    case ID_BEETHOVEN1:
+      beethoven1.setSeleccionado(true);
+      break;
+    case ID_BEETHOVEN2:
+      beethoven2.setSeleccionado(true);
+      break;
+    case ID_BEETHOVEN3:
+      beethoven3.setSeleccionado(true);
+      break;
+    default:
+      printf("\nNO HAS SELECCIONADO NINGUNA MALLA\n");
+      break;
+  }
+}
+
+bool mallaSeleccionada(int c){
+  switch(c){
+    case ID_BEETHOVEN1:
+      return beethoven1.getSeleccionado();
+      break;
+    case ID_BEETHOVEN2:
+      return beethoven2.getSeleccionado();
+      break;
+    case ID_BEETHOVEN3:
+      return beethoven3.getSeleccionado();
+      break;
+    default:
+      return false;
+      break;
+  }
+}
+
 // PRÁCTICA 3 - Componentes de mi modelo jerárquico articulado
 
 bool animacionActiva=false; // Se gestiona con A y a
@@ -276,13 +314,9 @@ initModel (){
   printf("\nBEETHOVEN 2 tiene ID = %d",beethoven2.getId());
   printf("\nBEETHOVEN 3 tiene ID = %d",beethoven3.getId());
 
-  //big_dodge.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
-  //big_dodge.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
-  //big_dodge.asignarExponenteEspecular(49.0f);
-
-  printf("\nBEETHOVEN 1 tiene ID = %d",beethoven1.getId());
-  printf("\nBEETHOVEN 2 tiene ID = %d",beethoven2.getId());
-  printf("\nBEETHOVEN 3 tiene ID = %d",beethoven3.getId());
+  big_dodge.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  big_dodge.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  big_dodge.asignarExponenteEspecular(49.0f);
 
   // ////////// //
   // Práctica 4 //
@@ -416,9 +450,10 @@ void colorSeleccion(int id/*, int componente*/){
   glColor3ub(r,g,0);
 
   if(id!=ultimoID){
-    // printf("Asignando color: R=%d, G=%d, B=%d para ID=%d\n",r,g,0,id);
+    
     ultimoID=id;
   }
+  //printf("Asignando color: R=%d, G=%d, B=%d para ID=%d\n",r,g,0,id);
 }
 
 // Creo dibujoEscena() a partir de lo que contenía Dibuja() //
@@ -491,7 +526,7 @@ void dibujaEscena() {
 
     // BEETHOVEN
     glPushMatrix();
-      glTranslatef(-5.0f,6.5f,0.0f);
+      glTranslatef(-10.0f,6.5f,0.0f);
       glScalef(0.25,0.25f,0.25);
       if(getModoSeleccion()){
         colorSeleccion(ID_BEETHOVEN1);
@@ -509,7 +544,7 @@ void dibujaEscena() {
     glPopMatrix();
 
     glPushMatrix();
-      glTranslatef(5.0f,6.5f,0.0f);
+      glTranslatef(10.0f,6.5f,0.0f);
       glScalef(0.25,0.25f,0.25);
       if(getModoSeleccion()){
         colorSeleccion(ID_BEETHOVEN3);

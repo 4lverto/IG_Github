@@ -89,6 +89,9 @@ void setRotacionDadoZ(float r);
 
 void cambiarCaraVisible(int c);
 
+void seleccionarMalla(int n);
+bool mallaSeleccionada(int n);
+
 class Objeto3D{ 
 	public: 
 

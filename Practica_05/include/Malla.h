@@ -67,6 +67,8 @@ class Malla{
     */
     int id;
 
+    bool seleccionado;
+
       // =============== //
       // OTROS ATRIBUTOS // 
       // =============== //
@@ -263,6 +265,9 @@ class Malla{
     int getId();
 
     void setId(int n);
+
+    void setSeleccionado(bool s);
+    bool getSeleccionado();
 };
 
 #endif // MALLA_H

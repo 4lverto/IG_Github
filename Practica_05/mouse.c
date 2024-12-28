@@ -58,12 +58,15 @@ void clickRaton( int boton, int estado, int x, int y ){
 					break;
 				case ID_BEETHOVEN1:
 					printf("\n(IZQ) Has seleccionado al Primer Beethoven");
+					seleccionarMalla(ID_BEETHOVEN1);
 					break;
 				case ID_BEETHOVEN2:
 					printf("\n(IZQ) Has seleccionado al Segundo Beethoven");
+					seleccionarMalla(ID_BEETHOVEN2);
 					break;
 				case ID_BEETHOVEN3:
 					printf("\n(IZQ) Has seleccionado al Tercer Beethoven");
+					seleccionarMalla(ID_BEETHOVEN3);
 					break;
 				case ID_DADO:
 					printf("\n(IZQ) Has seleccionado el Dado\n");
@@ -233,15 +236,16 @@ int pick(int x, int y, int *id){
 
 	setModoSeleccion(true);
 
+	glClearColor(0.0f,0.0f,0.0f,1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+
 	dibujaEscena();
+
+	setModoSeleccion(false);
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DITHER);
 	glEnable(GL_TEXTURE_2D);
-
-	setModoSeleccion(false);
 
 	glFlush();
 	glFinish();
