@@ -94,7 +94,7 @@ void Malla::cargarTextura(const char *archivo){
 
     delete[] imagen; // Liberamos la memoria usada
 
-    tieneTextura=true; 
+    this->tieneTextura=true; 
 }
 
 // 4) 
@@ -371,17 +371,8 @@ void Malla::calcular_normales_vertices(){
 
 
 void Malla::draw(){
-    if(getModoSeleccion()){
-        colorSeleccion(this->getId());
-    }
     
-    if(iluminacionActivada){
-        glEnable(GL_LIGHTING);
-    }else{
-        glDisable(GL_LIGHTING);
-    }
-
-    glEnable(GL_NORMALIZE);
+    glPushAttrib(GL_LIGHTING|GL_TEXTURE_BIT|GL_CURRENT_BIT);
 
     if(this->tieneTextura){
         glEnable(GL_TEXTURE_2D);
@@ -392,7 +383,11 @@ void Malla::draw(){
         glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
         glMaterialf(GL_FRONT, GL_SHININESS, e);
     }
-    
+
+    if(getModoSeleccion()){
+        colorSeleccion(this->getId());
+    }
+
     if(this->suave){ // Si el atributo suave==TRUE, se dibujará con sombreado suave
         glShadeModel(GL_SMOOTH);
         this->drawSmooth();
@@ -400,6 +395,8 @@ void Malla::draw(){
         glShadeModel(GL_FLAT);
         this->drawFlat();
     }
+
+    glPopAttrib();
 }
 
 

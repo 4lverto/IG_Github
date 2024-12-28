@@ -27,6 +27,7 @@ Dado::Dado(float l,int _id,int c){
 
 
 void Dado::draw() {
+    
     glPushAttrib(GL_LIGHTING|GL_TEXTURE_BIT|GL_CURRENT_BIT);
 
     glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
