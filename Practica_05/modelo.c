@@ -14,7 +14,7 @@ using namespace std;
 Malla beethoven1("plys/beethoven.ply",true,ID_BEETHOVEN1);
 Malla beethoven2("plys/beethoven.ply",true,ID_BEETHOVEN2);
 Malla beethoven3("plys/beethoven.ply",true,ID_BEETHOVEN3);
-Malla big_dodge("plys/big_dodge.ply",false,ID_BIG_DODGE);
+// Malla big_dodge("plys/big_dodge.ply",false,ID_BIG_DODGE);
 
 void seleccionarMalla(int c){
   beethoven1.setSeleccionado(false);
@@ -314,9 +314,9 @@ initModel (){
   printf("\nBEETHOVEN 2 tiene ID = %d",beethoven2.getId());
   printf("\nBEETHOVEN 3 tiene ID = %d",beethoven3.getId());
 
-  big_dodge.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
-  big_dodge.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
-  big_dodge.asignarExponenteEspecular(49.0f);
+  // big_dodge.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  // big_dodge.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  // big_dodge.asignarExponenteEspecular(49.0f);
 
   // ////////// //
   // Práctica 4 //
@@ -446,7 +446,7 @@ void colorSeleccion(int id/*, int componente*/){
   printf("Asignando color para ID: %d, RGB=(%d,%d,%d)\n",id,r,g,b);*/
   static int ultimoID=-1;
   unsigned char r = id & 0xFF;
-  unsigned char g = (id >> 11) & 0xFF;
+  unsigned char g = (id >> 8) & 0xFF;
   glColor3ub(r,g,0);
 
   if(id!=ultimoID){

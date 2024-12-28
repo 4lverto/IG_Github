@@ -252,7 +252,7 @@ int pick(int x, int y, int *id){
 
 	glReadPixels(x, viewport[3]-y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
-	*id=data[0] | (data[1] << 11);
+	*id=data[0] | (data[1] << 8);
 
 	printf("\nID devuelto por pick: %d\n", *id);
 
