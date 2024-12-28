@@ -80,7 +80,7 @@ y:
 **/
 
 float rotxCamara = 30, rotyCamara = 45;
-float dCamara = 10;
+float dCamara = 40;
 
 void letra (unsigned char k, int x, int y)
 {
@@ -243,30 +243,24 @@ x:
 y:
 
 **/
-void especial (int k, int x, int y)
-{
+void especial (int k, int x, int y){
 
-  switch (k)
-    {
+  switch (k){
     case GLUT_KEY_UP:
       rotxCamara += 5.0;	// Cursor arriba + rotacion x
-      if (rotxCamara > 360)
-	rotxCamara -= 360;
+      if (rotxCamara > 360) rotxCamara -= 360;
       break;
     case GLUT_KEY_DOWN:
       rotxCamara -= 5.0;
-      if (rotxCamara < 0)
-	rotxCamara += 360;
+      if (rotxCamara < 0) rotxCamara += 360;
       break;
     case GLUT_KEY_LEFT:
       rotyCamara += 5.0;
-      if (rotyCamara > 360)
-	rotyCamara -= 360;
+      if (rotyCamara > 360) rotyCamara -= 360;
       break;
     case GLUT_KEY_RIGHT:
       rotyCamara -= 5.0;
-      if (rotyCamara < 0)
-	rotyCamara += 360;
+      if (rotyCamara < 0) rotyCamara += 360;
       break;
     case GLUT_KEY_PAGE_DOWN:	// acerca la cámara
       dCamara -= 5.0;
@@ -276,7 +270,7 @@ void especial (int k, int x, int y)
       break;
     default:
       return;
-    }
+  }
   setCamara (rotxCamara, rotyCamara, 0.0, dCamara);
   glutPostRedisplay ();		// Actualiza la imagen (ver proc. letra)
 }

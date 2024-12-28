@@ -31,7 +31,7 @@ Distancia de la cámara
 
 **/
 
-float D = 10;
+float D = 40;
 
 
 /**
@@ -51,12 +51,12 @@ float anchoVentana, altoVentana;
 Cambia los parámetros de la cámara en el modulo visual
 
 **/
-void setCamara (float ax, float ay, float az, float d)
-{
-  view_rotx = ax;
-  view_roty = ay;
-  view_rotz = az;
-  D = d;
+void setCamara (float ax, float ay, float az, float d){
+  
+  if(ax!=view_rotx) view_rotx = ax;
+  if(ay!=view_roty) view_roty = ay;
+  if(az!=view_rotz)view_rotz = az;
+  if(d!=D) D = d;
 }
 
 
@@ -127,5 +127,4 @@ void inicializaVentana (GLsizei ancho, GLsizei alto)
   glLoadIdentity ();
 
   fijaProyeccion ();		// Cargamos la transformacion de proyeccion
-
 }
