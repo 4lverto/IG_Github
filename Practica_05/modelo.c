@@ -254,8 +254,12 @@ initModel (){
   // Práctica 2 //
   // ////////// //
 
+<<<<<<< HEAD
   beethoven1.cargarTextura("JPEG/texturaMarmol.jpg");
   beethoven1.calculoCoordenadasTexturaCilindrica();
+=======
+  // beethoven1.cargarTextura("JPEG/texturaMarmol.jpg");
+>>>>>>> 671d5c8b722b98b2dfc31ea44dca022db7192b62
   beethoven1.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
   beethoven1.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
   beethoven1.asignarExponenteEspecular(20.0f);
@@ -276,9 +280,19 @@ initModel (){
   printf("\nBEETHOVEN 2 tiene ID = %d",beethoven2.getId());
   printf("\nBEETHOVEN 3 tiene ID = %d",beethoven3.getId());
 
+<<<<<<< HEAD
   //big_dodge.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
   //big_dodge.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
   //big_dodge.asignarExponenteEspecular(49.0f);
+=======
+  printf("\nBEETHOVEN 1 tiene ID = %d",beethoven1.getId());
+  printf("\nBEETHOVEN 2 tiene ID = %d",beethoven2.getId());
+  printf("\nBEETHOVEN 3 tiene ID = %d",beethoven3.getId());
+
+  big_dodge.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
+  big_dodge.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
+  big_dodge.asignarExponenteEspecular(49.0f);
+>>>>>>> 671d5c8b722b98b2dfc31ea44dca022db7192b62
 
   // ////////// //
   // Práctica 4 //
