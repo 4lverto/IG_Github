@@ -27,10 +27,10 @@ extern bool iluminacionActivada;
 #define ID_TABURETE2 2
 #define ID_TABURETE3 3
 #define ID_DADO 4
-#define ID_COCHE1 5
-#define ID_COCHE2 6
-#define ID_COCHE3 7
-#define ID_BIG_DODGE 8
-#define ID_BEETHOVEN1 9
-#define ID_BEETHOVEN2 10
-#define ID_BEETHOVEN3 11
+#define ID_BIG_DODGE 5
+#define ID_BEETHOVEN1 6
+#define ID_BEETHOVEN2 7
+#define ID_BEETHOVEN3 8
+#define ID_COCHE1 9
+#define ID_COCHE2 10
+#define ID_COCHE3 11

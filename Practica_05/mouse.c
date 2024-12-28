@@ -237,6 +237,10 @@ int pick(int x, int y, int *id){
 	
 	dibujaEscena();
 
+	glEnable(GL_LIGHTING);
+	glEnable(GL_DITHER);
+	glEnable(GL_TEXTURE_2D);
+
 	setModoSeleccion(false);
 
 	glFlush();
@@ -248,9 +252,7 @@ int pick(int x, int y, int *id){
 
 	printf("\nID devuelto por pick: %d\n", *id);
 
-	glEnable(GL_LIGHTING);
-	glEnable(GL_DITHER);
-	glEnable(GL_TEXTURE_2D);
+	glutPostRedisplay();
 
 	return *id;
 }
