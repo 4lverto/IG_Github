@@ -606,6 +606,12 @@ void dibujaEscena() {
       glColor3f(0,1,1);
       drawText(text6.data(),text6.size(),20,560);
     glPopMatrix();
+    glPushMatrix();
+      string text7;
+      text7 =("-CAMBIA LA CAMARA CON CLICK DERECHO");
+      glColor3f(0,1,1);
+      drawText(text7.data(),text7.size(),470,560);
+    glPopMatrix();
 
     // Fin
     glPopMatrix();
