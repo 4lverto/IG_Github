@@ -34,3 +34,25 @@ extern bool iluminacionActivada;
 #define ID_COCHE1 9
 #define ID_COCHE2 10
 #define ID_COCHE3 11*/
+
+// PROYECTO FINAL
+
+struct PosicionCamara{
+  float eyeX, eyeY, eyeZ;
+  float centerX, centerY, centerZ;
+  float upX,upY,upZ;
+};
+
+void actualizarCamara();
+
+extern int camaraActual;
+
+extern float camX,camY,camZ; // Posición de la cámara
+extern float lookX,lookY,lookZ; // Punto de enfoque actual
+extern float upX,upY,upZ; // Vector "arriba" actual
+
+extern float eyeX;
+extern float eyeY;
+extern float eyeZ;
+
+extern PosicionCamara camaras[];

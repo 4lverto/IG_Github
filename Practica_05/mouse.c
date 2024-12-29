@@ -138,6 +138,30 @@ void clickRaton( int boton, int estado, int x, int y ){
 
 		if(pick(x,y,&id)){
 			// printf("Objeto seleccionado: %d\n",id);
+			camaraActual = (camaraActual+1)%3;
+			PosicionCamara cam = camaras[camaraActual];
+
+			camX = cam.eyeX;
+			camY = cam.eyeY;
+			camZ = cam.eyeZ;
+			lookX = cam.centerX;
+			lookY = cam.centerY;
+			lookZ = cam.centerZ;
+			upX = cam.upX;
+			upY = cam.upY;
+			upZ = cam.upZ;
+
+			printf("\nCambiando a posición de cámara %d\n",camaraActual);
+			
+			if(camaraActual==0 || camaraActual==1){
+				actualizarCamara();
+			}
+
+			/*
+			if(camaraActual==2){
+				setCamara (rotxCamara, rotyCamara, 0.0, dCamara);
+			}*/
+		
 			setModoSeleccion(true);
 		
 			switch(id){

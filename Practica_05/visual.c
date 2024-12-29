@@ -43,7 +43,28 @@ Tamaño de la ventana X
 
 float anchoVentana, altoVentana;
 
+int camaraActual=1;
 
+float camX=0.0f,camY=10.0f,camZ=0.0f; // Posición de la cámara
+float lookX=0.0f,lookY=0.0f,lookZ=0.0f; // Punto de enfoque actual
+float upX=0.0f,upY=1.0f,upZ=0.0f; // Vector "arriba" actual 
+
+float eyeX = D * sin(view_roty * M_PI / 180.0) * cos(view_rotx * M_PI /180);
+float eyeY = D * sin(view_rotx * M_PI / 180.0);
+float eyeZ = D * cos(view_roty * M_PI / 180.0) * cos(view_rotx * M_PI / 180.0);
+
+PosicionCamara camaras[]={
+  {0.0f,10.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,-10.0f},
+  {-10.0f,7.0f,0.0f,0.0f,6.5f,0.0f,0.0f,1.0f,0.0f},
+  {eyeX,eyeY,eyeZ,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f}
+};
+
+void actualizarCamara(){
+  // PosicionCamara cam = camaras[camaraActual];
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+  gluLookAt(camX,camY,camZ,lookX,lookY,lookZ,upX,upY,upZ);
+}
 
 
 /** 	void setCamara()
@@ -79,11 +100,16 @@ view_roty;
 **/
 void transformacionVisualizacion ()
 {
-  glTranslatef (0, 0, -D);
+  actualizarCamara();
+  
+  if(camaraActual==2){
+    glTranslatef (0, 0, -D);
 
-  glRotatef (view_rotx, 1.0, 0.0, 0.0);
-  glRotatef (view_roty, 0.0, 1.0, 0.0);
-  glRotatef (view_rotz, 0.0, 0.0, 1.0);
+    glRotatef (view_rotx, 1.0, 0.0, 0.0);
+    glRotatef (view_roty, 0.0, 1.0, 0.0);
+    glRotatef (view_rotz, 0.0, 0.0, 1.0);
+  }
+  
   // glTranslatef(-x_camara,-y_camara,-z_camara);
 }
 

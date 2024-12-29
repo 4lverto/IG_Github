@@ -84,6 +84,8 @@ float dCamara = 40;
 
 void letra (unsigned char k, int x, int y)
 {
+
+  float step = 3.0f;
   switch (k)
     {
     case '<':
@@ -91,10 +93,18 @@ void letra (unsigned char k, int x, int y)
       printHelp ();		// < y > imprimen ayuda
       break;
     case '+':			// acerca la cámara
-      dCamara -= 5.0;
+      if(camaraActual==0){camY -= step;}
+      if(camaraActual==1){camY -= step;}
+      if(camaraActual==2){
+        dCamara-=5.0;
+      }
       break;
     case '-':			// aleja la cámara
-      dCamara += 5.0;
+      if(camaraActual==0){camY += step;}
+      if(camaraActual==1){camY += step;}
+      if(camaraActual==2){
+        dCamara+=5.0;
+      }
       break;
     case 27:			// Escape  Terminar
       exit (0);
@@ -226,7 +236,10 @@ void letra (unsigned char k, int x, int y)
     default:
       return;
     }
-  setCamara (rotxCamara, rotyCamara, 0.0, dCamara);
+  if(camaraActual==2){
+    setCamara (rotxCamara, rotyCamara, 0.0, dCamara);
+  }
+  actualizarCamara();
   glutPostRedisplay ();		// Algunas de las opciones cambian paramentros
 }				// de la camara. Es necesario actualziar la imagen
 
@@ -244,33 +257,68 @@ y:
 
 **/
 void especial (int k, int x, int y){
-
+  float step = 3.0f;
   switch (k){
     case GLUT_KEY_UP:
-      rotxCamara += 5.0;	// Cursor arriba + rotacion x
-      if (rotxCamara > 360) rotxCamara -= 360;
+      if(camaraActual==0){camZ -= step;}
+      if(camaraActual==1){camX += step;}
+      if(camaraActual==2){
+        rotxCamara += 5.0;	// Cursor arriba + rotacion x
+        if (rotxCamara > 360) rotxCamara -= 360;
+      }
+
       break;
     case GLUT_KEY_DOWN:
-      rotxCamara -= 5.0;
-      if (rotxCamara < 0) rotxCamara += 360;
+      if(camaraActual==0){camZ += step;}
+      if(camaraActual==1){camX -= step;}
+      if(camaraActual==2){
+        rotxCamara -= 5.0;
+        if (rotxCamara < 0) rotxCamara += 360;
+      }
+
       break;
     case GLUT_KEY_LEFT:
-      rotyCamara += 5.0;
-      if (rotyCamara > 360) rotyCamara -= 360;
+      if(camaraActual==0){camX -= step;}
+      if(camaraActual==1){camZ -= step;}
+      if(camaraActual==2){
+        rotyCamara += 5.0;
+        if (rotyCamara > 360) rotyCamara -= 360;
+      }
+
       break;
     case GLUT_KEY_RIGHT:
-      rotyCamara -= 5.0;
-      if (rotyCamara < 0) rotyCamara += 360;
+      if(camaraActual==0){camX += step;}
+      if(camaraActual==1){camZ += step;}
+      if(camaraActual==2){
+        rotyCamara -= 5.0;
+        if (rotyCamara < 0) rotyCamara += 360;
+      }
       break;
     case GLUT_KEY_PAGE_DOWN:	// acerca la cámara
-      dCamara -= 5.0;
+      if(camaraActual==0){camY -= step;}
+      if(camaraActual==1){camY -= step;}
+      if(camaraActual==2){
+        dCamara -= 5.0;
+      }
+      // camZ += step;
       break;
     case GLUT_KEY_PAGE_UP:	// aleja la cámara
-      dCamara += 5.0;
+      if(camaraActual==0){camY += step;}
+      if(camaraActual==1){camY += step;}
+      if(camaraActual==2){
+        dCamara += 5.0;
+      }
       break;
     default:
       return;
   }
-  setCamara (rotxCamara, rotyCamara, 0.0, dCamara);
+  if(camaraActual==2){
+    setCamara (rotxCamara, rotyCamara, 0.0, dCamara);
+  }
+
+  if(camaraActual==0 || camaraActual==1){
+    actualizarCamara();
+  }
+
   glutPostRedisplay ();		// Actualiza la imagen (ver proc. letra)
 }

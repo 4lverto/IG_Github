@@ -293,6 +293,8 @@ initModel (){
   // Práctica 2 //
   // ////////// //
 
+  actualizarCamara();
+
   beethoven1.cargarTextura("JPEG/texturaMarmol.jpg");
   beethoven1.calculoCoordenadasTexturaCilindrica();
   beethoven1.asignarReflectividadAmbiente(0.5f,0.5f,0.5f,0.6f);
