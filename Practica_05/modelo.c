@@ -283,6 +283,29 @@ GLfloat posLuz2[4] = {-5.0,10.0,-5.0,1.0};
 
 bool luzActiva=true;
 
+// ////////////// //
+// PELOTA BOTANDO //
+// ////////////// //
+typedef struct{
+  float y;
+  float velY;
+  float radio;
+  float gravedad;
+  float rebote;
+} Pelota;
+
+Pelota pelota = {2.0f,0.0f,0.2f,0.01f,0.8f};
+
+bool pelotaEnAnimacion;
+
+void setPelotaEnAnimacion(bool p){
+  pelotaEnAnimacion=p;
+}
+
+bool getPelotaEnAnimacion(){
+  return pelotaEnAnimacion;
+}
+
 /**
  * @brief Inicializa el modelo y de las variables globales
 */
@@ -343,6 +366,16 @@ initModel (){
 
   // coche3.configuracionMaterial3();
   // coche3.setSombreadoSuave(true);
+
+  // //////////////// //
+  // PELOTA REBOTANDO //
+  // //////////////// //
+
+  pelota.y = 2.0f;
+  pelota.velY = 0.0f;
+  pelota.radio = 0.2f;
+  pelota.gravedad = 0.01f;
+  pelota.rebote = 0.8f;
 }
 
                   // /////////////// //
@@ -459,6 +492,28 @@ void colorSeleccion(int id/*, int componente*/){
   //printf("Asignando color: R=%d, G=%d, B=%d para ID=%d\n",r,g,0,id);
 }
 
+// ////////////// //
+// PELOTA BOTANDO //
+// ////////////// //
+float naranja[4]={1.0f,0.5f,0.0f,1.0f};
+void dibujarPelota(){
+  glPushMatrix();
+    glTranslatef(0.0f,pelota.y,0.0f);
+    glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,naranja);
+    glutSolidSphere(pelota.radio,50,50);
+  glPopMatrix();
+}
+
+void actualizarPelota(){
+  pelota.velY -= pelota.gravedad;
+  pelota.y += pelota.velY;
+
+  if(pelota.y <= pelota.radio){
+    pelota.y = pelota.radio;
+    pelota.velY = -pelota.velY * pelota.rebote;
+  }
+}
+
 // Creo dibujoEscena() a partir de lo que contenía Dibuja() //
 // //////////////////////////////////////////////////////// //
 
@@ -555,7 +610,14 @@ void dibujaEscena() {
       beethoven3.draw();
     glPopMatrix();
 
-    // BIG_DODGE
+    // PELOTA
+
+    glPushMatrix();
+      glTranslatef(-10.0f,0.0f,-20.0f);
+      glScalef(2,2,2);
+      glColor3f(1,0,0);
+      dibujarPelota();
+    glPopMatrix();
 
     // MESA
     glPushMatrix();
@@ -568,7 +630,7 @@ void dibujaEscena() {
       dibujaMesaPequenia();
     glPopMatrix();
 
-        // TEXTO
+    // TEXTO
     glPushMatrix();
       string text1;
       text1="Instrucciones para los TABURETES:";
@@ -593,7 +655,18 @@ void dibujaEscena() {
       glColor3f(1,1,0);
       drawText(text4.data(),text4.size(),20,45);
     glPopMatrix();
-    
+    glPushMatrix();
+      string text7;
+      text7 ="-Tambien puedes rotarlos usando: 1,2,3";
+      glColor3f(1,1,0);
+      drawText(text7.data(),text7.size(),20,30);
+    glPopMatrix();
+    glPushMatrix();
+      string text8;
+      text8 ="o haciendo click con la ruedecilla del raton sobre cada uno";
+      glColor3f(1,1,0);
+      drawText(text8.data(),text8.size(),20,15);
+    glPopMatrix();
     glPushMatrix();
       string text5;
       text5 ="-¿Por que no lanzas el Dado?";
@@ -607,10 +680,10 @@ void dibujaEscena() {
       drawText(text6.data(),text6.size(),20,560);
     glPopMatrix();
     glPushMatrix();
-      string text7;
-      text7 =("-CAMBIA LA CAMARA CON CLICK DERECHO");
+      string text9;
+      text9 =("-CAMBIA LA CAMARA CON CLICK DERECHO");
       glColor3f(0,1,1);
-      drawText(text7.data(),text7.size(),470,560);
+      drawText(text9.data(),text9.size(),470,560);
     glPopMatrix();
 
     // Fin
@@ -748,6 +821,28 @@ void idle (int v){
       rotacionDadoZ = 0.0f;
     }
     
+  }
+
+  if(pelotaEnAnimacion){
+    
+    
+
+    /*
+    pelota.velY -= pelota.gravedad;
+    pelota.y += pelota.velY;
+
+    if(pelota.y <= pelota.radio){
+      pelota.y = pelota.radio;
+      pelota.velY = -pelota.velY * pelota.rebote;
+    }*/
+
+/*
+    pelota.y=2.0f;
+    pelota.velY=0.3f;
+    pelota.radio=0.2f;
+    pelota.gravedad=0.01f;
+    pelota.rebote=0.8f;*/
+  
   }
   
   glutPostRedisplay ();		// Redibuja

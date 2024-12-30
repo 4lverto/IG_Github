@@ -233,6 +233,8 @@ void letra (unsigned char k, int x, int y)
     case '3':
       girar(3);
       break;
+    case ' ':
+      setPelotaEnAnimacion(!getPelotaEnAnimacion());
     default:
       return;
     }

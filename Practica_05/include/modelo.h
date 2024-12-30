@@ -95,6 +95,10 @@ bool mallaSeleccionada(int n);
 
 void drawText(const char *text, int length, int x, int y);
 
+void setPelotaEnAnimacion(bool p);
+
+bool getPelotaEnAnimacion();
+
 class Objeto3D{ 
 	public: 
 
