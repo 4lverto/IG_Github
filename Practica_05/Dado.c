@@ -91,6 +91,10 @@ void Dado::draw() {
     glPopAttrib();
 }
 
+// ////////////////// //
+// ANIMACIÓN DEL DADO //
+// ////////////////// //
+
 int Dado::getCaraVisible(){
     return caraVisible;
 }

@@ -8,7 +8,7 @@
 #include  "file_ply_stl.h"
 
 /**
- * @brief
+ * @brief Indica si la iluminación está activada
 */
 extern bool iluminacionActivada;
 
@@ -26,48 +26,53 @@ extern bool iluminacionActivada;
 
 // PRÁCTICA 5
 
-#define ID_TABURETE1 1
-#define ID_TABURETE2 2
-#define ID_TABURETE3 3
-#define ID_DADO 4
+#define ID_TABURETE1 1  ////< Identificador del primer taburete
+#define ID_TABURETE2 2  ////< Identificador del segundo taburete
+#define ID_TABURETE3 3  ////< Identificador del tercer taburete
+#define ID_DADO 4       ////< Identificador del dado
 
 // PROYECTO FINAL
 
 /**
- * @brief
+ * @brief Estructura que almacena la configuración de la posición de una cámara
 */
 struct PosicionCamara{
-  float eyeX, eyeY, eyeZ;
-  float centerX, centerY, centerZ;
-  float upX,upY,upZ;
+  float eyeX, eyeY, eyeZ;           ////< Coordenadas del punto de vista de la cámara
+  float centerX, centerY, centerZ;  ////< Coordenadas del punto dentral al que la cámara apunta
+  float upX,upY,upZ;                ////< Componentes (coordenadas) del vector "arriba"
 };
 
 /**
- * @brief
+ * @brief Actualiza la configuración de la cámara activa
 */
 void actualizarCamara();
 
 /**
- * @brief
+ * @brief Índice de la cámara actualmente activa
 */
 extern int camaraActual;
 
 /**
- * @brief
+ * @brief Coordenadas actuales de la posición de la cámara
 */
-extern float camX,camY,camZ; // Posición de la cámara
-extern float lookX,lookY,lookZ; // Punto de enfoque actual
-extern float upX,upY,upZ; // Vector "arriba" actual
-
+extern float camX,camY,camZ; 
 
 /**
- * @brief
+ * @brief Coordenadas del punto de enfoque actual de la cámara
 */
-extern float eyeX;
-extern float eyeY;
-extern float eyeZ;
+extern float lookX,lookY,lookZ;
 
 /**
- * @brief
+ * @brief Componentes (coordenadas) del vector "arriba"
+*/
+extern float upX,upY,upZ;
+
+/**
+ * @brief Coordenadas de la posición del ojo (POV) de la cámara
+*/
+extern float eyeX,eyeY,eyeZ;
+
+/**
+ * @brief Array que contiene las configuraciones de las 3 cámaras definidas
 */
 extern PosicionCamara camaras[];

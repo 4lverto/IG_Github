@@ -1,29 +1,4 @@
 /*	Prácticas de Informática Gráfica
-
-	Grupos C y D				Curso 2023-24
- 	
-	Codigo base para la realización de las practicas de IG
-	
-	Estudiante: 
-
-=======================================================
-	G. Arroyo, J.C. Torres 
-	Dpto. Lenguajes y Sistemas Informticos
-	(Univ. de Granada)
-
- This program is free software; you can redistribute it and/or
- modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 2
- of the License, or (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details 
- http://www.gnu.org/copyleft/gpl.html
-
-=======================================================
-
 	visual.h
 */
 
@@ -32,35 +7,38 @@
 
 //======================== visual.c
 
-/** 	void setCamara()
-
-Cambia los parámetros de la cámara en el modulo visual
-
-**/
+/**
+ * @brief Cambia los parámetros de la cámara en el módulo visual
+ * @param ax Ángulo de rotación en el eje X
+ * @param ay Ángulo de rotación en el eje Y
+ * @param az Ángulo de rotación en el eje Z
+ * @param d Distancia de la cámara al objeto
+*/
 void setCamara (float ax, float ay, float az, float d);
 
+/**
+ * @brief Obtiene los parámetros actuales de la cámara
+ * @param ax Referencia para almacenar el ángulo de rotación en el eje X
+ * @param ay Referencia para almacenar el ángulo de rotación en el eje Y
+ * @param az Referencia para almacenar el ángulo de rotación en el eje Z
+ * @param d Referencia para almacenar la distancia de la cámara al objeto
+*/
 void getCamara (float &ax, float &ay, float &az, float &d);
 
-/** 	void transformacionVisualizacion()
-
-Fija la transformacion de visualizacion en funcion de los angulos de rotacion view_rotx,
-view_roty y view_rotz y el desplazamiento de la camara d.
-
-**/
+/**
+ * @brief Fija la transformación de visualización en función de los ángulos de rotación
+ * (view_rotx,view_roty,view_rotz) y el desplazamiento de la cámara d
+*/
 void transformacionVisualizacion ();
 
-/**	void fijaProyeccion()
-
-Fija la transformacion de proyeccion en funcion del tamaño de la ventana y del tipo de proyeccion
-
-**/
+/**
+ * @brief Fija la transformación de proyección en función del tamaño de la ventana y el tipo de proyección
+*/
 void fijaProyeccion ();
 
-
-/**	void inicializaVentana(GLsizei ancho,GLsizei alto)
-
-Inicializa el viewport para que ocupe toda la ventana X, y llama a fijaProyeccion.
-
-**/
-
+/**
+ * @brief Inicializa el viewport para que ocupe toda la ventana X y llama a fijarProyección
+ * @param ancho Anchura de la ventana
+ * @param alto Altura de la ventana
+*/
 void inicializaVentana (GLsizei ancho, GLsizei alto);

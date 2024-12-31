@@ -40,16 +40,15 @@ class Ejes:Objeto3D {
 // PRÁCTICA 2 - Mallas con PLYs //
 // //////////////////////////// //
 
-Malla beethoven1("plys/beethoven.ply",true,ID_BEETHOVEN1);
-Malla beethoven2("plys/beethoven.ply",true,ID_BEETHOVEN2);
-Malla beethoven3("plys/beethoven.ply",true,ID_BEETHOVEN3);
+Malla beethoven1("plys/beethoven.ply",true);
+Malla beethoven2("plys/beethoven.ply",true);
+Malla beethoven3("plys/beethoven.ply",true);
 
 // ///////////////////////////////////////// //
 // PRÁCTICA 3 - Modelo jerárquico articulado //
 // ///////////////////////////////////////// //
 
 bool animacionActiva=false; // Se gestiona con M y m
-bool otraAnimacion=false;
 
 float VEL_Cilindro=0.01f;   // Se gestiona con T y G
 float VEL_Asiento=0.5f;     // Se gestiona con Y y H
@@ -389,7 +388,7 @@ void establecerLuzActiva(){
   glutPostRedisplay();
 }
 
-// SELECCIÓN DE OBJETOS
+// Selección de objetos
 
 bool modoSeleccion=false;
 
@@ -416,10 +415,9 @@ void colorSeleccion(int id){
               // DIBUJOS DE ENTIDADES //
               // //////////////////// //
 
-float naranja[4]={1.0f,0.5f,0.0f,1.0f};
-
 // Pelota
 void dibujarPelota(){
+  float naranja[4]={1.0f,0.5f,0.0f,1.0f};
   glPushMatrix();
     glTranslatef(0.0f,pelota.y,0.0f);
     glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,naranja);
@@ -581,29 +579,20 @@ void dibujaEscena() {
 
     // BEETHOVEN (1,2,3)
     glPushMatrix();
-      glTranslatef(-10.0f,6.5f,0.0f);
+      glTranslatef(-10.0f,7.0f,0.0f);
       glScalef(0.40,0.40f,0.40);
-      if(getModoSeleccion()){
-        colorSeleccion(ID_BEETHOVEN1);
-      }
       beethoven1.draw();
     glPopMatrix();
 
     glPushMatrix();
-      glTranslatef(0.0f,6.5f,0.0f);
+      glTranslatef(0.0f,7.0f,0.0f);
       glScalef(0.40,0.40f,0.40);
-      if(getModoSeleccion()){
-        colorSeleccion(ID_BEETHOVEN2);
-      }
       beethoven2.draw();
     glPopMatrix();
 
     glPushMatrix();
-      glTranslatef(10.0f,6.5f,0.0f);
+      glTranslatef(10.0f,7.0f,0.0f);
       glScalef(0.40,0.40f,0.40);
-      if(getModoSeleccion()){
-        colorSeleccion(ID_BEETHOVEN3);
-      }
       beethoven3.draw();
     glPopMatrix();
 

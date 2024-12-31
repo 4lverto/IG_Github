@@ -10,13 +10,10 @@ modulo entradaTeclado.c
 #include <GL/glut.h>		// Libreria de utilidades de OpenGL
 #include "include/practicasIG.h"
 
-/** 
-
-Imprime en la consola las instrucciones del programa
-
-**/
-void printHelp ()
-{
+/**
+ * @brief Imprime por consola las instrucciones del programa
+*/
+void printHelp (){
 
   printf ("\n\n     Prácticas de Informática Gráfica	Curso 2023-2024");
   printf ("\n\n Dpto. Lenguajes y Sistemas Informaticos");
@@ -27,7 +24,7 @@ void printHelp ()
   printf ("PgUp, PgDn: avanza y retrocede la cámara \n\n");
   printf ("+,-: avanza y retrocede la cámara \n\n");
   printf ("Teclas de movimiento de cursor: giran la camara\n");
-  // Anyade la informacion de las opciones que introduzcas aqui !!       
+  // Añade la informacion de las opciones que introduzcas aqui !!       
   
   // Ayuda otras teclas
 
@@ -61,23 +58,6 @@ void printHelp ()
 
 
 /* @teclado ---------------------------------------------------------------- */
-
-/** 		void letra (unsigned char k, int x, int y)
-
-Este procedimiento es llamado por el sistema cuando se pulsa una tecla normal
-El codigo k es el ascii de la letra
-
-Para anyadir nuevas ordenes de teclado coloca el correspondiente case.
-
-Parametros de entrada:
-
-k: codigo del caracter pulsado
-
-x:
-
-y:
-
-**/
 
 float rotxCamara = 30, rotyCamara = 45;
 float dCamara = 40;
@@ -186,78 +166,76 @@ void letra (unsigned char k, int x, int y)
       break;
     case 'q':
     case 'Q':
-      establecerLuzActiva(); // Práctica 4
+      establecerLuzActiva(); // Alterna los focos de luz
       break;
     case 'A':
-      moverse(1,'x',5);
+      moverse(1,'x',5); // Mueve el taburete 1 en el eje X 5 unidades
       break;
     case 'a':
-      moverse(1,'x',-5);
+      moverse(1,'x',-5); // Mueve el taburete 1 en el eje X -5 unidades
       break;
     case 'S':
-      moverse(2,'x',5);
+      moverse(2,'x',5); // Mueve el taburete 2 en el eje X 5 unidades
       break;
     case 's':
-      moverse(2,'x',-5);
+      moverse(2,'x',-5); // Mueve el taburete 2 en el eje X -5 unidades
       break;
     case 'D':
-      moverse(3,'x',5);
+      moverse(3,'x',5); // Mueve el taburete 3 en el eje X 5 unidades
       break;
     case 'd':
-      moverse(3,'x',-5);
+      moverse(3,'x',-5); // Mueve el taburete 4 en el eje X -5 unidades
       break;
     case 'Z':
-      moverse(1,'z',5);
+      moverse(1,'z',5); // Mueve el taburete 1 en el eje Z 5 unidades
       break;
     case 'z':
-      moverse(1,'z',-5);
+      moverse(1,'z',-5); // Mueve el taburete 1 en el eje Z -5 unidades
       break;
     case 'X':
-      moverse(2,'z',5);
+      moverse(2,'z',5); // Mueve el taburete 2 en el eje Z 5 unidades
       break;
     case 'x':
-      moverse(2,'z',-5);
+      moverse(2,'z',-5); // Mueve el taburete 2 en el eje Z -5 unidades
       break;
     case 'C':
-      moverse(3,'z',5);
+      moverse(3,'z',5); // Mueve el taburete 3 en el eje Z 5 unidades
       break;
     case 'c':
-      moverse(3,'z',-5);
+      moverse(3,'z',-5); // Mueve el taburete 3 en el eje Z -5 unidades
       break;
     case '1':
-      girar(1);
+      girar(1); // Gira el taburete 1 90º
       break;
     case '2':
-      girar(2);
+      girar(2); // Gira el taburete 1 90º
       break;
     case '3':
-      girar(3);
+      girar(3); // Gira el taburete 1 90º
       break;
     case ' ':
-      setPelotaEnAnimacion(true);
+      setPelotaEnAnimacion(true); // Inicia la animación de la pelota (rebote)
       break;
     default:
+      printf("\nNo has pulsado una tecla identificada\n");
       return;
     }
+  
+  // En caso de estar en la cámara 2 (original), se gestiona de la manera por defecto
   if(camaraActual==2){
     setCamara (rotxCamara, rotyCamara, 0.0, dCamara);
   }
-  actualizarCamara();
+
+  if(camaraActual==0 || camaraActual==1){
+    actualizarCamara();
+  }
+
   glutPostRedisplay ();		// Algunas de las opciones cambian paramentros
-}				// de la camara. Es necesario actualziar la imagen
+}
 
 /**		void especial(int k, int x, int y)
 Este procedimiento es llamado por el sistema cuando se pulsa una tecla
 especial. El codigo k esta definido en glut mediante constantes
-
-Parametros de entrada:
-
-k: codigo del caracter pulsado (definido en glut mediante constantes).
-
-x:
-
-y:
-
 **/
 void especial (int k, int x, int y){
   float step = 3.0f;
@@ -303,7 +281,7 @@ void especial (int k, int x, int y){
       if(camaraActual==2){
         dCamara -= 5.0;
       }
-      // camZ += step;
+
       break;
     case GLUT_KEY_PAGE_UP:	// aleja la cámara
       if(camaraActual==0){camY += step;}
@@ -315,6 +293,7 @@ void especial (int k, int x, int y){
     default:
       return;
   }
+
   if(camaraActual==2){
     setCamara (rotxCamara, rotyCamara, 0.0, dCamara);
   }

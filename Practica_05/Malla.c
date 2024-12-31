@@ -251,9 +251,7 @@ void Malla::calculoCoordenadasTexturaEsfera(){
 Malla::Malla(){
     this->suave=false;
     int randomNumber=rand() % 5 + 3;
-    this->id=randomNumber;
     ply::read("plys/cubo.ply",vertices_ply,caras_ply);
-    this->seleccionado=false;
 
     // Vuelco el vector de vértices_ply en otro vector en el que cada componente representa un Punto3D
     for(size_t i=0;i<vertices_ply.size();i+=3){
@@ -273,11 +271,9 @@ Malla::Malla(){
 }
 
 
-Malla::Malla(const char *nombre_archivo,bool sombreadoSuave,int _id){
+Malla::Malla(const char *nombre_archivo,bool sombreadoSuave){
     this->suave=sombreadoSuave;
-    this->id=_id;
     ply::read(nombre_archivo,vertices_ply,caras_ply);
-    this->seleccionado=false;
     
     // Vuelco el vector de vértices_ply en otro vector en el que cada componente representa un Punto3D
     for(size_t i=0;i<vertices_ply.size();i+=3){
@@ -337,7 +333,6 @@ void Malla::calcular_normales_caras(){
     }
 }
 
-
 void Malla::calcular_normales_vertices(){
 
     // Vaciamos el vector de normales de vértices
@@ -371,20 +366,20 @@ void Malla::calcular_normales_vertices(){
     }
 }
 
-
 void Malla::draw(){
     
     glPushAttrib(GL_LIGHTING|GL_TEXTURE_BIT|GL_CURRENT_BIT);
 
+    // Si la Malla tiene una textura asociada activamos GL_TEXTURE_2D
     if(this->tieneTextura){
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, this->texId);
-        
-        glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
-        glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
-        glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
-        glMaterialf(GL_FRONT, GL_SHININESS, e);
     }
+
+    glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
+    glMaterialf(GL_FRONT, GL_SHININESS, e);
 
     if(this->suave){ // Si el atributo suave==TRUE, se dibujará con sombreado suave
         glShadeModel(GL_SMOOTH);

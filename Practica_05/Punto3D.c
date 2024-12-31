@@ -100,7 +100,7 @@ float Punto3D::modulo() const{
  * @brief Función que finalmente normaliza el Punto3D dividiendo cada coordenada entre el módulo
  */
 void Punto3D::normaliza(){
-float modulo=this->modulo();
+    float modulo=this->modulo();
 
     if(modulo!=0){
         this->x = this->x/modulo;
