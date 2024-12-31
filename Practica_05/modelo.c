@@ -44,6 +44,10 @@ Malla beethoven1("plys/beethoven.ply",true);
 Malla beethoven2("plys/beethoven.ply",true);
 Malla beethoven3("plys/beethoven.ply",true);
 
+Malla suelo("plys/cubo.ply",true);
+Malla pared1("plys/cubo.ply",true);
+Malla pared2("plys/cubo.ply",true);
+
 // ///////////////////////////////////////// //
 // PRÁCTICA 3 - Modelo jerárquico articulado //
 // ///////////////////////////////////////// //
@@ -54,13 +58,13 @@ float VEL_Cilindro=0.01f;   // Se gestiona con T y G
 float VEL_Asiento=0.5f;     // Se gestiona con Y y H
 float VEL_Respaldo=0.1f;    // Se gestiona con U y J
 
-float posTaburete1[3] = {-15.0f,0.0f,-5.0f};
+float posTaburete1[3] = {-15.0f,0.0f,-20.0f};
 float posTaburete2[3] = {0.0f,0.0f,-5.0f};
-float posTaburete3[3] = {3.0f,0.0f,10.0f};
+float posTaburete3[3] = {5.0f,0.0f,15.0f};
 
-float angulo1=0.0f;
+float angulo1=90.0f;
 float angulo2=0.0f;
-float angulo3=0.0f;
+float angulo3=-90.0f;
 
 void girar(int ntaburete){
   switch(ntaburete){
@@ -127,7 +131,7 @@ void moverse(int ntaburete,char coordenada,float cantidad){
         if(comprobarTopeZ(ntaburete,cantidad)){
           posTaburete2[2]+=cantidad;
         }else{
-          posTaburete2[0]+=(cantidad*-1);
+          posTaburete2[2]+=(cantidad*-1);
         }
         break;
     
@@ -135,7 +139,7 @@ void moverse(int ntaburete,char coordenada,float cantidad){
         if(comprobarTopeZ(ntaburete,cantidad)){
           posTaburete3[2]+=cantidad;
         }else{
-          posTaburete3[0]+=(cantidad*-1);
+          posTaburete3[2]+=(cantidad*-1);
         }
         break;
 
@@ -288,8 +292,8 @@ bool pelotaEnAnimacion;
 
 void setPelotaEnAnimacion(bool p){
   if(p){
-    pelota.y=5.0f;
-    pelota.velY=0.2f;
+    pelota.y=4.0f;
+    pelota.velY=0.1f;
   }
   pelotaEnAnimacion=p;
 }
@@ -333,6 +337,24 @@ void initModel (){
   dado.asignarReflectividadEspecular(1.0f,1.0f,1.0f,1.0f);
   dado.asignarExponenteEspecular(49.0f);
   dado.setSombreadoSuave(true);
+
+  suelo.cargarTextura("JPEG/texturaSuelo.jpg");
+  suelo.calculoCoordenadasTexturaPlano();
+  suelo.asignarReflectividadDifusa(0.8f,0.8f,0.8f,0.8f);
+  suelo.asignarReflectividadEspecular(0.0f,0.0f,0.0f,1.0f);
+  suelo.asignarReflectividadAmbiente(0.2,0.2,0.2f,0.2f);
+
+  pared1.cargarTextura("JPEG/texturaPared.jpg");
+  pared1.calculoCoordenadasTexturaPlano();
+  pared1.asignarReflectividadDifusa(0.8f,0.8f,0.8f,0.8f);
+  pared1.asignarReflectividadEspecular(0.0f,0.0f,0.0f,1.0f);
+  pared1.asignarReflectividadAmbiente(0.2,0.2,0.2f,0.2f);
+
+  pared2.cargarTextura("JPEG/texturaPared.jpg");
+  pared2.calculoCoordenadasTexturaPlano();
+  pared2.asignarReflectividadDifusa(0.8f,0.8f,0.8f,0.8f);
+  pared2.asignarReflectividadEspecular(0.0f,0.0f,0.0f,1.0f);
+  pared2.asignarReflectividadAmbiente(0.2,0.2,0.2f,0.2f);
 
   // PELOTA REBOTANDO //
 
@@ -417,10 +439,12 @@ void colorSeleccion(int id){
 
 // Pelota
 void dibujarPelota(){
-  float naranja[4]={1.0f,0.5f,0.0f,1.0f};
+  float colorPelota[4]={1.0f,1.0f,0.0f,1.0f};
+  //float brillo = 100.0f;
+
   glPushMatrix();
     glTranslatef(0.0f,pelota.y,0.0f);
-    glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,naranja);
+    glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,colorPelota);
     glutSolidSphere(pelota.radio,50,50);
   glPopMatrix();
 }
@@ -496,16 +520,6 @@ void dibujaTexto(const char *text, int lenght, int x, int y){
   glMatrixMode(GL_PROJECTION);
   glLoadMatrixd(matrix);
   glMatrixMode(GL_MODELVIEW);
-}
-
-// Suelo
-void dibujarSuelo(){
-  float colorSuelo[4] = {0.96f,0.87f,0.70f,1.0f};
-  glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,colorSuelo);
-  glPushMatrix();
-    glScalef(40.0f,0.1f,40.0f);
-    glutSolidCube(1.0f);
-  glPopMatrix();
 }
 
                         // ////////////////// //
@@ -599,7 +613,7 @@ void dibujaEscena() {
     // PELOTA
     glPushMatrix();
       glTranslatef(-10.0f,0.0f,-20.0f);
-      glScalef(3,3,3);
+      glScalef(5,5,5);
       dibujarPelota();
     glPopMatrix();
 
@@ -616,9 +630,25 @@ void dibujaEscena() {
 
     // SUELO
     glPushMatrix();
-      dibujarSuelo();
+      glScalef(55.0f,0.1f,55.f);
+      suelo.draw();
     glPopMatrix();
 
+    // PAREDES
+
+    glPushMatrix();
+      glTranslatef(0.0f,12.5f,-27.5f);
+      glScalef(55.0f,25.0f,0.0f);
+      pared1.draw();
+    glPopMatrix();
+
+    glPushMatrix();
+      glTranslatef(27.5f,12.5f,0.0f);
+      glRotatef(90.0f,0.0f,0.1f,0.0f);
+      glScalef(55.0f,25.0f,0.5f);
+      pared2.draw();
+    glPopMatrix();
+    
     // TEXTO
     glPushMatrix();
       string text1;
@@ -658,7 +688,7 @@ void dibujaEscena() {
     glPopMatrix();
     glPushMatrix();
       string text5;
-      text5 ="-¿Por que no lanzas el Dado?";
+      text5 ="-Por que no lanzas el Dado?";
       // glColor3f(0,1,1);
       dibujaTexto(text5.data(),text5.size(),20,575);
     glPopMatrix();
@@ -673,6 +703,12 @@ void dibujaEscena() {
       text9 =("-CAMBIA LA CAMARA CON CLICK DERECHO");
       // glColor3f(0,1,1);
       dibujaTexto(text9.data(),text9.size(),470,580);
+    glPopMatrix();
+    glPushMatrix();
+      string text10;
+      text10 ="-Has probado a darle a la tecla ESPACIO?";
+      // glColor3f(0,1,1);
+      dibujaTexto(text10.data(),text10.size(),20,535);
     glPopMatrix();
 
     // Fin

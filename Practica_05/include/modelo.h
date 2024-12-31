@@ -67,13 +67,6 @@ void setModoSeleccion(bool s);
 void dibujaMesa();
 
 /**
- * @brief Función que dibuja una mesa pequeña morada
-*/
-void dibujaMesaPequenia();
-
-// DIBUJAR EL SUELO
-
-/**
  * @brief Función que dibuja la tarima que simula ser el suelo
 */
 void dibujarSuelo();
