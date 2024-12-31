@@ -3,12 +3,19 @@
 #define PUNTO3D_H
 
 struct Punto3D {
+    /**
+     * @brief 
+    */
     float x, y, z; // Representan las 3 coordenadas
 
-    // Constructor sin parámetros
+    /**
+     * @brief Constructor sin parámetros
+    */
     Punto3D();
     
-    // Constructor con parámetros
+    /**
+     * @brief Constructor con parámetros
+    */
     Punto3D(float _x, float _y, float _z);
 
     // Sobrecarga de operadores

@@ -234,7 +234,8 @@ void letra (unsigned char k, int x, int y)
       girar(3);
       break;
     case ' ':
-      setPelotaEnAnimacion(!getPelotaEnAnimacion());
+      setPelotaEnAnimacion(true);
+      break;
     default:
       return;
     }

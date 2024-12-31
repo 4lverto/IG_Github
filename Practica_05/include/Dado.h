@@ -20,12 +20,12 @@ class Dado : public Malla{
         float mitad;
 
         /**
-         * 
+         * @brief Identificador de color del dado
         */
        int id;
 
        /**
-        * 
+        * @brief Cara actual resultante de lanzar el dado
        */
       int caraVisible;
 
@@ -45,12 +45,13 @@ class Dado : public Malla{
 
 
         /**
-         * 
+         * @brief Obtiene la cara resultante del dado actual
         */
         int getCaraVisible();
 
         /**
-         * @brief 
+         * @brief Establece el resultado de lanzar el dado
+         * @param c Nuevo resultado del dado
         */
        void setCaraVisible(int c);
 };

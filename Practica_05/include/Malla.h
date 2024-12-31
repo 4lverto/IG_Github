@@ -260,14 +260,6 @@ class Malla{
      * vertice3
     */
     void drawSmooth();
-
-
-    int getId();
-
-    void setId(int n);
-
-    void setSeleccionado(bool s);
-    bool getSeleccionado();
 };
 
 #endif // MALLA_H

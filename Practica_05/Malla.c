@@ -376,21 +376,10 @@ void Malla::draw(){
     
     glPushAttrib(GL_LIGHTING|GL_TEXTURE_BIT|GL_CURRENT_BIT);
 
-    if(this->getSeleccionado() && getModoSeleccion() ){
-        colorSeleccion(this->getId());
-        glDisable(GL_TEXTURE_2D);
-        glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
-        glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
-        glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
-        glMaterialf(GL_FRONT, GL_SHININESS, e);
-    }else{
-
-        if(this->tieneTextura){
-            glEnable(GL_TEXTURE_2D);
-            glBindTexture(GL_TEXTURE_2D, this->texId);
-            
-        }
-
+    if(this->tieneTextura){
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, this->texId);
+        
         glMaterialfv(GL_FRONT, GL_AMBIENT, reflectividad_ambiente);
         glMaterialfv(GL_FRONT, GL_DIFFUSE, reflectividad_difusa);
         glMaterialfv(GL_FRONT, GL_SPECULAR, reflectividad_especular);
@@ -453,20 +442,4 @@ void Malla::drawSmooth(){
         glVertex3f(this->vertices[t.getI2()].x , this->vertices[t.getI2()].y , this->vertices[t.getI2()].z);
     }
     glEnd();
-}
-
-int Malla::getId(){
-    return this->id;
-}
-
-void Malla::setId(int n){
-    this->id=n;
-}
-
-void Malla::setSeleccionado(bool s){
-    this->seleccionado=s;
-}
-
-bool Malla::getSeleccionado(){
-    return this->seleccionado;
 }

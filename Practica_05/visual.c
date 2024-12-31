@@ -43,7 +43,7 @@ Tamaño de la ventana X
 
 float anchoVentana, altoVentana;
 
-int camaraActual=1;
+int camaraActual=2;
 
 float camX=0.0f,camY=10.0f,camZ=0.0f; // Posición de la cámara
 float lookX=0.0f,lookY=0.0f,lookZ=0.0f; // Punto de enfoque actual

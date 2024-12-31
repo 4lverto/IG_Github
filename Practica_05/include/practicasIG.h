@@ -6,7 +6,10 @@
 #include  "entradaTeclado.h"
 #include  "visual.h"
 #include  "file_ply_stl.h"
-    
+
+/**
+ * @brief
+*/
 extern bool iluminacionActivada;
 
 // PRÁCTICA 2
@@ -27,32 +30,44 @@ extern bool iluminacionActivada;
 #define ID_TABURETE2 2
 #define ID_TABURETE3 3
 #define ID_DADO 4
-#define ID_BEETHOVEN1 6
-#define ID_BEETHOVEN2 7
-#define ID_BEETHOVEN3 8
-/*
-#define ID_COCHE1 9
-#define ID_COCHE2 10
-#define ID_COCHE3 11*/
 
 // PROYECTO FINAL
 
+/**
+ * @brief
+*/
 struct PosicionCamara{
   float eyeX, eyeY, eyeZ;
   float centerX, centerY, centerZ;
   float upX,upY,upZ;
 };
 
+/**
+ * @brief
+*/
 void actualizarCamara();
 
+/**
+ * @brief
+*/
 extern int camaraActual;
 
+/**
+ * @brief
+*/
 extern float camX,camY,camZ; // Posición de la cámara
 extern float lookX,lookY,lookZ; // Punto de enfoque actual
 extern float upX,upY,upZ; // Vector "arriba" actual
 
+
+/**
+ * @brief
+*/
 extern float eyeX;
 extern float eyeY;
 extern float eyeZ;
 
+/**
+ * @brief
+*/
 extern PosicionCamara camaras[];

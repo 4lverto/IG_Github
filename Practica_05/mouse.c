@@ -55,19 +55,7 @@ void clickRaton( int boton, int estado, int x, int y ){
 					break;
 				case ID_TABURETE3:
 					printf("\n(IZQ) Has seleccionado el Tercer Taburete");
-					break;/*
-				case ID_BEETHOVEN1:
-					printf("\n(IZQ) Has seleccionado al Primer Beethoven");
-					seleccionarMalla(ID_BEETHOVEN1);
 					break;
-				case ID_BEETHOVEN2:
-					printf("\n(IZQ) Has seleccionado al Segundo Beethoven");
-					seleccionarMalla(ID_BEETHOVEN2);
-					break;
-				case ID_BEETHOVEN3:
-					printf("\n(IZQ) Has seleccionado al Tercer Beethoven");
-					seleccionarMalla(ID_BEETHOVEN3);
-					break;*/
 				case ID_DADO:
 					printf("\n(IZQ) Has seleccionado el Dado\n");
 					if(!getDadoEnAnimacion()){
@@ -112,15 +100,6 @@ void clickRaton( int boton, int estado, int x, int y ){
 					printf("\n(CENTRO) Has seleccionado el Tercer Taburete\n");
 					girar(3);
 					break;
-				case ID_BEETHOVEN1:
-					printf("\n(CENTRO) Has seleccionado al Primer Beethoven");
-					break;
-				case ID_BEETHOVEN2:
-					printf("\n(CENTRO) Has seleccionado al Segundo Beethoven");
-					break;
-				case ID_BEETHOVEN3:
-					printf("\n(CENTRO) Has seleccionado al Tercer Beethoven");
-					break;
 				case ID_DADO:
 					printf("\n(CENTRO) Has seleccionado el Dado\n");
 					break;
@@ -156,11 +135,6 @@ void clickRaton( int boton, int estado, int x, int y ){
 			if(camaraActual==0 || camaraActual==1){
 				actualizarCamara();
 			}
-
-			/*
-			if(camaraActual==2){
-				setCamara (rotxCamara, rotyCamara, 0.0, dCamara);
-			}*/
 		
 			setModoSeleccion(true);
 		
@@ -173,15 +147,6 @@ void clickRaton( int boton, int estado, int x, int y ){
 					break;
 				case ID_TABURETE3:
 					printf("\n(DCHA) Has seleccionado el Tercer Taburete\n");
-					break;
-				case ID_BEETHOVEN1:
-					printf("\n(DCHA) Has seleccionado al Primer Beethoven");
-					break;
-				case ID_BEETHOVEN2:
-					printf("\n(DCHA) Has seleccionado al Segundo Beethoven");
-					break;
-				case ID_BEETHOVEN3:
-					printf("\n(DCHA) Has seleccionado al Tercer Beethoven");
 					break;
 				case ID_DADO:
 					printf("\n(DCHA) Has seleccionado el Dado\n");
@@ -236,7 +201,7 @@ getCamara (ax, ay, az, d);
 	else if(MOUSE_MIDDLE_DOWN) {
 		if(x!=MOUSE_X) az+=x-MOUSE_X;
 		if(y!=MOUSE_Y) ax+=y-MOUSE_Y;
-		setCamara ( ax,  ay,  az,  d);
+			setCamara ( ax,  ay,  az,  d);
 		}
 	MOUSE_X=x;
 	MOUSE_Y=y;
@@ -278,7 +243,7 @@ int pick(int x, int y, int *id){
 
 	*id=data[0] | (data[1] << 8);
 
-	printf("\nID devuelto por pick: %d\n", *id);
+	// printf("\nID devuelto por pick: %d\n", *id);
 
 	glutPostRedisplay();
 
